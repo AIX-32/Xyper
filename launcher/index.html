@@ -159,10 +159,16 @@ body {
   color: var(--text-primary);
   outline: none;
   width: 100%;
+  transition: var(--transition);
 }
 
 .search-bar input::placeholder {
   color: var(--text-secondary);
+}
+
+.search-bar:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(208, 245, 201, 0.2);
 }
 
 .user-actions {
@@ -385,7 +391,7 @@ iframe.loaded {
       <div class="header">
         <div class="search-bar">
           <i class="fas fa-search"></i>
-          <input type="text" placeholder="Search games...">
+          <input type="text" id="searchInput" placeholder="Search apps..." oninput="searchApps()">
         </div>
       </div>
   
@@ -421,6 +427,28 @@ iframe.loaded {
   <script>
     let currentURL = "";
 
+    function searchApps() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const appItems = document.querySelectorAll('.app-item');
+      
+      appItems.forEach(item => {
+        const appName = item.querySelector('.app-name').textContent.toLowerCase();
+        if (appName.includes(searchTerm)) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+    
+    // Add event listener for Enter key to clear search
+    document.getElementById('searchInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        this.value = '';
+        searchApps();
+      }
+    });
+
     function loadApp(url, title, desc) {
       
       document.getElementById("appFrame").src = url;
@@ -443,9 +471,11 @@ iframe.loaded {
     }
 
     window.onload = function() {
-      setTimeout(() => {
-        loadApp('https://bloxdforge.com', 'BloxdForge', 'A Launcher for Bloxd.io with many features');
-      }, );
+      // Load the default app
+      loadApp('https://bloxdforge.com', 'BloxdForge', 'A Launcher for Bloxd.io with many features');
+      
+      // Set focus to search input
+      document.getElementById('searchInput').focus();
     };
   </script>
 
