@@ -422,41 +422,30 @@ iframe.loaded {
     let currentURL = "";
 
     function loadApp(url, title, desc) {
-      // Show loading animation
-      document.getElementById("loader").style.display = "block";
-      document.getElementById("overlay").style.display = "none";
       
-      // Set iframe source
       document.getElementById("appFrame").src = url;
       document.getElementById("appTitle").textContent = title;
       document.getElementById("appDesc").textContent = desc;
       document.getElementById("infoTitle").textContent = title;
       document.getElementById("infoDesc").textContent = desc;
       
-      // Show try button
       document.getElementById("tryBtn").style.display = "inline-block";
       document.getElementById("launchBtn").style.display = "inline-block";
       currentURL = url;
 
-      // Highlight active app
       document.querySelectorAll('.app-item').forEach(el => el.classList.remove('active'));
       event.currentTarget.classList.add('active');
       
-      setTimeout(() => {
-        document.getElementById("loader").style.display = "none";
-document.getElementById("appFrame").classList.remove('loaded');
-      }, 1500);
     }
 
     function tryApp() {
       window.open(currentURL, '_blank');
     }
 
-    // Simulate initial loading with a popular game
     window.onload = function() {
       setTimeout(() => {
-        loadApp('https://bloxdforge.com', 'BloxdForge', 'A creative sandbox game where you can build and explore endless worlds.');
-      }, 1000);
+        loadApp('https://bloxdforge.com', 'BloxdForge', 'A Launcher for Bloxd.io with many features');
+      }, );
     };
   </script>
 
