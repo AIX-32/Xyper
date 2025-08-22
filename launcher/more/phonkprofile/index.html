@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Smooth Selector profile</title>
+<style>
+  @font-face {
+    font-family: 'Backbone';
+    src: url('Backbone.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    height: 100vh;
+    overflow: hidden;
+    background: #0d0d0d;
+    color: white;
+    font-family: 'Backbone', sans-serif;
+    display: flex;
+  }
+
+  .container {
+    position: relative;
+    left: 10%;
+    top: 50%;
+    transform: translateY(-30%);
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    pointer-events: none;
+    flex: 0 0 30%;
+  }
+
+  .option {
+    font-size: 6rem;
+    opacity: 0.3;
+    transform: scale(0.8);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    display: flex;
+    justify-content: center;
+    transform-origin: center;
+    pointer-events: auto;
+  }
+
+  .option.active {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+
+  .option span {
+    display: inline-block;
+    transform-origin: bottom center;
+    transition: transform 0.3s ease;
+  }
+
+  .right-panel {
+  flex: 1;
+  padding: 40px 70px 40px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 20px;
+  min-width: 40%;
+  height: 100vh;
+  box-sizing: border-box;
+  text-align: right;
+  z-index: 1;
+}
+
+
+  .right-panel p {
+    font-size: 1.8rem;
+    line-height: 1.4;
+  }
+
+  .right-panel button {
+  background: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  font-family: 'Backbone', sans-serif;
+  color: black;
+  cursor: pointer;
+  border-radius: 0;
+  transform: rotate(5deg);
+  transition: all 0.3s ease;
+  clip-path: polygon(
+    5% 0%, 18% 5%, 12% 10%, 25% 1%, 30% 22%, 10% 15%, 45% 25%, 55% 0%, 62% 13%, 70% 6%, 78% 18%, 85% 10%, 90% 20%, 95% 15%, 100% 25%,
+    98% 40%, 90% 38%, 88% 50%, 95% 65%, 80% 55%, 78% 70%, 90% 85%, 85% 95%, 75% 80%, 70% 100%, 60% 90%, 55% 100%, 45% 90%, 35% 100%, 25% 85%, 20% 95%, 15% 70%, 10% 90%, 5% 75%, 0% 85%, 2% 60%, 10% 65%, 15% 55%, 8% 50%, 0% 40%
+  );
+}
+
+.right-panel button:hover {
+  transform: translateY(-5px);
+}
+
+.smallp {
+color: #a8a8a8;
+font-size: 0.7rem;
+}
+
+.glow {
+  position: absolute;
+  width: 1400px;
+  height: 1400px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: screen;
+}
+
+.glow1 {
+  background: radial-gradient(circle, rgba(255,0,102,0.452) 0%, rgba(255,0,102,0) 70%);
+  top: 0;
+  left: 0;
+}
+
+.glow2 {
+  background: radial-gradient(circle, rgba(0, 204, 255, 0.452) 0%, rgba(0,204,255,0) 70%);
+  top: 0;
+  right: 0;
+}
+
+.glow3 {
+  background: radial-gradient(circle, rgba(153,255,0,0.452) 0%, rgba(153,255,0,0) 70%);
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+</style>
+</head>
+<body>
+
+  <div class="glow glow1"></div>
+<div class="glow glow2"></div>
+<div class="glow glow3"></div>
+
+  <div class="container">
+    <div class="option" data-text="Home"></div>
+    <div class="option" data-text="Projects"></div>
+    <div class="option" data-text="Skills"></div>
+    <div class="option" data-text="Links"></div>
+  </div>
+
+  <div class="right-panel" id="right-panel">
+    Select an option
+  </div>
+
+  <script>
+    const options = document.querySelectorAll('.option');
+    const rightPanel = document.getElementById('right-panel');
+    let currentIndex = 2;
+
+    options.forEach(option => {
+      const text = option.getAttribute('data-text');
+      option.innerHTML = '';
+      for (let char of text) {
+        const span = document.createElement('span');
+        span.textContent = char;
+        option.appendChild(span);
+      }
+    });
+
+    const contentMap = {
+      Home: `
+        <p>What up boy</p>      `,
+      Projects: `
+        <p>Make sure you check these out</p>
+        <button onclick="alert('View Projects')">ZyperOS</button>
+        <button onclick="alert('New Project')">BloxdForge</button>
+      `,
+      Skills: `
+        <p>i be havin skills</p>
+        <p class="smallp">Grapichs design</p>
+        <p class="smallp">HTML</p>
+        <p class="smallp">CSS</p>
+        <p class="smallp">JS</p>
+        <p class="smallp">Three.js</p>
+      `,
+      Links: `
+        <p>Ma links</p>
+        <button onclick="alert('Open Github')">Github</button>
+        <button onclick="alert('Open Youtube')">Youtube</button>
+        <button onclick="alert('Open Discord')">Discord</button>
+      `
+    };
+
+    function updateBends() {
+      options.forEach((optionEl, i) => {
+        const isActive = i === currentIndex;
+        optionEl.classList.toggle('active', isActive);
+
+        const spans = optionEl.querySelectorAll('span');
+        const mid = Math.floor(spans.length / 2);
+        const curveAmount = isActive ? 3 : 8;
+
+        spans.forEach((span, idx) => {
+          const angle = (idx - mid) * curveAmount;
+          span.style.transform = `rotate(${angle}deg)`;
+        });
+      });
+
+      const activeText = options[currentIndex].getAttribute('data-text');
+      rightPanel.innerHTML = contentMap[activeText] || '';
+    }
+
+    function move(direction) {
+      currentIndex += direction;
+      currentIndex = Math.max(0, Math.min(options.length - 1, currentIndex));
+      updateBends();
+    }
+
+    window.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      move(e.deltaY > 0 ? 1 : -1);
+    }, { passive: false });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') move(1);
+      if (e.key === 'ArrowUp') move(-1);
+    });
+
+    updateBends();
+  </script>
+</body>
+</html>

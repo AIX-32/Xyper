@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xyper | Launcher</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    :root {
+      --accent: #d0f5c9;
+      --accent-dark: #a8d8a1;
+      --bg-primary: #121212;
+      --bg-secondary: #1e1e1e;
+      --bg-tertiary: #252525;
+      --text-primary: #f0f0f0;
+      --text-secondary: #b0b0b0;
+      --border: rgba(208, 245, 201, 0.15);
+      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      display: flex;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Sidebar styling */
+    .sidebar {
+      width: 280px;
+      background-color: var(--bg-secondary);
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--border);
+      transition: var(--transition);
+      z-index: 10;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 32px;
+      padding: 0 12px;
+    }
+
+    .logo-icon {
+      color: var(--accent);
+      font-size: 28px;
+      margin-right: 12px;
+    }
+
+    .logo-text {
+      font-size: 22px;
+      font-weight: 700;
+      background: linear-gradient(45deg, var(--accent), #9ae495);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .sidebar-header {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--text-secondary);
+      margin: 24px 0 16px 12px;
+    }
+
+    .app-item {
+      padding: 14px 16px;
+      margin-bottom: 8px;
+      background-color: var(--bg-tertiary);
+      cursor: pointer;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      transition: var(--transition);
+      border: 1px solid transparent;
+    }
+
+    .app-item:hover {
+      background-color: rgba(208, 245, 201, 0.1);
+      border-color: var(--border);
+      transform: translateX(4px);
+    }
+
+    .app-item.active {
+      background-color: rgba(208, 245, 201, 0.15);
+      border-left: 4px solid var(--accent);
+    }
+
+    .app-icon {
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(135deg, var(--accent), #a8d8a1);
+      border-radius: 6px;
+      margin-right: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .app-icon i {
+      color: var(--bg-secondary);
+      font-size: 12px;
+    }
+
+    .app-name {
+      font-weight: 500;
+      font-size: 15px;
+    }
+
+    /* Content area styling */
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header {
+      height: 70px;
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: var(--bg-tertiary);
+      padding: 10px 16px;
+      border-radius: 8px;
+      width: 300px;
+      border: 1px solid var(--border);
+    }
+
+    .search-bar i {
+      color: var(--text-secondary);
+      margin-right: 12px;
+    }
+
+    .search-bar input {
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      outline: none;
+      width: 100%;
+    }
+
+    .search-bar input::placeholder {
+      color: var(--text-secondary);
+    }
+
+    .user-actions {
+      display: flex;
+      align-items: center;
+    }
+
+    .user-actions button {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 8px 16px;
+      border-radius: 6px;
+      margin-left: 12px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .user-actions button:hover {
+      background: rgba(208, 245, 201, 0.1);
+    }
+
+    /* Iframe wrapper styling */
+    .iframe-wrapper {
+      position: relative;
+      flex: 1;
+      width: 100%;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      filter: blur(6px) brightness(0.5);
+      transition: filter 0.5s ease;
+    }
+
+    iframe.loaded {
+      filter: none;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      background: var(--bg-secondary);
+      padding: 40px;
+      border-radius: 16px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: var(--card-shadow);
+      border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .overlay h3 {
+      font-size: 28px;
+      margin-bottom: 16px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .overlay p {
+      font-size: 16px;
+      margin-bottom: 28px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .overlay button {
+      background-color: var(--accent);
+      color: #1a1a1a;
+      border: none;
+      padding: 12px 32px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+    }
+
+    .overlay button:hover {
+      background-color: var(--accent-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(208, 245, 201, 0.3);
+    }
+
+    .overlay button i {
+      margin-right: 8px;
+    }
+
+    /* Info panel at the bottom */
+    .info-panel {
+      background-color: var(--bg-secondary);
+      padding: 20px 28px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .app-details h3 {
+      font-size: 18px;
+      margin-bottom: 6px;
+      color: var(--accent);
+    }
+
+    .app-details p {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .action-buttons button {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .action-buttons button.primary {
+      background-color: var(--accent);
+      color: #1a1a1a;
+      border: none;
+    }
+
+    .action-buttons button.primary:hover {
+      background-color: var(--accent-dark);
+    }
+
+    .action-buttons button.secondary {
+      background-color: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    .action-buttons button.secondary:hover {
+      background-color: rgba(208, 245, 201, 0.1);
+    }
+
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Responsive design */
+    @media (max-width: 900px) {
+      .sidebar {
+        width: 80px;
+        align-items: center;
+      }
+      
+      .logo-text, .sidebar-header, .app-name {
+        display: none;
+      }
+      
+      .app-item {
+        padding: 14px;
+        justify-content: center;
+      }
+      
+      .app-icon {
+        margin-right: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+    <!-- Sidebar (left panel) -->
+    <div class="sidebar">
+  
+      <!-- Logo -->
+      <div class="logo">
+        <div class="logo-text">Xyper Launcher</div>
+      </div>
+  
+      <!-- New Section -->
+      <div class="sidebar-header">New</div> 
+      <div class="app-item" onclick="loadApp('./more/phonkprofile/index.html', 'Odd portfolio', 'A portfolio like those phonk covers')">
+        <div class="app-icon"><i class="fas fa-headphones"></i></div>
+        <div class="app-name">Odd portfolio</div>
+      </div>
+
+      <div class="app-item" onclick="loadApp('https://aix-32.github.io/CoreGrid/', 'CoreGrid', 'A strategy game where you build and defend your base against waves of enemies.')">
+        <div class="app-icon"><i class="fas fa-cube"></i></div>
+        <div class="app-name">CoreGrid</div>
+      </div>
+  
+      <!-- My Games Section -->
+      <div class="sidebar-header">My apps/games</div>
+  
+      <div class="app-item active" onclick="loadApp('https://bloxdforge.com', 'BloxdForge', 'A Launcher for Bloxd.io with many features')">
+        <div class="app-icon"><i class="fas fa-fire"></i></div>
+        <div class="app-name">BloxdForge</div>
+      </div>
+  
+      <div class="app-item" onclick="loadApp('https://aix-32.github.io/CoreGrid/', 'CoreGrid', 'A strategy game where you build and defend your base against waves of enemies.')">
+        <div class="app-icon"><i class="fas fa-cube"></i></div>
+        <div class="app-name">CoreGrid</div>
+      </div>
+  
+      <div class="app-item" onclick="loadApp('https://aix-32.github.io/ZyperOS/', 'ZyperOS', 'A OS fully built with HTML, CSS, and JS, on the web!')">
+        <div class="app-icon"><i class="fas fa-laptop"></i></div>
+        <div class="app-name">ZyperOS</div>
+      </div>
+  
+      <div class="app-item" onclick="loadApp('https://aix-32.github.io/Hypon-AI/', 'Hypon-AI', 'A chatgpt cover that has access to your screen if you want')">
+        <div class="app-icon"><i class="fas fa-robot"></i></div>
+        <div class="app-name">Hypon-AI</div>
+      </div>
+
+      <div class="app-item" onclick="loadApp('./more/phonkprofile/index.html', 'Odd portfolio', 'A portfolio like those phonk covers')">
+        <div class="app-icon"><i class="fas fa-headphones"></i></div>
+        <div class="app-name">Odd portfolio</div>
+      </div>
+  
+      <div class="app-item" onclick="loadApp('https://aix-32.github.io/AIXslots/', 'AIXSlots', 'A lot of gambling games, made this so I dont go broke')">
+        <div class="app-icon"><i class="fas fa-dice"></i></div>
+        <div class="app-name">AIXSlots</div>
+      </div>
+
+      <div class="app-item" onclick="loadApp('https://github.com/AIX-32/Gradiex', 'Gradiex', 'A very nice gradient generator')">
+        <div class="app-icon"><i class="fas fa-paint-roller"></i></div>
+        <div class="app-name">Gradiex</div>
+      </div>
+  
+      <div class="app-item" onclick="loadApp('https://aix-32.github.io/Webmate/', 'Webmate', 'A web version (bad version) of Desktop Mate on Steam')">
+        <div class="app-icon"><i class="fas fa-desktop"></i></div>
+        <div class="app-name">Webmate</div>
+      </div>
+
+      <div class="app-item" onclick="loadApp('https://aix-32.github.io/AIX-in-one/', 'AIX-in-one', 'Old portfolio of mine')">
+        <div class="app-icon"><i class="fas fa-desktop"></i></div>
+        <div class="app-name">AIX-in-one</div>
+      </div>
+
+      <div class="app-item" onclick="loadApp('https://aix-32.github.io/music-app/', 'Music App', 'Very clean music app')">
+        <div class="app-icon"><i class="fas fa-desktop"></i></div>
+        <div class="app-name">Music App</div>
+      </div>
+
+    </div>
+  
+    <!-- Main Content Area -->
+    <div class="content">
+  
+      <!-- Top Header Bar -->
+      <div class="header">
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search games...">
+        </div>
+      </div>
+  
+      <!-- Iframe Preview Area -->
+      <div class="iframe-wrapper">
+        <iframe id="appFrame" src=""></iframe>
+        <div class="loader" id="loader"></div>
+        <div class="overlay" id="overlay">
+          <h3 id="appTitle">Select an app</h3>
+          <p id="appDesc">Choose a game or tool from the sidebar to preview it here</p>
+          <button id="tryBtn" style="display:none;" onclick="tryApp()">
+            <i class="fas fa-play"></i> Launch App
+          </button>
+        </div>
+      </div>
+  
+      <!-- Info + Launch Section -->
+      <div class="info-panel">
+        <div class="app-details">
+          <h3 id="infoTitle">No app selected</h3>
+          <p id="infoDesc">Please select an app from the sidebar</p>
+        </div>
+        <div class="action-buttons">
+          <button class="secondary"><i class="fas fa-info-circle"></i> Details</button>
+          <button class="primary" id="launchBtn" style="display:none;" onclick="tryApp()">
+            <i class="fas fa-play"></i> Launch
+          </button>
+        </div>
+      </div>
+  
+    </div>
+
+  
+  <script>
+    let currentURL = "";
+
+    function loadApp(url, title, desc) {
+      // Show loading animation
+      document.getElementById("loader").style.display = "block";
+      document.getElementById("overlay").style.display = "none";
+      
+      // Set iframe source
+      document.getElementById("appFrame").src = url;
+      document.getElementById("appTitle").textContent = title;
+      document.getElementById("appDesc").textContent = desc;
+      document.getElementById("infoTitle").textContent = title;
+      document.getElementById("infoDesc").textContent = desc;
+      
+      // Show try button
+      document.getElementById("tryBtn").style.display = "inline-block";
+      document.getElementById("launchBtn").style.display = "inline-block";
+      currentURL = url;
+
+      // Highlight active app
+      document.querySelectorAll('.app-item').forEach(el => el.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      
+      setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+document.getElementById("appFrame").classList.remove('loaded');
+      }, 1500);
+    }
+
+    function tryApp() {
+      window.open(currentURL, '_blank');
+    }
+
+    // Simulate initial loading with a popular game
+    window.onload = function() {
+      setTimeout(() => {
+        loadApp('https://bloxdforge.com', 'BloxdForge', 'A creative sandbox game where you can build and explore endless worlds.');
+      }, 1000);
+    };
+  </script>
+
+</body>
+</html>
