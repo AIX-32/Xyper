@@ -38,11 +38,11 @@
 
     .container {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       grid-template-rows: auto auto;
       gap: 20px;
       height: calc(100vh - 40px);
-      max-width: 1400px;
+      max-width: 1600px;
       margin: 0 auto;
     }
 
@@ -81,8 +81,32 @@
       color: var(--text-secondary);
     }
 
+    .work {
+      grid-column: 3 / 4;
+      grid-row: 1;
+      background-color: var(--bg-secondary);
+      border-radius: 16px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
+    }
+
+    .work-title {
+      font-size: 1.5rem;
+      color: var(--accent);
+      margin-bottom: 15px;
+    }
+
+    .work-item {
+      margin-bottom: 10px;
+      color: var(--text-secondary);
+    }
+
     .about {
-      grid-column: 3 / 5;
+      grid-column: 4 / 6;
       grid-row: 1;
       background-color: var(--bg-secondary);
       border-radius: 16px;
@@ -177,21 +201,21 @@
     }
 
     .connections {
-      grid-column: 3 / 5;
+      grid-column: 3 / 6; 
       grid-row: 2;
       background-color: var(--bg-secondary);
       border-radius: 16px;
       padding: 30px;
       border: 1px solid var(--border);
       box-shadow: var(--card-shadow);
-    }
+}
 
     .cubes-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: repeat(2, 1fr);
       gap: 20px;
-      height: 90%;
+      height: 85%;
     }
 
     .cube {
@@ -269,6 +293,81 @@
         flex-direction: column;
       }
     }
+
+    a {
+      text-decoration: none;
+    }
+
+    .work-title {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .work-title i {
+      font-size: 1.8rem;
+      margin-right: 15px;
+      color: var(--accent);
+      transition: var(--transition);
+    }
+
+    .work p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin-bottom: 25px;
+      padding-right: 20px;
+    }
+
+    .work-items {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .work-item {
+      background: var(--bg-tertiary);
+      padding: 15px 20px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: var(--transition);
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
+
+    .work-item:hover {
+      transform: translateX(10px);
+      background: var(--accent-transparent);
+      border-color: var(--accent);
+    }
+
+    .work-item strong {
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+
+    .work-item .arrow {
+      color: var(--accent);
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .work-item:hover .arrow {
+      transform: translateX(5px);
+    }
+    .sm {
+      font-size: 1.5rem;
+    }
+    span {
+      color: var(--accent);
+    }
   </style>
 </head>
 <body>
@@ -277,6 +376,23 @@
       <h1 class="name">A_I_X</h1>
       <p class="title">Frontend Developer & UI Designer</p>
       <p class="description">I create beautiful, and intresting interfaces. With over 2 years of experience in web development, I mosty work with pure css, html, js.</p>
+    </div>
+
+    <div class="work">
+      <h2 class="work-title"><i class="fas fa-briefcase"></i>My Services</h2>
+      <p>make websites like landing pages or portfolios, for <span>free</span> or at a low price!</p>
+ 
+      <h2 class="work-title sm">Showoff:</h2>
+      <div class="work-items">
+        <a href="https://bloxdevents.github.io/main/" class="work-item">
+          <strong>Grid design</strong>
+          <i class="fas fa-arrow-right arrow"></i>
+        </a>
+        <a href="https://www.bloxdforge.com/" class="work-item">
+          <strong>Clean landing</strong>
+          <i class="fas fa-arrow-right arrow"></i>
+        </a>
+      </div>
     </div>
 
     <div class="about">
