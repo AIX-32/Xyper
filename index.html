@@ -155,11 +155,6 @@
       transition: var(--transition);
     }
 
-    .skill-name:hover {
-      background-color: var(--accent-transparent);
-      transform: translateY(-5px);
-    }
-
     .projects {
       grid-column: 1 / 3;
       grid-row: 2;
@@ -200,23 +195,43 @@
       text-align: center;
     }
 
-    .connections {
-      grid-column: 3 / 6; 
+    .connections-container {
+      display: flex;
+      gap: 20px;
+      grid-column: 3 / 6;
       grid-row: 2;
-      background-color: var(--bg-secondary);
-      border-radius: 16px;
-      padding: 30px;
-      border: 1px solid var(--border);
-      box-shadow: var(--card-shadow);
-}
+      height: 100%;
+    }
 
+    .connections {
+      background-color: var(--bg-secondary);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+      flex: 1.5;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .shop {
+      background-color: var(--bg-secondary);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: var(--card-shadow);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
     .cubes-grid {
+      flex-grow: 1;
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       grid-template-rows: repeat(2, 1fr);
       gap: 20px;
-      height: 85%;
     }
+
 
     .cube {
       background-color: var(--bg-tertiary);
@@ -263,7 +278,7 @@
         max-height: calc(100vh - 40px);
       }
       
-      .header, .about, .projects, .connections {
+      .header, .about, .projects, .connections-container {
         grid-column: 1;
       }
       
@@ -279,7 +294,7 @@
         grid-row: 3;
       }
       
-      .connections {
+      .connections-container {
         grid-row: 4;
       }
     }
@@ -368,6 +383,58 @@
     span {
       color: var(--accent);
     }
+
+    .shop-title {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .shop-title i {
+      font-size: 1.8rem;
+      margin-right: 15px;
+      color: var(--accent);
+      transition: var(--transition);
+    }
+
+    .shop p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin-bottom: 25px;
+      padding-right: 20px;
+    }
+
+    .shop-items {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--bg-tertiary);
+      padding: 20px;
+      border-radius: 10px;
+      height: 100%;
+      gap: 15px;
+      border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+    }
+
+    .shop-items:hover {
+      transform: translateX(10px);
+      background: var(--accent-transparent);
+      border-color: var(--accent);
+    }
+
+    
+    a {
+      text-decoration: none;
+      color: var(--text-primary);
+    }
   </style>
 </head>
 <body>
@@ -378,10 +445,10 @@
       <p class="description">I create beautiful, and intresting interfaces. With over 2 years of experience in web development. I mosty work with pure css, html, js.</p>
     </div>
 
+
     <div class="work">
       <h2 class="work-title"><i class="fas fa-briefcase"></i>My Services</h2>
       <p>make websites like landing pages or portfolios, for <span>free</span> or at a low price!</p>
- 
       <h2 class="work-title sm">Showoff:</h2>
       <div class="work-items">
         <a href="https://bloxdevents.github.io/main/" class="work-item">
@@ -394,6 +461,7 @@
         </a>
       </div>
     </div>
+
 
     <div class="about">
       <h2 class="section-title"><i class="fas fa-user"></i> Skills</h2>
@@ -439,37 +507,64 @@
       </div>
     </div>
 
-    <div class="connections">
-      <h2 class="section-title"><i class="fas fa-user-friends"></i> Connections</h2>
-      <div class="cubes-grid">
-        <a href="https://github.com/aix-32" target="_blank" class="cube">
-          <div class="cube-icon">
-            <i class="fab fa-github"></i>
-          </div>
-          <div class="cube-title">GitHub</div>
-          <div class="cube-desc">See my code</div>
-        </a>
-        <a href="https://youtube.com/@A_I_X" target="_blank" class="cube">
-          <div class="cube-icon">
-            <i class="fab fa-youtube"></i>
-          </div>
-          <div class="cube-title">YouTube</div>
-          <div class="cube-desc">Watch my videos!</div>
-        </a>
-        <a href="https://www.youtube.com/@Aural-exe" target="_blank" class="cube">
-          <div class="cube-icon">
-            <i class="fa fa-play"></i>
-          </div>
-          <div class="cube-title">Music</div>
-          <div class="cube-desc">Listen to my music!</div>
-        </a>
-        <a href="https://www.instagram.com/a_i_x32/" target="_blank" class="cube">
-          <div class="cube-icon">
-            <i class="fab fa-instagram"></i>
-          </div>
-          <div class="cube-title">Instagram</div>
-          <div class="cube-desc">Follow me!</div>
-        </a>
+    <div class="connections-container">
+      <div class="connections">
+        <h2 class="section-title"><i class="fas fa-user-friends"></i> Connections</h2>
+        <div class="cubes-grid">
+          <a href="https://github.com/aix-32" target="_blank" class="cube">
+            <div class="cube-icon">
+              <i class="fab fa-github"></i>
+            </div>
+            <div class="cube-title">GitHub</div>
+            <div class="cube-desc">See my code</div>
+          </a>
+          <a href="https://youtube.com/@A_I_X" target="_blank" class="cube">
+            <div class="cube-icon">
+              <i class="fab fa-youtube"></i>
+            </div>
+            <div class="cube-title">YouTube</div>
+            <div class="cube-desc">Watch my videos!</div>
+          </a>
+          <a href="https://www.youtube.com/@Aural-exe" target="_blank" class="cube">
+            <div class="cube-icon">
+              <i class="fa fa-play"></i>
+            </div>
+            <div class="cube-title">Music</div>
+            <div class="cube-desc">Listen to my music!</div>
+          </a>
+          <a href="https://www.instagram.com/a_i_x32/" target="_blank" class="cube">
+            <div class="cube-icon">
+              <i class="fab fa-instagram"></i>
+            </div>
+            <div class="cube-title">Instagram</div>
+            <div class="cube-desc">Follow me!</div>
+          </a>
+          <a href="mailto:work.aix32@gmail.com" target="_blank" class="cube">
+            <div class="cube-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="cube-title">Email</div>
+            <div class="cube-desc">Send me a message!</div>
+          </a>
+          <a href="https://discord.gg/nVgUe4qrhr" target="_blank" class="cube">
+            <div class="cube-icon">
+              <i class="fab fa-discord"></i>
+            </div>
+            <div class="cube-title">Discord</div>
+            <div class="cube-desc">Join my server!</div>
+          </a>
+        </div>
+      </div>
+      <div class="shop">
+        <h2 class="shop-title"><i class="fas fa-store"></i>Shop</h2>
+        <p>I make cool stuff like asset packs and lil apps, most for free.</p>
+ 
+        <div onclick="alert('soon my guy soon.')" class="shop-items">
+          <a  class="shop-item">
+            <strong>Get some</strong>
+            <i class="fas fa-arrow-right arrow"></i>
+          </a>
+        </div>
       </div>
     </div>
   </div>
