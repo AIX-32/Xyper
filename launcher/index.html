@@ -44,6 +44,8 @@ body {
   border-right: 1px solid var(--border);
   transition: var(--transition);
   z-index: 10;
+  height: 100vh; /* Full viewport height */
+  overflow-y: hidden; /* Prevent double scrollbars */
 }
 
 .logo {
@@ -51,6 +53,7 @@ body {
   align-items: center;
   margin-bottom: 32px;
   padding: 0 12px;
+  flex-shrink: 0; /* Prevent logo from shrinking */
 }
 
 .logo-icon {
@@ -73,6 +76,7 @@ body {
   letter-spacing: 1.2px;
   color: var(--text-secondary);
   margin: 24px 0 16px 12px;
+  flex-shrink: 0; /* Prevent headers from shrinking */
 }
 
 .app-item {
@@ -85,6 +89,7 @@ body {
   align-items: center;
   transition: var(--transition);
   border: 1px solid transparent;
+  flex-shrink: 0; /* Prevent items from shrinking */
 }
 
 .app-item:hover {
@@ -305,6 +310,91 @@ iframe.loaded {
   }
 }
 
+.apps-section {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px;
+  margin-right: -4px;
+  min-height: 0; 
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-secondary) rgba(208, 245, 201, 0.05);
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+    height: auto;
+    max-height: 40vh;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .apps-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  .app-item {
+    width: calc(50% - 10px);
+    margin-bottom: 10px;
+    padding: 12px;
+  }
+  
+  .header {
+    height: auto;
+    padding: 15px;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .search-bar {
+    width: 100%;
+  }
+  
+  .user-actions {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .info-panel {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 15px;
+  }
+  
+  .action-buttons {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .iframe-wrapper {
+    min-height: 40vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-item {
+    width: 100%;
+  }
+  
+  .sidebar {
+    max-height: 30vh;
+  }
+  
+  .iframe-wrapper {
+    min-height: 30vh;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -319,7 +409,6 @@ iframe.loaded {
   
       <!-- New Section -->
       <div class="sidebar-header">New</div> 
-
 
       <div class="app-item" onclick="loadApp('https://aix-32.github.io/CoreGrid/', 'CoreGrid', 'A strategy game where you build and defend your base against waves of enemies.')">
         <div class="app-icon"><i class="fas fa-cube"></i></div>
@@ -336,66 +425,68 @@ iframe.loaded {
       <!-- My Games Section -->
       <div class="sidebar-header">My apps/games</div>
   
-      <div class="app-item active" onclick="loadApp('https://bloxdforge.com', 'BloxdForge', 'A Launcher for Bloxd.io with many features')">
-        <div class="app-icon"><i class="fas fa-fire"></i></div>
-        <div class="app-name">BloxdForge</div>
-      </div>
-  
-      <div class="app-item" onclick="loadApp('https://aix-32.github.io/CoreGrid/', 'CoreGrid', 'A strategy game where you build and defend your base against waves of enemies.')">
-        <div class="app-icon"><i class="fas fa-cube"></i></div>
-        <div class="app-name">CoreGrid</div>
-      </div>
-  
-      <div class="app-item" onclick="loadApp('https://aix-32.github.io/ZyperOS/', 'ZyperOS', 'A OS fully built with HTML, CSS, and JS, on the web!')">
-        <div class="app-icon"><i class="fas fa-laptop"></i></div>
-        <div class="app-name">ZyperOS</div>
-      </div>
-  
-      <div class="app-item" onclick="loadApp('https://aix-32.github.io/Hypon-AI/', 'Hypon-AI', 'A chatgpt cover that has access to your screen if you want')">
-        <div class="app-icon"><i class="fas fa-robot"></i></div>
-        <div class="app-name">Hypon-AI</div>
-      </div>
+      <!-- Scrollable container for apps/games -->
+      <div class="apps-section">
+        <div class="app-item active" onclick="loadApp('https://bloxdforge.com', 'BloxdForge', 'A Launcher for Bloxd.io with many features')">
+          <div class="app-icon"><i class="fas fa-fire"></i></div>
+          <div class="app-name">BloxdForge</div>
+        </div>
+    
+        <div class="app-item" onclick="loadApp('https://aix-32.github.io/CoreGrid/', 'CoreGrid', 'A strategy game where you build and defend your base against waves of enemies.')">
+          <div class="app-icon"><i class="fas fa-cube"></i></div>
+          <div class="app-name">CoreGrid</div>
+        </div>
+    
+        <div class="app-item" onclick="loadApp('https://aix-32.github.io/ZyperOS/', 'ZyperOS', 'A OS fully built with HTML, CSS, and JS, on the web!')">
+          <div class="app-icon"><i class="fas fa-laptop"></i></div>
+          <div class="app-name">ZyperOS</div>
+        </div>
+    
+        <div class="app-item" onclick="loadApp('https://aix-32.github.io/Hypon-AI/', 'Hypon-AI', 'A chatgpt cover that has access to your screen if you want')">
+          <div class="app-icon"><i class="fas fa-robot"></i></div>
+          <div class="app-name">Hypon-AI</div>
+        </div>
 
-      <div class="app-item" onclick="loadApp('./more/phonkprofile/index.html', 'Odd portfolio', 'A portfolio like those phonk covers')">
-        <div class="app-icon"><i class="fas fa-headphones"></i></div>
-        <div class="app-name">Odd portfolio</div>
-      </div>
-  
-      <div class="app-item" onclick="loadApp('https://aix-32.github.io/AIXslots/', 'AIXSlots', 'A lot of gambling games, made this so I dont go broke')">
-        <div class="app-icon"><i class="fas fa-dice"></i></div>
-        <div class="app-name">AIXSlots</div>
-      </div>
+        <div class="app-item" onclick="loadApp('./more/phonkprofile/index.html', 'Odd portfolio', 'A portfolio like those phonk covers')">
+          <div class="app-icon"><i class="fas fa-headphones"></i></div>
+          <div class="app-name">Odd portfolio</div>
+        </div>
+    
+        <div class="app-item" onclick="loadApp('https://aix-32.github.io/AIXslots/', 'AIXSlots', 'A lot of gambling games, made this so I dont go broke')">
+          <div class="app-icon"><i class="fas fa-dice"></i></div>
+          <div class="app-name">AIXSlots</div>
+        </div>
 
-      <div class="app-item" onclick="loadApp('https://github.com/AIX-32/Gradiex', 'Gradiex', 'A very nice gradient generator')">
-        <div class="app-icon"><i class="fas fa-paint-roller"></i></div>
-        <div class="app-name">Gradiex</div>
-      </div>
-  
-      <div class="app-item" onclick="loadApp('https://aix-32.github.io/Webmate/', 'Webmate', 'A web version (bad version) of Desktop Mate on Steam')">
-        <div class="app-icon"><i class="fas fa-desktop"></i></div>
-        <div class="app-name">Webmate</div>
-      </div>
+        <div class="app-item" onclick="loadApp('https://github.com/AIX-32/Gradiex', 'Gradiex', 'A very nice gradient generator')">
+          <div class="app-icon"><i class="fas fa-paint-roller"></i></div>
+          <div class="app-name">Gradiex</div>
+        </div>
+    
+        <div class="app-item" onclick="loadApp('https://aix-32.github.io/Webmate/', 'Webmate', 'A web version (bad version) of Desktop Mate on Steam')">
+          <div class="app-icon"><i class="fas fa-desktop"></i></div>
+          <div class="app-name">Webmate</div>
+        </div>
 
-      <div class="app-item" onclick="loadApp('https://aix-32.github.io/AIX-in-one/', 'AIX-in-one', 'Old portfolio of mine')">
-        <div class="app-icon"><i class="fas fa-desktop"></i></div>
-        <div class="app-name">AIX-in-one</div>
-      </div>
+        <div class="app-item" onclick="loadApp('https://aix-32.github.io/AIX-in-one/', 'AIX-in-one', 'Old portfolio of mine')">
+          <div class="app-icon"><i class="fas fa-desktop"></i></div>
+          <div class="app-name">AIX-in-one</div>
+        </div>
 
-      <div class="app-item" onclick="loadApp('https://aix-32.github.io/music-app/', 'Music App', 'Very clean music app')">
-        <div class="app-icon"><i class="fas fa-desktop"></i></div>
-        <div class="app-name">Music App</div>
-      </div>
+        <div class="app-item" onclick="loadApp('https://aix-32.github.io/music-app/', 'Music App', 'Very clean music app')">
+          <div class="app-icon"><i class="fas fa-desktop"></i></div>
+          <div class="app-name">Music App</div>
+        </div>
 
-      <div class="app-item" onclick="loadApp('https://aix-32.github.io/ZyperAI/', 'ZyperAI', 'A bad version of AI ides like windsurf and cursor fully on the web!')">
-        <div class="app-icon"><i class="fas fa-robot"></i></div>
-        <div class="app-name">ZyperAI</div>
-      </div>
+        <div class="app-item" onclick="loadApp('https://aix-32.github.io/ZyperAI/', 'ZyperAI', 'A bad version of AI ides like windsurf and cursor fully on the web!')">
+          <div class="app-icon"><i class="fas fa-robot"></i></div>
+          <div class="app-name">ZyperAI</div>
+        </div>
 
-      <div class="app-item" onclick="loadApp('https://aix-32.github.io/Meritcommons/', 'Meritcommons', 'Read my cool book!')">
-        <div class="app-icon"><i class="fas fa-book"></i></div>
-        <div class="app-name">Meritcommons</div>
+        <div class="app-item" onclick="loadApp('https://aix-32.github.io/Meritcommons/', 'Meritcommons', 'Read my cool book!')">
+          <div class="app-icon"><i class="fas fa-book"></i></div>
+          <div class="app-name">Meritcommons</div>
+        </div>
       </div>
-
     </div>
   
     <!-- Main Content Area -->

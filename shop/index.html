@@ -257,12 +257,78 @@
         }
 
         @media (max-width: 768px) {
-            .modal-details {
-                grid-template-columns: 1fr;
+            body {
+                padding: 15px;
+            }
+            
+            header {
+                margin-bottom: 30px;
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
             }
             
             .products-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .modal-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                max-width: 95%;
+            }
+            
+            .modal-title {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            header {
+                margin-bottom: 20px;
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .product-content {
+                padding: 15px;
+            }
+            
+            .product-title {
+                font-size: 1.2rem;
+            }
+            
+            .modal-body {
+                padding: 15px;
+            }
+            
+            .modal-header {
+                padding: 15px;
+            }
+            
+            .modal-title {
+                font-size: 1.3rem;
+            }
+            
+            .download-btn {
+                padding: 10px 20px;
+                font-size: 1rem;
             }
         }
     </style>
@@ -270,7 +336,7 @@
 <body>
     <header>
         <h1>Product shop</h1>
-        <p>Get some of my stuff!</p>
+        <p class="subtitle">Get some of my stuff!</p>
     </header>
 
     <div class="products-grid">
