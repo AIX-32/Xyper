@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Xyper | Launcher</title>
   <link rel="icon" href="./favicon-32x32.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -35,6 +35,14 @@ body {
   overflow: hidden;
 }
 
+@media (max-width: 768px) {
+  body {
+    overflow: hidden;
+    flex-direction: column;
+    height: 100vh;
+  }
+}
+
 .sidebar {
   width: 280px;
   background-color: var(--bg-secondary);
@@ -44,8 +52,39 @@ body {
   border-right: 1px solid var(--border);
   transition: var(--transition);
   z-index: 10;
-  height: 100vh; /* Full viewport height */
-  overflow-y: hidden; /* Prevent double scrollbars */
+  height: 100vh;
+  overflow-y: hidden;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    left: -280px;
+    top: 0;
+    height: 100%;
+    width: 280px;
+    z-index: 1000;
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .sidebar.open {
+    left: 0;
+  }
+  
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+  
+  .sidebar-overlay.open {
+    display: block;
+  }
 }
 
 .logo {
@@ -53,7 +92,7 @@ body {
   align-items: center;
   margin-bottom: 32px;
   padding: 0 12px;
-  flex-shrink: 0; /* Prevent logo from shrinking */
+  flex-shrink: 0;
 }
 
 .logo-icon {
@@ -76,7 +115,27 @@ body {
   letter-spacing: 1.2px;
   color: var(--text-secondary);
   margin: 24px 0 16px 12px;
-  flex-shrink: 0; /* Prevent headers from shrinking */
+  flex-shrink: 0;
+}
+
+.apps-section {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.apps-section::-webkit-scrollbar {
+  width: 4px;
+}
+
+.apps-section::-webkit-scrollbar-track {
+  background: var(--bg-tertiary);
+  border-radius: 2px;
+}
+
+.apps-section::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 2px;
 }
 
 .app-item {
@@ -89,7 +148,9 @@ body {
   align-items: center;
   transition: var(--transition);
   border: 1px solid transparent;
-  flex-shrink: 0; /* Prevent items from shrinking */
+  flex-shrink: 0;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .app-item:hover {
@@ -133,6 +194,13 @@ body {
   min-height: 0;
 }
 
+@media (max-width: 768px) {
+  .content {
+    flex: 1;
+    height: 100%;
+  }
+}
+
 .header {
   height: 70px;
   padding: 0 28px;
@@ -141,6 +209,33 @@ body {
   justify-content: space-between;
   background-color: var(--bg-secondary);
   border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .header {
+    height: 60px;
+    padding: 0 16px;
+  }
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 24px;
+  cursor: pointer;
+  margin-right: 16px;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-btn {
+    display: block;
+  }
 }
 
 .search-bar {
@@ -151,6 +246,15 @@ body {
   border-radius: 8px;
   width: 300px;
   border: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+  .search-bar {
+    flex: 1;
+    width: auto;
+    max-width: 300px;
+    padding: 8px 12px;
+  }
 }
 
 .search-bar i {
@@ -165,6 +269,8 @@ body {
   outline: none;
   width: 100%;
   transition: var(--transition);
+  font-size: 1rem;
+  padding: 4px 0;
 }
 
 .search-bar input::placeholder {
@@ -200,20 +306,19 @@ body {
   flex: 1 1 auto;
   min-height: 300px;
   max-height: calc(100vh - 200px);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 0 10px 10px 10px;
+  position: relative;
 }
 
-@media (max-width: 800px), (max-height: 700px) {
-  .info-panel {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-
-  .action-buttons {
-    width: 100%;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: 12px;
+@media (max-width: 768px) {
+  .iframe-wrapper {
+    margin: 0 5px 10px 5px;
+    border-radius: 6px;
+    min-height: 0;
+    max-height: none;
+    flex: 1;
   }
 }
 
@@ -223,6 +328,14 @@ iframe {
   border: none;
   filter: blur(0px);
   transition: filter 0.5s ease;
+  background-color: white;
+  min-height: 70vh;
+}
+
+@media (max-width: 768px) {
+  iframe {
+    min-height: 80vh;
+  }
 }
 
 iframe.loaded {
@@ -236,6 +349,17 @@ iframe.loaded {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .info-panel {
+    padding: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 12px;
+  }
 }
 
 .app-details h3 {
@@ -244,14 +368,35 @@ iframe.loaded {
   color: var(--accent);
 }
 
+@media (max-width: 768px) {
+  .app-details h3 {
+    font-size: 16px;
+  }
+}
+
 .app-details p {
   font-size: 14px;
   color: var(--text-secondary);
 }
 
+@media (max-width: 768px) {
+  .app-details p {
+    font-size: 13px;
+  }
+}
+
 .action-buttons {
   display: flex;
   gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .action-buttons {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
 }
 
 .action-buttons button {
@@ -260,6 +405,17 @@ iframe.loaded {
   font-weight: 500;
   cursor: pointer;
   transition: var(--transition);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .action-buttons button {
+    padding: 12px 18px;
+    font-size: 14px;
+    min-width: 120px;
+  }
 }
 
 .action-buttons button.primary {
@@ -282,116 +438,67 @@ iframe.loaded {
   background-color: rgba(208, 245, 201, 0.1);
 }
 
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-secondary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  z-index: 5;
+}
+
+.overlay h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: var(--accent);
+}
+
+.overlay p {
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.overlay button {
+  padding: 12px 24px;
+  background-color: var(--accent);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.overlay button:hover {
+  background-color: var(--accent-dark);
+}
+
+@media (max-width: 768px) {
+  .overlay h3 {
+    font-size: 20px;
+  }
+  
+  .overlay p {
+    font-size: 14px;
+  }
+  
+  .overlay button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
-  }
-}
-
-@media (max-width: 900px) {
-  .sidebar {
-    width: 80px;
-    align-items: center;
-  }
-
-  .logo-text,
-  .sidebar-header,
-  .app-name {
-    display: none;
-  }
-
-  .app-item {
-    padding: 14px;
-    justify-content: center;
-  }
-
-  .app-icon {
-    margin-right: 0;
-  }
-}
-
-.apps-section {
-  flex: 1;
-  overflow-y: auto;
-  padding-right: 4px;
-  margin-right: -4px;
-  min-height: 0; 
-  scrollbar-width: thin;
-  scrollbar-color: var(--text-secondary) rgba(208, 245, 201, 0.05);
-}
-
-/* Mobile-specific improvements */
-@media (max-width: 768px) {
-  body {
-    flex-direction: column;
-  }
-  
-  .sidebar {
-    width: 100%;
-    height: auto;
-    max-height: 40vh;
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-  
-  .apps-section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    padding: 10px;
-  }
-  
-  .app-item {
-    width: calc(50% - 10px);
-    margin-bottom: 10px;
-    padding: 12px;
-  }
-  
-  .header {
-    height: auto;
-    padding: 15px;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .search-bar {
-    width: 100%;
-  }
-  
-  .user-actions {
-    width: 100%;
-    justify-content: center;
-  }
-  
-  .info-panel {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 15px;
-  }
-  
-  .action-buttons {
-    width: 100%;
-    justify-content: center;
-  }
-  
-  .iframe-wrapper {
-    min-height: 40vh;
-  }
-}
-
-@media (max-width: 480px) {
-  .app-item {
-    width: 100%;
-  }
-  
-  .sidebar {
-    max-height: 30vh;
-  }
-  
-  .iframe-wrapper {
-    min-height: 30vh;
   }
 }
 
@@ -399,8 +506,11 @@ iframe.loaded {
 </head>
 <body>
 
+    <!-- Mobile sidebar overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  
     <!-- Sidebar (left panel) -->
-    <div class="sidebar">
+    <div class="sidebar" id="sidebar">
   
       <!-- Logo -->
       <div class="logo">
@@ -410,33 +520,26 @@ iframe.loaded {
       <!-- New Section -->
       <div class="sidebar-header">New</div> 
 
+      <div class="apps-section">
+        <div class="app-item" onclick="loadApp('https://aix-32.github.io/Meritcommons/', 'Meritcommons', 'Read my cool book!')">
+          <div class="app-icon"><i class="fas fa-book"></i></div>
+          <div class="app-name">Meritcommons</div>
+        </div>
 
-
-      <div class="app-item" onclick="loadApp('https://aix-32.github.io/Meritcommons/', 'Meritcommons', 'Read my cool book!')">
-        <div class="app-icon"><i class="fas fa-book"></i></div>
-        <div class="app-name">Meritcommons</div>
-      </div>
-
-        <div class="app-item active" onclick="loadApp('https://aix-32.github.io/ZyperOS/', 'ZyperOS', 'The OS of the furture.')">
+        <div class="app-item" onclick="loadApp('https://aix-32.github.io/ZyperOS/', 'ZyperOS', 'The OS of the future.')">
           <div class="app-icon"><i class="fas fa-microchip"></i></div>
           <div class="app-name">ZyperOS</div>
         </div>
 
-      
-  
-      <!-- My Games Section -->
-      <div class="sidebar-header">My apps/games</div>
-  
-      <!-- Scrollable container for apps/games -->
-      <div class="apps-section">
+        <!-- My Games Section -->
+        <div class="sidebar-header">My apps/games</div>
 
-      
-      <div class="app-item" onclick="loadApp('https://aix-32.github.io/CoreGrid/', 'CoreGrid', 'A strategy game where you build and defend your base against waves of enemies.')">
-        <div class="app-icon"><i class="fas fa-cube"></i></div>
-        <div class="app-name">CoreGrid</div>
-      </div>
+        <div class="app-item" onclick="loadApp('https://aix-32.github.io/CoreGrid/', 'CoreGrid', 'A strategy game where you build and defend your base against waves of enemies.')">
+          <div class="app-icon"><i class="fas fa-cube"></i></div>
+          <div class="app-name">CoreGrid</div>
+        </div>
 
-        <div class="app-item active" onclick="loadApp('https://bloxdforge.com', 'BloxdForge', 'A Launcher for Bloxd.io with many features')">
+        <div class="app-item" onclick="loadApp('https://bloxdforge.com', 'BloxdForge', 'A Launcher for Bloxd.io with many features')">
           <div class="app-icon"><i class="fas fa-fire"></i></div>
           <div class="app-name">BloxdForge</div>
         </div>
@@ -503,6 +606,9 @@ iframe.loaded {
   
       <!-- Top Header Bar -->
       <div class="header">
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
         <div class="search-bar">
           <i class="fas fa-search"></i>
           <input type="text" id="searchInput" placeholder="Search apps..." oninput="searchApps()">
@@ -540,6 +646,7 @@ iframe.loaded {
   
   <script>
     let currentURL = "";
+    let isMobile = window.innerWidth <= 768;
 
     function searchApps() {
       const searchTerm = document.getElementById('searchInput').value.toLowerCase();
@@ -564,24 +671,57 @@ iframe.loaded {
     });
 
     function loadApp(url, title, desc) {
+      // Show loader
+      document.getElementById('loader').classList.add('active');
       
-      document.getElementById("appFrame").src = url;
-      document.getElementById("appTitle").textContent = title;
-      document.getElementById("appDesc").textContent = desc;
-      document.getElementById("infoTitle").textContent = title;
-      document.getElementById("infoDesc").textContent = desc;
-      
-      document.getElementById("tryBtn").style.display = "inline-block";
-      document.getElementById("launchBtn").style.display = "inline-block";
-      currentURL = url;
+      // Hide overlay after a short delay to show loading
+      setTimeout(() => {
+        document.getElementById("appFrame").src = url;
+        document.getElementById("appTitle").textContent = title;
+        document.getElementById("appDesc").textContent = desc;
+        document.getElementById("infoTitle").textContent = title;
+        document.getElementById("infoDesc").textContent = desc;
+        
+        document.getElementById("tryBtn").style.display = "inline-block";
+        document.getElementById("launchBtn").style.display = "inline-block";
+        document.getElementById('overlay').style.display = "none";
+        currentURL = url;
 
-      document.querySelectorAll('.app-item').forEach(el => el.classList.remove('active'));
-      event.currentTarget.classList.add('active');
-      
+        document.querySelectorAll('.app-item').forEach(el => el.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+        
+        // Hide loader when iframe loads
+        document.getElementById('appFrame').onload = function() {
+          document.getElementById('loader').classList.remove('active');
+        };
+        
+        // Close sidebar on mobile after selecting an app
+        if (isMobile) {
+          toggleSidebar(false);
+        }
+      }, 300);
     }
 
     function tryApp() {
       window.open(currentURL, '_blank');
+    }
+    
+    function toggleSidebar(show) {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      
+      if (show === undefined) {
+        // Toggle based on current state
+        show = !sidebar.classList.contains('open');
+      }
+      
+      if (show) {
+        sidebar.classList.add('open');
+        overlay.classList.add('open');
+      } else {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('open');
+      }
     }
 
     window.onload = function() {
@@ -590,6 +730,25 @@ iframe.loaded {
       
       // Set focus to search input
       document.getElementById('searchInput').focus();
+      
+      // Add event listeners for mobile menu
+      document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+        toggleSidebar();
+      });
+      
+      document.getElementById('sidebarOverlay').addEventListener('click', function() {
+        toggleSidebar(false);
+      });
+      
+      // Detect window resize
+      window.addEventListener('resize', function() {
+        isMobile = window.innerWidth <= 768;
+        
+        // Close sidebar when switching to desktop if it's open
+        if (!isMobile && document.getElementById('sidebar').classList.contains('open')) {
+          toggleSidebar(false);
+        }
+      });
     };
   </script>
 

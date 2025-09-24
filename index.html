@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,8 +33,14 @@
       background-color: var(--bg-primary);
       color: var(--text-primary);
       min-height: 100vh;
-      overflow: hidden;
+      overflow: auto;
       padding: 20px;
+    }
+
+    @media (max-width: 1100px) {
+      body {
+        overflow: auto;
+      }
     }
 
     .container {
@@ -41,9 +48,16 @@
       grid-template-columns: repeat(5, 1fr);
       grid-template-rows: auto auto;
       gap: 20px;
-      height: calc(100vh - 40px);
+      min-height: calc(100vh - 40px);
       max-width: 1600px;
       margin: 0 auto;
+    }
+
+    @media (max-width: 1100px) {
+      .container {
+        height: auto;
+        min-height: auto;
+      }
     }
 
     .header {
@@ -213,7 +227,7 @@
       display: flex;
       flex-direction: column;
     }
-    
+
     .shop {
       background-color: var(--bg-secondary);
       border-radius: 12px;
@@ -223,7 +237,7 @@
       display: flex;
       flex-direction: column;
     }
-    
+
     .cubes-grid {
       flex-grow: 1;
       display: grid;
@@ -272,40 +286,214 @@
     @media (max-width: 1100px) {
       .container {
         grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto auto;
+        grid-template-rows: auto;
         height: auto;
         overflow-y: auto;
-        max-height: calc(100vh - 40px);
+        max-height: none;
+        gap: 15px;
       }
-      
-      .header, .about, .projects, .connections-container {
+
+      .header,
+      .work,
+      .about,
+      .projects,
+      .connections-container {
         grid-column: 1;
       }
-      
+
       .header {
         grid-row: 1;
       }
-      
-      .about {
+
+      .work {
         grid-row: 2;
       }
-      
-      .projects {
+
+      .about {
         grid-row: 3;
       }
-      
-      .connections-container {
+
+      .projects {
         grid-row: 4;
+      }
+
+      .connections-container {
+        grid-row: 5;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .name {
+        font-size: 2.5rem;
+      }
+
+      .about-content {
+        flex-direction: column;
       }
     }
 
     @media (max-width: 600px) {
-      .name {
-        font-size: 2.5rem;
+      body {
+        padding: 10px;
       }
-      
+
+      .container {
+        gap: 15px;
+        height: auto;
+        max-height: none;
+      }
+
+      .header,
+      .work,
+      .about,
+      .projects,
+      .connections,
+      .shop {
+        padding: 20px;
+        border-radius: 12px;
+      }
+
+      .name {
+        font-size: 2rem;
+      }
+
+      .title {
+        font-size: 1.2rem;
+      }
+
+      .description {
+        font-size: 1rem;
+        max-width: 100%;
+      }
+
+      .section-title,
+      .work-title,
+      .shop-title {
+        font-size: 1.5rem;
+      }
+
       .about-content {
         flex-direction: column;
+        gap: 15px;
+      }
+
+      .work-items,
+      .shop-items {
+        gap: 10px;
+      }
+
+      .work-item,
+      .shop-item {
+        padding: 12px 16px;
+      }
+
+      .cubes-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 15px;
+      }
+
+      .connections-container {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .projects-content {
+        padding: 20px;
+      }
+
+      .projects-icon {
+        font-size: 2.5rem;
+      }
+
+      .projects-text {
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 8px;
+      }
+
+      .header,
+      .work,
+      .about,
+      .projects,
+      .connections,
+      .shop {
+        padding: 15px;
+      }
+
+      .name {
+        font-size: 1.8rem;
+      }
+
+      .title {
+        font-size: 1.1rem;
+      }
+
+      .description {
+        font-size: 0.95rem;
+      }
+
+      .section-title,
+      .work-title,
+      .shop-title {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+      }
+
+      .work p,
+      .shop p {
+        font-size: 0.95rem;
+        margin-bottom: 15px;
+      }
+
+      .work-items,
+      .shop-items {
+        gap: 8px;
+      }
+
+      .work-item,
+      .shop-item {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+      }
+
+      .cubes-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(6, 1fr);
+        gap: 10px;
+      }
+
+      .cube {
+        padding: 15px 10px;
+      }
+
+      .cube-icon {
+        font-size: 2rem;
+      }
+
+      .cube-title {
+        font-size: 1rem;
+      }
+
+      .cube-desc {
+        font-size: 0.8rem;
+      }
+
+      .skill-name {
+        padding: 10px;
+        font-size: 0.9rem;
+      }
+
+      .projects-icon {
+        font-size: 2rem;
+      }
+
+      .projects-text {
+        font-size: 1rem;
       }
     }
 
@@ -377,9 +565,11 @@
     .work-item:hover .arrow {
       transform: translateX(5px);
     }
+
     .sm {
       font-size: 1.5rem;
     }
+
     span {
       color: var(--accent);
     }
@@ -432,19 +622,21 @@
       border-color: var(--accent);
     }
 
-    
+
     a {
       text-decoration: none;
       color: var(--text-primary);
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <div class="header">
       <h1 class="name">A_I_X</h1>
       <p class="title">Frontend Developer & UI Designer</p>
-      <p class="description">I create beautiful, and intresting interfaces. With over 2 years of experience in web development. I mosty work with pure css, html, js.</p>
+      <p class="description">I create beautiful, and intresting interfaces. With over 2 years of experience in web
+        development. I mosty work with pure css, html, js.</p>
     </div>
 
 
@@ -556,7 +748,7 @@
       <div class="shop">
         <h2 class="shop-title"><i class="fas fa-book"></i>My book</h2>
         <p>It's a cool book I made; it's a manifesto on my own economic system!</p>
- 
+
         <a href="https://aix-32.github.io/Meritcommons/" class="shop-items">
           <div class="shop-item">
             <strong>Read</strong>
@@ -568,23 +760,24 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const skillLevels = document.querySelectorAll('.skill-level');
-      
+
       skillLevels.forEach(level => {
         const width = level.style.width;
         level.style.width = '0';
-        
+
         setTimeout(() => {
           level.style.transition = 'width 1s ease-in-out';
           level.style.width = width;
         }, 500);
       });
-      
-      document.querySelector('.projects').addEventListener('click', function() {
+
+      document.querySelector('.projects').addEventListener('click', function () {
         window.open('./launcher/', '_self');
       });
     });
   </script>
 </body>
+
 </html>
