@@ -1,649 +1,655 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Xyper | Launcher</title>
   <link rel="icon" href="./favicon-32x32.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style> 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-:root {
-  --accent: #d0f5c9;
-  --accent-dark: #a8d8a1;
-  --bg-primary: #121212;
-  --bg-secondary: #1e1e1e;
-  --bg-tertiary: #252525;
-  --text-primary: #f0f0f0;
-  --text-secondary: #b0b0b0;
-  --border: rgba(208, 245, 201, 0.15);
-  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  --transition: all 0.3s ease;
-}
+    :root {
+      --accent: #d0f5c9;
+      --accent-dark: #a8d8a1;
+      --bg-primary: #121212;
+      --bg-secondary: #1e1e1e;
+      --bg-tertiary: #252525;
+      --text-primary: #f0f0f0;
+      --text-secondary: #b0b0b0;
+      --border: rgba(208, 245, 201, 0.15);
+      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      --transition: all 0.3s ease;
+    }
 
-body {
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
-  display: flex;
-  min-height: 100vh;
-  overflow: hidden;
-}
+    body {
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+      display: flex;
+      min-height: 100vh;
+      overflow: hidden;
+    }
 
-@media (max-width: 768px) {
-  body {
-    overflow: hidden;
-    flex-direction: column;
-    height: 100vh;
-  }
-}
+    @media (max-width: 768px) {
+      body {
+        overflow: hidden;
+        flex-direction: column;
+        height: 100vh;
+      }
+    }
 
-.sidebar {
-  width: 280px;
-  background-color: var(--bg-secondary);
-  padding: 24px 16px;
-  display: flex;
-  flex-direction: column;
-  border-right: 1px solid var(--border);
-  transition: var(--transition);
-  z-index: 10;
-  height: 100vh;
-  overflow-y: hidden;
-}
+    .sidebar {
+      width: 280px;
+      background-color: var(--bg-secondary);
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--border);
+      transition: var(--transition);
+      z-index: 10;
+      height: 100vh;
+      overflow-y: hidden;
+    }
 
-@media (max-width: 768px) {
-  .sidebar {
-    position: fixed;
-    left: -280px;
-    top: 0;
-    height: 100%;
-    width: 280px;
-    z-index: 1000;
-    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
-  }
-  
-  .sidebar.open {
-    left: 0;
-  }
-  
-  .sidebar-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-  }
-  
-  .sidebar-overlay.open {
-    display: block;
-  }
-}
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed;
+        left: -280px;
+        top: 0;
+        height: 100%;
+        width: 280px;
+        z-index: 1000;
+        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
+      }
 
-.logo {
-  display: flex;
-  align-items: center;
-  margin-bottom: 32px;
-  padding: 0 12px;
-  flex-shrink: 0;
-}
+      .sidebar.open {
+        left: 0;
+      }
 
-.logo-icon {
-  color: var(--accent);
-  font-size: 28px;
-  margin-right: 12px;
-}
+      .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+      }
 
-.logo-text {
-  font-size: 22px;
-  font-weight: 700;
-  background: linear-gradient(45deg, var(--accent), #9ae495);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+      .sidebar-overlay.open {
+        display: block;
+      }
+    }
 
-.sidebar-header {
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-  color: var(--text-secondary);
-  margin: 24px 0 16px 12px;
-  flex-shrink: 0;
-}
+    .logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 32px;
+      padding: 0 12px;
+      flex-shrink: 0;
+    }
 
-.apps-section {
-  flex: 1;
-  overflow-y: auto;
-  padding-right: 4px;
-}
+    .logo-icon {
+      color: var(--accent);
+      font-size: 28px;
+      margin-right: 12px;
+    }
 
-.apps-section::-webkit-scrollbar {
-  width: 4px;
-}
+    .logo-text {
+      font-size: 22px;
+      font-weight: 700;
+      background: linear-gradient(45deg, var(--accent), #9ae495);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-.apps-section::-webkit-scrollbar-track {
-  background: var(--bg-tertiary);
-  border-radius: 2px;
-}
+    .sidebar-header {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--text-secondary);
+      margin: 24px 0 16px 12px;
+      flex-shrink: 0;
+    }
 
-.apps-section::-webkit-scrollbar-thumb {
-  background: var(--accent);
-  border-radius: 2px;
-}
+    .apps-section {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
 
-.app-item {
-  padding: 14px 16px;
-  margin-bottom: 8px;
-  background-color: var(--bg-tertiary);
-  cursor: pointer;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  transition: var(--transition);
-  border: 1px solid transparent;
-  flex-shrink: 0;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-}
+    .apps-section::-webkit-scrollbar {
+      width: 4px;
+    }
 
-.app-item:hover {
-  background-color: rgba(208, 245, 201, 0.1);
-  border-color: var(--border);
-  transform: translateX(4px);
-}
+    .apps-section::-webkit-scrollbar-track {
+      background: var(--bg-tertiary);
+      border-radius: 2px;
+    }
 
-.app-item.active {
-  background-color: rgba(208, 245, 201, 0.15);
-  border-left: 4px solid var(--accent);
-}
+    .apps-section::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 2px;
+    }
 
-.app-icon {
-  width: 24px;
-  height: 24px;
-  background: linear-gradient(135deg, var(--accent), #a8d8a1);
-  border-radius: 6px;
-  margin-right: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    .app-item {
+      padding: 14px 16px;
+      margin-bottom: 8px;
+      background-color: var(--bg-tertiary);
+      cursor: pointer;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      transition: var(--transition);
+      border: 1px solid transparent;
+      flex-shrink: 0;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-.app-icon i {
-  color: var(--bg-secondary);
-  font-size: 12px;
-}
+    .app-item:hover {
+      background-color: rgba(208, 245, 201, 0.1);
+      border-color: var(--border);
+      transform: translateX(4px);
+    }
 
-.app-name {
-  font-weight: 500;
-  font-size: 15px;
-}
+    .app-item.active {
+      background-color: rgba(208, 245, 201, 0.15);
+      border-left: 4px solid var(--accent);
+    }
 
-.content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow-y: auto;
-  min-height: 0;
-}
+    .app-icon {
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(135deg, var(--accent), #a8d8a1);
+      border-radius: 6px;
+      margin-right: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-@media (max-width: 768px) {
-  .content {
-    flex: 1;
-    height: 100%;
-  }
-}
+    .app-icon i {
+      color: var(--bg-secondary);
+      font-size: 12px;
+    }
 
-.header {
-  height: 70px;
-  padding: 0 28px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: var(--bg-secondary);
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  flex-shrink: 0;
-}
+    .app-name {
+      font-weight: 500;
+      font-size: 15px;
+    }
 
-@media (max-width: 768px) {
-  .header {
-    height: 60px;
-    padding: 0 16px;
-  }
-}
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-y: auto;
+      min-height: 0;
+    }
 
-.mobile-menu-btn {
-  display: none;
-  background: none;
-  border: none;
-  color: var(--text-primary);
-  font-size: 24px;
-  cursor: pointer;
-  margin-right: 16px;
-}
+    @media (max-width: 768px) {
+      .content {
+        flex: 1;
+        height: 100%;
+      }
+    }
 
-@media (max-width: 768px) {
-  .mobile-menu-btn {
-    display: block;
-  }
-}
+    .header {
+      height: 70px;
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      flex-shrink: 0;
+    }
 
-.search-bar {
-  display: flex;
-  align-items: center;
-  background: var(--bg-tertiary);
-  padding: 10px 16px;
-  border-radius: 8px;
-  width: 300px;
-  border: 1px solid var(--border);
-}
+    @media (max-width: 768px) {
+      .header {
+        height: 60px;
+        padding: 0 16px;
+      }
+    }
 
-@media (max-width: 768px) {
-  .search-bar {
-    flex: 1;
-    width: auto;
-    max-width: 300px;
-    padding: 8px 12px;
-  }
-}
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-size: 24px;
+      cursor: pointer;
+      margin-right: 16px;
+    }
 
-.search-bar i {
-  color: var(--text-secondary);
-  margin-right: 12px;
-}
+    @media (max-width: 768px) {
+      .mobile-menu-btn {
+        display: block;
+      }
+    }
 
-.search-bar input {
-  background: transparent;
-  border: none;
-  color: var(--text-primary);
-  outline: none;
-  width: 100%;
-  transition: var(--transition);
-  font-size: 1rem;
-  padding: 4px 0;
-}
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: var(--bg-tertiary);
+      padding: 10px 16px;
+      border-radius: 8px;
+      width: 300px;
+      border: 1px solid var(--border);
+    }
 
-.search-bar input::placeholder {
-  color: var(--text-secondary);
-}
+    @media (max-width: 768px) {
+      .search-bar {
+        flex: 1;
+        width: auto;
+        max-width: 300px;
+        padding: 8px 12px;
+      }
+    }
 
-.search-bar:focus-within {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(208, 245, 201, 0.2);
-}
+    .search-bar i {
+      color: var(--text-secondary);
+      margin-right: 12px;
+    }
 
-.user-actions {
-  display: flex;
-  align-items: center;
-}
+    .search-bar input {
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      outline: none;
+      width: 100%;
+      transition: var(--transition);
+      font-size: 1rem;
+      padding: 4px 0;
+    }
 
-.user-actions button {
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border);
-  color: var(--text-primary);
-  padding: 8px 16px;
-  border-radius: 6px;
-  margin-left: 12px;
-  cursor: pointer;
-  transition: var(--transition);
-}
+    .search-bar input::placeholder {
+      color: var(--text-secondary);
+    }
 
-.user-actions button:hover {
-  background: rgba(208, 245, 201, 0.1);
-}
+    .search-bar:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(208, 245, 201, 0.2);
+    }
 
-.iframe-wrapper {
-  flex: 1 1 auto;
-  min-height: 300px;
-  max-height: calc(100vh - 200px);
-  border-radius: 8px;
-  overflow: hidden;
-  margin: 0 10px 10px 10px;
-  position: relative;
-}
+    .user-actions {
+      display: flex;
+      align-items: center;
+    }
 
-@media (max-width: 768px) {
-  .iframe-wrapper {
-    margin: 0 5px 10px 5px;
-    border-radius: 6px;
-    min-height: 0;
-    max-height: none;
-    flex: 1;
-  }
-}
+    .user-actions button {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 8px 16px;
+      border-radius: 6px;
+      margin-left: 12px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
 
-iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-  filter: blur(0px);
-  transition: filter 0.5s ease;
-  background-color: white;
-  min-height: 70vh;
-}
+    .user-actions button:hover {
+      background: rgba(208, 245, 201, 0.1);
+    }
 
-@media (max-width: 768px) {
-  iframe {
-    min-height: 80vh;
-  }
-}
+    .iframe-wrapper {
+      flex: 1 1 auto;
+      min-height: 300px;
+      max-height: calc(100vh - 200px);
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 0 10px 10px 10px;
+      position: relative;
+    }
 
-iframe.loaded {
-  filter: none;
-}
+    @media (max-width: 768px) {
+      .iframe-wrapper {
+        margin: 0 5px 10px 5px;
+        border-radius: 6px;
+        min-height: 0;
+        max-height: none;
+        flex: 1;
+      }
+    }
 
-.info-panel {
-  background-color: var(--bg-secondary);
-  padding: 20px 28px;
-  border-top: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-shrink: 0;
-}
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      filter: blur(0px);
+      transition: filter 0.5s ease;
+      background-color: white;
+      min-height: 70vh;
+    }
 
-@media (max-width: 768px) {
-  .info-panel {
-    padding: 16px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 12px;
-  }
-}
+    @media (max-width: 768px) {
+      iframe {
+        min-height: 80vh;
+      }
+    }
 
-.app-details h3 {
-  font-size: 18px;
-  margin-bottom: 6px;
-  color: var(--accent);
-}
+    iframe.loaded {
+      filter: none;
+    }
 
-@media (max-width: 768px) {
-  .app-details h3 {
-    font-size: 16px;
-  }
-}
+    .info-panel {
+      background-color: var(--bg-secondary);
+      padding: 20px 28px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
 
-.app-details p {
-  font-size: 14px;
-  color: var(--text-secondary);
-}
+    @media (max-width: 768px) {
+      .info-panel {
+        padding: 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 12px;
+      }
+    }
 
-@media (max-width: 768px) {
-  .app-details p {
-    font-size: 13px;
-  }
-}
+    .app-details h3 {
+      font-size: 18px;
+      margin-bottom: 6px;
+      color: var(--accent);
+    }
 
-.action-buttons {
-  display: flex;
-  gap: 12px;
-}
+    @media (max-width: 768px) {
+      .app-details h3 {
+        font-size: 16px;
+      }
+    }
 
-@media (max-width: 768px) {
-  .action-buttons {
-    width: 100%;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-}
+    .app-details p {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
 
-.action-buttons button {
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: var(--transition);
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  font-size: 1rem;
-}
+    @media (max-width: 768px) {
+      .app-details p {
+        font-size: 13px;
+      }
+    }
 
-@media (max-width: 768px) {
-  .action-buttons button {
-    padding: 12px 18px;
-    font-size: 14px;
-    min-width: 120px;
-  }
-}
+    .action-buttons {
+      display: flex;
+      gap: 12px;
+    }
 
-.action-buttons button.primary {
-  background-color: var(--accent);
-  color: #1a1a1a;
-  border: none;
-}
+    @media (max-width: 768px) {
+      .action-buttons {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+    }
 
-.action-buttons button.primary:hover {
-  background-color: var(--accent-dark);
-}
+    .action-buttons button {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      font-size: 1rem;
+    }
 
-.action-buttons button.secondary {
-  background-color: transparent;
-  color: var(--text-primary);
-  border: 1px solid var(--border);
-}
+    @media (max-width: 768px) {
+      .action-buttons button {
+        padding: 12px 18px;
+        font-size: 14px;
+        min-width: 120px;
+      }
+    }
 
-.action-buttons button.secondary:hover {
-  background-color: rgba(208, 245, 201, 0.1);
-}
+    .action-buttons button.primary {
+      background-color: var(--accent);
+      color: #1a1a1a;
+      border: none;
+    }
 
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--bg-secondary);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
-  z-index: 5;
-}
+    .action-buttons button.primary:hover {
+      background-color: var(--accent-dark);
+    }
 
-.overlay h3 {
-  font-size: 24px;
-  margin-bottom: 10px;
-  color: var(--accent);
-}
+    .action-buttons button.secondary {
+      background-color: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
 
-.overlay p {
-  font-size: 16px;
-  color: var(--text-secondary);
-  margin-bottom: 20px;
-}
+    .action-buttons button.secondary:hover {
+      background-color: rgba(208, 245, 201, 0.1);
+    }
 
-.overlay button {
-  padding: 12px 24px;
-  background-color: var(--accent);
-  color: #1a1a1a;
-  border: none;
-  border-radius: 8px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: var(--transition);
-}
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-secondary);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      z-index: 5;
+    }
 
-.overlay button:hover {
-  background-color: var(--accent-dark);
-}
+    .overlay h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: var(--accent);
+    }
 
-@media (max-width: 768px) {
-  .overlay h3 {
-    font-size: 20px;
-  }
-  
-  .overlay p {
-    font-size: 14px;
-  }
-  
-  .overlay button {
-    padding: 10px 20px;
-    font-size: 14px;
-  }
-}
+    .overlay p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
+    .overlay button {
+      padding: 12px 24px;
+      background-color: var(--accent);
+      color: #1a1a1a;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
 
+    .overlay button:hover {
+      background-color: var(--accent-dark);
+    }
+
+    @media (max-width: 768px) {
+      .overlay h3 {
+        font-size: 20px;
+      }
+
+      .overlay p {
+        font-size: 14px;
+      }
+
+      .overlay button {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
   </style>
 </head>
+
 <body>
 
-    <!-- Mobile sidebar overlay -->
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-  
-    <!-- Sidebar (left panel) -->
-    <div class="sidebar" id="sidebar">
-  
-      <!-- Logo -->
-      <div class="logo">
-        <div class="logo-text">Xyper Launcher</div>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <div class="sidebar" id="sidebar">
+
+    <div class="logo">
+      <div class="logo-text">Xyper Launcher</div>
+    </div>
+
+    <div class="sidebar-header">New</div>
+
+    <div class="apps-section">
+      <div class="app-item"
+        onclick="loadApp('https://aix-32.github.io/Meritcommons/', 'Meritcommons', 'Read my cool book!')">
+        <div class="app-icon"><i class="fas fa-book"></i></div>
+        <div class="app-name">Meritcommons</div>
       </div>
-  
-      <!-- New Section -->
-      <div class="sidebar-header">New</div> 
 
-      <div class="apps-section">
-        <div class="app-item" onclick="loadApp('https://aix-32.github.io/Meritcommons/', 'Meritcommons', 'Read my cool book!')">
-          <div class="app-icon"><i class="fas fa-book"></i></div>
-          <div class="app-name">Meritcommons</div>
-        </div>
+      <div class="app-item" onclick="loadApp('https://aix-32.github.io/ZyperOS/', 'ZyperOS', 'The OS of the future.')">
+        <div class="app-icon"><i class="fas fa-microchip"></i></div>
+        <div class="app-name">ZyperOS</div>
+      </div>
 
-        <div class="app-item" onclick="loadApp('https://aix-32.github.io/ZyperOS/', 'ZyperOS', 'The OS of the future.')">
-          <div class="app-icon"><i class="fas fa-microchip"></i></div>
-          <div class="app-name">ZyperOS</div>
-        </div>
+      <div class="sidebar-header">My apps/games</div>
 
-        <!-- My Games Section -->
-        <div class="sidebar-header">My apps/games</div>
+      <div class="app-item"
+        onclick="loadApp('https://aix-32.github.io/CoreGrid/', 'CoreGrid', 'A strategy game where you build and defend your base against waves of enemies.')">
+        <div class="app-icon"><i class="fas fa-cube"></i></div>
+        <div class="app-name">CoreGrid</div>
+      </div>
 
-        <div class="app-item" onclick="loadApp('https://aix-32.github.io/CoreGrid/', 'CoreGrid', 'A strategy game where you build and defend your base against waves of enemies.')">
-          <div class="app-icon"><i class="fas fa-cube"></i></div>
-          <div class="app-name">CoreGrid</div>
-        </div>
+      <div class="app-item"
+        onclick="loadApp('https://bloxdforge.com', 'BloxdForge', 'A Launcher for Bloxd.io with many features')">
+        <div class="app-icon"><i class="fas fa-fire"></i></div>
+        <div class="app-name">BloxdForge</div>
+      </div>
 
-        <div class="app-item" onclick="loadApp('https://bloxdforge.com', 'BloxdForge', 'A Launcher for Bloxd.io with many features')">
-          <div class="app-icon"><i class="fas fa-fire"></i></div>
-          <div class="app-name">BloxdForge</div>
-        </div>
-    
-        <div class="app-item" onclick="loadApp('https://aix-32.github.io/CoreGrid/', 'CoreGrid', 'A strategy game where you build and defend your base against waves of enemies.')">
-          <div class="app-icon"><i class="fas fa-cube"></i></div>
-          <div class="app-name">CoreGrid</div>
-        </div>
-    
-        <div class="app-item" onclick="loadApp('https://aix-32.github.io/ZyperOS/', 'ZyperOS', 'A OS fully built with HTML, CSS, and JS, on the web!')">
-          <div class="app-icon"><i class="fas fa-laptop"></i></div>
-          <div class="app-name">ZyperOS</div>
-        </div>
-    
-        <div class="app-item" onclick="loadApp('https://aix-32.github.io/Hypon-AI/', 'Hypon-AI', 'A chatgpt cover that has access to your screen if you want')">
-          <div class="app-icon"><i class="fas fa-robot"></i></div>
-          <div class="app-name">Hypon-AI</div>
-        </div>
+      <div class="app-item"
+        onclick="loadApp('https://aix-32.github.io/CoreGrid/', 'CoreGrid', 'A strategy game where you build and defend your base against waves of enemies.')">
+        <div class="app-icon"><i class="fas fa-cube"></i></div>
+        <div class="app-name">CoreGrid</div>
+      </div>
 
-        <div class="app-item" onclick="loadApp('./more/phonkprofile/index.html', 'Odd portfolio', 'A portfolio like those phonk covers')">
-          <div class="app-icon"><i class="fas fa-headphones"></i></div>
-          <div class="app-name">Odd portfolio</div>
-        </div>
-    
-        <div class="app-item" onclick="loadApp('https://aix-32.github.io/AIXslots/', 'AIXSlots', 'A lot of gambling games, made this so I dont go broke')">
-          <div class="app-icon"><i class="fas fa-dice"></i></div>
-          <div class="app-name">AIXSlots</div>
-        </div>
+      <div class="app-item"
+        onclick="loadApp('https://aix-32.github.io/ZyperOS/', 'ZyperOS', 'A OS fully built with HTML, CSS, and JS, on the web!')">
+        <div class="app-icon"><i class="fas fa-laptop"></i></div>
+        <div class="app-name">ZyperOS</div>
+      </div>
 
-        <div class="app-item" onclick="loadApp('https://github.com/AIX-32/Gradiex', 'Gradiex', 'A very nice gradient generator')">
-          <div class="app-icon"><i class="fas fa-paint-roller"></i></div>
-          <div class="app-name">Gradiex</div>
-        </div>
-    
-        <div class="app-item" onclick="loadApp('https://aix-32.github.io/Webmate/', 'Webmate', 'A web version (bad version) of Desktop Mate on Steam')">
-          <div class="app-icon"><i class="fas fa-desktop"></i></div>
-          <div class="app-name">Webmate</div>
-        </div>
+      <div class="app-item"
+        onclick="loadApp('https://aix-32.github.io/Hypon-AI/', 'Hypon-AI', 'A chatgpt cover that has access to your screen if you want')">
+        <div class="app-icon"><i class="fas fa-robot"></i></div>
+        <div class="app-name">Hypon-AI</div>
+      </div>
 
-        <div class="app-item" onclick="loadApp('https://aix-32.github.io/AIX-in-one/', 'AIX-in-one', 'Old portfolio of mine')">
-          <div class="app-icon"><i class="fas fa-desktop"></i></div>
-          <div class="app-name">AIX-in-one</div>
-        </div>
+      <div class="app-item"
+        onclick="loadApp('./more/phonkprofile/index.html', 'Odd portfolio', 'A portfolio like those phonk covers')">
+        <div class="app-icon"><i class="fas fa-headphones"></i></div>
+        <div class="app-name">Odd portfolio</div>
+      </div>
 
-        <div class="app-item" onclick="loadApp('https://aix-32.github.io/music-app/', 'Music App', 'Very clean music app')">
-          <div class="app-icon"><i class="fas fa-desktop"></i></div>
-          <div class="app-name">Music App</div>
-        </div>
+      <div class="app-item"
+        onclick="loadApp('https://aix-32.github.io/AIXslots/', 'AIXSlots', 'A lot of gambling games, made this so I dont go broke')">
+        <div class="app-icon"><i class="fas fa-dice"></i></div>
+        <div class="app-name">AIXSlots</div>
+      </div>
 
-        <div class="app-item" onclick="loadApp('https://aix-32.github.io/ZyperAI/', 'ZyperAI', 'A bad version of AI ides like windsurf and cursor fully on the web!')">
-          <div class="app-icon"><i class="fas fa-robot"></i></div>
-          <div class="app-name">ZyperAI</div>
-        </div>
+      <div class="app-item"
+        onclick="loadApp('https://github.com/AIX-32/Gradiex', 'Gradiex', 'A very nice gradient generator')">
+        <div class="app-icon"><i class="fas fa-paint-roller"></i></div>
+        <div class="app-name">Gradiex</div>
+      </div>
 
-        <div class="app-item" onclick="loadApp('https://aix-32.github.io/Meritcommons/', 'Meritcommons', 'Read my cool book!')">
-          <div class="app-icon"><i class="fas fa-book"></i></div>
-          <div class="app-name">Meritcommons</div>
-        </div>
+      <div class="app-item"
+        onclick="loadApp('https://aix-32.github.io/Webmate/', 'Webmate', 'A web version (bad version) of Desktop Mate on Steam')">
+        <div class="app-icon"><i class="fas fa-desktop"></i></div>
+        <div class="app-name">Webmate</div>
+      </div>
+
+      <div class="app-item"
+        onclick="loadApp('https://aix-32.github.io/AIX-in-one/', 'AIX-in-one', 'Old portfolio of mine')">
+        <div class="app-icon"><i class="fas fa-desktop"></i></div>
+        <div class="app-name">AIX-in-one</div>
+      </div>
+
+      <div class="app-item"
+        onclick="loadApp('https://aix-32.github.io/music-app/', 'Music App', 'Very clean music app')">
+        <div class="app-icon"><i class="fas fa-desktop"></i></div>
+        <div class="app-name">Music App</div>
+      </div>
+
+      <div class="app-item"
+        onclick="loadApp('https://aix-32.github.io/ZyperAI/', 'ZyperAI', 'A bad version of AI ides like windsurf and cursor fully on the web!')">
+        <div class="app-icon"><i class="fas fa-robot"></i></div>
+        <div class="app-name">ZyperAI</div>
+      </div>
+
+      <div class="app-item"
+        onclick="loadApp('https://aix-32.github.io/Meritcommons/', 'Meritcommons', 'Read my cool book!')">
+        <div class="app-icon"><i class="fas fa-book"></i></div>
+        <div class="app-name">Meritcommons</div>
       </div>
     </div>
-  
-    <!-- Main Content Area -->
-    <div class="content">
-  
-      <!-- Top Header Bar -->
-      <div class="header">
-        <button class="mobile-menu-btn" id="mobileMenuBtn">
-          <i class="fas fa-bars"></i>
+  </div>
+
+  <div class="content">
+
+    <div class="header">
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Search apps..." oninput="searchApps()">
+      </div>
+    </div>
+
+    <div class="iframe-wrapper">
+      <iframe id="appFrame" src=""></iframe>
+      <div class="loader" id="loader"></div>
+      <div class="overlay" id="overlay">
+        <h3 id="appTitle">Select an app</h3>
+        <p id="appDesc">Choose a game or tool from the sidebar to preview it here</p>
+        <button id="tryBtn" style="display:none;" onclick="tryApp()">
+          <i class="fas fa-play"></i> Launch App
         </button>
-        <div class="search-bar">
-          <i class="fas fa-search"></i>
-          <input type="text" id="searchInput" placeholder="Search apps..." oninput="searchApps()">
-        </div>
       </div>
-  
-      <!-- Iframe Preview Area -->
-      <div class="iframe-wrapper">
-        <iframe id="appFrame" src=""></iframe>
-        <div class="loader" id="loader"></div>  
-        <div class="overlay" id="overlay">
-          <h3 id="appTitle">Select an app</h3>
-          <p id="appDesc">Choose a game or tool from the sidebar to preview it here</p>
-          <button id="tryBtn" style="display:none;" onclick="tryApp()">
-            <i class="fas fa-play"></i> Launch App
-          </button>
-        </div>
-      </div>
-  
-      <!-- Info + Launch Section -->
-      <div class="info-panel">
-        <div class="app-details">
-          <h3 id="infoTitle">No app selected</h3>
-          <p id="infoDesc">Please select an app from the sidebar</p>
-        </div>
-        <div class="action-buttons">
-          <button class="primary" id="launchBtn" style="display:none;" onclick="tryApp()">
-            <i class="fas fa-play"></i> Launch
-          </button>
-        </div>
-      </div>
-  
     </div>
 
-  
+    <div class="info-panel">
+      <div class="app-details">
+        <h3 id="infoTitle">No app selected</h3>
+        <p id="infoDesc">Please select an app from the sidebar</p>
+      </div>
+      <div class="action-buttons">
+        <button class="primary" id="launchBtn" style="display:none;" onclick="tryApp()">
+          <i class="fas fa-play"></i> Launch
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+
   <script>
     let currentURL = "";
     let isMobile = window.innerWidth <= 768;
@@ -651,7 +657,7 @@ iframe.loaded {
     function searchApps() {
       const searchTerm = document.getElementById('searchInput').value.toLowerCase();
       const appItems = document.querySelectorAll('.app-item');
-      
+
       appItems.forEach(item => {
         const appName = item.querySelector('.app-name').textContent.toLowerCase();
         if (appName.includes(searchTerm)) {
@@ -661,9 +667,8 @@ iframe.loaded {
         }
       });
     }
-    
-    // Add event listener for Enter key to clear search
-    document.getElementById('searchInput').addEventListener('keydown', function(e) {
+
+    document.getElementById('searchInput').addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
         this.value = '';
         searchApps();
@@ -671,17 +676,15 @@ iframe.loaded {
     });
 
     function loadApp(url, title, desc) {
-      // Show loader
       document.getElementById('loader').classList.add('active');
-      
-      // Hide overlay after a short delay to show loading
+
       setTimeout(() => {
         document.getElementById("appFrame").src = url;
         document.getElementById("appTitle").textContent = title;
         document.getElementById("appDesc").textContent = desc;
         document.getElementById("infoTitle").textContent = title;
         document.getElementById("infoDesc").textContent = desc;
-        
+
         document.getElementById("tryBtn").style.display = "inline-block";
         document.getElementById("launchBtn").style.display = "inline-block";
         document.getElementById('overlay').style.display = "none";
@@ -689,13 +692,11 @@ iframe.loaded {
 
         document.querySelectorAll('.app-item').forEach(el => el.classList.remove('active'));
         event.currentTarget.classList.add('active');
-        
-        // Hide loader when iframe loads
-        document.getElementById('appFrame').onload = function() {
+
+        document.getElementById('appFrame').onload = function () {
           document.getElementById('loader').classList.remove('active');
         };
-        
-        // Close sidebar on mobile after selecting an app
+
         if (isMobile) {
           toggleSidebar(false);
         }
@@ -705,16 +706,15 @@ iframe.loaded {
     function tryApp() {
       window.open(currentURL, '_blank');
     }
-    
+
     function toggleSidebar(show) {
       const sidebar = document.getElementById('sidebar');
       const overlay = document.getElementById('sidebarOverlay');
-      
+
       if (show === undefined) {
-        // Toggle based on current state
         show = !sidebar.classList.contains('open');
       }
-      
+
       if (show) {
         sidebar.classList.add('open');
         overlay.classList.add('open');
@@ -724,27 +724,22 @@ iframe.loaded {
       }
     }
 
-    window.onload = function() {
-      // Load the default app
+    window.onload = function () {
       loadApp('https://bloxdforge.com', 'BloxdForge', 'A Launcher for Bloxd.io with many features');
-      
-      // Set focus to search input
+
       document.getElementById('searchInput').focus();
-      
-      // Add event listeners for mobile menu
-      document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+
+      document.getElementById('mobileMenuBtn').addEventListener('click', function () {
         toggleSidebar();
       });
-      
-      document.getElementById('sidebarOverlay').addEventListener('click', function() {
+
+      document.getElementById('sidebarOverlay').addEventListener('click', function () {
         toggleSidebar(false);
       });
-      
-      // Detect window resize
-      window.addEventListener('resize', function() {
+
+      window.addEventListener('resize', function () {
         isMobile = window.innerWidth <= 768;
-        
-        // Close sidebar when switching to desktop if it's open
+
         if (!isMobile && document.getElementById('sidebar').classList.contains('open')) {
           toggleSidebar(false);
         }
@@ -753,4 +748,5 @@ iframe.loaded {
   </script>
 
 </body>
+
 </html>
