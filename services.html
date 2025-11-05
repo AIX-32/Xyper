@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xyper | Web Development Services</title>
+  <link rel="icon" href="./favicon-32x32.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    :root {
+      --accent: #d0f5c9;
+      --accent-dark: #a8d8a1;
+      --accent-transparent: rgba(208, 245, 201, 0.1);
+      --bg-primary: #121212;
+      --bg-secondary: #1e1e1e;
+      --bg-tertiary: #252525;
+      --text-primary: #f0f0f0;
+      --text-secondary: #b0b0b0;
+      --border: rgba(208, 245, 201, 0.15);
+      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      --transition: all 0.3s ease;
+    }
+
+    .mouse-follower {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 500px;
+      height: 500px;
+      background: #96c090a9;
+      border-radius: 50%;
+      filter: blur(160px);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.5;
+      transition: transform 0.1s ease-out;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow: auto;
+      padding: 20px;
+    }
+
+    @media (max-width: 1100px) {
+      body {
+        overflow: auto;
+      }
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: auto auto auto auto;
+      gap: 20px;
+      min-height: calc(100vh - 40px);
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 1100px) {
+      .container {
+        height: auto;
+        min-height: auto;
+      }
+    }
+
+    .header {
+      grid-column: 1 / 6;
+      /* Full width header */
+      grid-row: 1;
+      background-color: var(--bg-secondary);
+      border-radius: 16px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .name {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      background: linear-gradient(45deg, var(--accent), #9ae495);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .title {
+      font-size: 1.5rem;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+
+    .description {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      max-width: 70%;
+      color: var(--text-secondary);
+      margin: 0 auto;
+    }
+
+    .intro {
+      grid-column: 1 / 4;
+      grid-row: 2;
+      background-color: var(--bg-secondary);
+      border-radius: 16px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+    }
+
+    .section-title i {
+      margin-right: 12px;
+    }
+
+    .intro-content {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    .intro-content p {
+      margin-bottom: 15px;
+    }
+
+    .highlight {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .services {
+      grid-column: 4 / 6;
+      grid-row: 2;
+      background-color: var(--bg-secondary);
+      border-radius: 16px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
+      position: relative;
+      z-index: 1;
+    }
+
+    .service-item {
+      margin-bottom: 20px;
+      background: var(--bg-tertiary);
+      padding: 20px;
+      border-radius: 10px;
+      transition: var(--transition);
+      border: 1px solid var(--border);
+    }
+
+    .service-item:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+    }
+
+    .service-name {
+      font-size: 1.3rem;
+      color: var(--accent);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .service-name i {
+      margin-right: 10px;
+    }
+
+    .service-desc {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .pricing {
+      grid-column: 1 / 8;
+      grid-row: 4;
+      background-color: var(--bg-secondary);
+      border-radius: 16px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
+      position: relative;
+      z-index: 1;
+    }
+
+    .packages-container {
+      display: flex;
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .package {
+      flex: 1;
+      margin-bottom: 0;
+      background: var(--bg-tertiary);
+      padding: 25px;
+      border-radius: 10px;
+      transition: var(--transition);
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .package:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+    }
+
+    .package.popular {
+      border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(208, 245, 201, 0.2);
+    }
+
+    .popular-badge {
+      position: absolute;
+      top: 15px;
+      right: -30px;
+      background: var(--accent);
+      color: #1a1a1a;
+      padding: 3px 30px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      transform: rotate(45deg);
+    }
+
+    .package-name {
+      font-size: 1.5rem;
+      color: var(--accent);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
+
+    .package-name i {
+      margin-right: 10px;
+    }
+
+    .price {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--text-primary);
+    }
+
+    .price span {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      font-weight: normal;
+    }
+
+    .package-features {
+      list-style: none;
+      margin-bottom: 25px;
+    }
+
+    .package-features li {
+      padding: 8px 0;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+    }
+
+    .package-features li i {
+      color: var(--accent);
+      margin-right: 10px;
+    }
+
+    .portfolio {
+      grid-column: 4 / 6;
+      grid-row: 3;
+      background-color: var(--bg-secondary);
+      border-radius: 16px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
+      position: relative;
+      z-index: 1;
+      height: 50vh;
+      /* Fixed height to 50% of viewport height */
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+      margin-top: 20px;
+      max-height: calc(50vh - 100px);
+      /* Adjust based on title height */
+      overflow: hidden;
+    }
+
+    .portfolio-item {
+      background: var(--bg-tertiary);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: var(--transition);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .portfolio-item:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+    }
+
+    .portfolio-img {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(45deg, var(--accent-transparent), var(--bg-tertiary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--accent);
+    }
+
+    .portfolio-title {
+      padding: 0 15px;
+      font-weight: 600;
+    }
+
+    .contact {
+      grid-column: 1 / 4;
+      /* Full width contact section */
+      grid-row: 3;
+      background: linear-gradient(45deg, var(--bg-secondary), var(--bg-tertiary));
+      border-radius: 16px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .contact-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      padding: 10px 0;
+    }
+
+    .contact-icon {
+      font-size: 4rem;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .contact-text {
+      font-size: 1.3rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin-bottom: 30px;
+      max-width: 80%;
+    }
+
+    .cta-text {
+      font-size: 1.5rem;
+      color: var(--accent);
+      margin-bottom: 25px;
+      font-weight: 600;
+    }
+
+    .discord-link {
+      display: inline-flex;
+      align-items: center;
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      padding: 15px 30px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      border: 1px solid var(--border);
+      font-size: 1.2rem;
+    }
+
+    .discord-link:hover {
+      background: rgba(208, 245, 201, 0.1);
+      transform: translateY(-3px);
+      border-color: var(--accent);
+      box-shadow: 0 5px 15px rgba(208, 245, 201, 0.2);
+    }
+
+    .discord-link i {
+      margin-right: 10px;
+      font-size: 1.5rem;
+    }
+
+    @media (max-width: 1100px) {
+      .container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        height: auto;
+        overflow-y: auto;
+        max-height: none;
+        gap: 15px;
+      }
+
+      .header,
+      .intro,
+      .services,
+      .pricing,
+      .portfolio,
+      .contact {
+        grid-column: 1;
+      }
+
+      .header {
+        grid-row: 1;
+      }
+
+      .intro {
+        grid-row: 2;
+      }
+
+      .services {
+        grid-row: 3;
+      }
+
+      .pricing {
+        grid-row: 4;
+      }
+
+      .portfolio {
+        grid-row: 5;
+      }
+
+      .contact {
+        grid-row: 6;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .name {
+        font-size: 2.5rem;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-text {
+        max-width: 100%;
+      }
+
+      .description {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+
+      .container {
+        gap: 15px;
+        height: auto;
+        max-height: none;
+      }
+
+      .header,
+      .intro,
+      .services,
+      .pricing,
+      .portfolio,
+      .contact {
+        padding: 20px;
+        border-radius: 12px;
+      }
+
+      .name {
+        font-size: 2rem;
+      }
+
+      .title {
+        font-size: 1.2rem;
+      }
+
+      .description {
+        font-size: 1rem;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+      }
+
+      .portfolio-grid {
+        gap: 15px;
+      }
+
+      .portfolio-img {
+        height: 70px;
+        width: 70px;
+        font-size: 1.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 8px;
+      }
+
+      .header,
+      .intro,
+      .services,
+      .pricing,
+      .portfolio,
+      .contact {
+        padding: 15px;
+      }
+
+      .name {
+        font-size: 1.8rem;
+      }
+
+      .title {
+        font-size: 1.1rem;
+      }
+
+      .description,
+      .intro-content {
+        font-size: 0.95rem;
+      }
+
+      .section-title {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+      }
+
+      .service-item,
+      .package {
+        padding: 15px;
+      }
+
+      .service-name {
+        font-size: 1.1rem;
+      }
+
+      .service-desc {
+        font-size: 0.95rem;
+      }
+
+      .package-name {
+        font-size: 1.2rem;
+      }
+
+      .price {
+        font-size: 1.5rem;
+      }
+
+      .portfolio-grid {
+        gap: 10px;
+      }
+
+      .portfolio-img {
+        height: 60px;
+        width: 60px;
+        font-size: 1.5rem;
+      }
+
+      .contact-icon {
+        font-size: 3rem;
+      }
+
+      .contact-text {
+        font-size: 1rem;
+      }
+
+      .cta-text {
+        font-size: 1.2rem;
+      }
+
+      .discord-link {
+        padding: 12px 20px;
+        font-size: 1rem;
+      }
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    span {
+      color: var(--accent);
+    }
+
+    .fun-fact {
+      background: var(--accent-transparent);
+      border-left: 3px solid var(--accent);
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .fun-fact-title {
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+    }
+
+    .fun-fact-title i {
+      margin-right: 10px;
+    }
+
+    .fun-fact-content {
+      color: var(--text-secondary);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="mouse-follower"></div>
+
+  <div class="container">
+    <div class="header">
+      <h1 class="name">Web Development Services</h1>
+      <p class="title">Crafting Digital Experiences That Convert</p>
+      <p class="description">I create stunning, high-performance websites that not only look great but drive results for
+        your business. With over 3 years of experience, I specialize in turning your vision into a digital reality.</p>
+    </div>
+
+    <div class="intro">
+      <h2 class="section-title"><i class="fas fa-lightbulb"></i> Why Choose My Services?</h2>
+      <div class="intro-content">
+        <p>Building a website is more than just coding - it's about creating an experience that resonates with your
+          audience and achieves your business goals.</p>
+
+        <div class="fun-fact">
+          <div class="fun-fact-title"><i class="fas fa-bolt"></i> Fast Loading Speeds</div>
+          <div class="fun-fact-content">All websites I build are optimized for performance, ensuring your visitors don't
+            bounce due to slow loading times.</div>
+        </div>
+
+        <p>I focus on <span class="highlight">clean, modern design</span> combined with <span
+            class="highlight">cutting-edge technology</span> to deliver websites that stand out from the competition.
+        </p>
+
+        <div class="fun-fact">
+          <div class="fun-fact-title"><i class="fas fa-mobile-alt"></i> Mobile-First Approach</div>
+          <div class="fun-fact-content">Over 60% of web traffic comes from mobile devices. All websites I create are
+            fully responsive and optimized for every screen size.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="services">
+      <h2 class="section-title"><i class="fas fa-laptop-code"></i> Website Types</h2>
+      <div class="service-item">
+        <h3 class="service-name"><i class="fas fa-home"></i> Landing Pages</h3>
+        <p class="service-desc">High-converting single pages for campaigns, products, or services.</p>
+      </div>
+      <div class="service-item">
+        <h3 class="service-name"><i class="fas fa-briefcase"></i> Business Websites</h3>
+        <p class="service-desc">Professional multi-page sites for companies and entrepreneurs.</p>
+      </div>
+      <div class="service-item">
+        <h3 class="service-name"><i class="fas fa-shopping-cart"></i> E-commerce Sites</h3>
+        <p class="service-desc">Online stores with secure payment processing and inventory management.</p>
+      </div>
+    </div>
+
+    <div class="pricing">
+      <h2 class="section-title"><i class="fas fa-tags"></i> Pricing Packages</h2>
+      <div class="packages-container">
+        <div class="package popular">
+          <div class="popular-badge">POPULAR</div>
+          <h3 class="package-name"><i class="fas fa-star"></i>Basic Package</h3>
+          <div class="price">$24 <span>one-time</span></div>
+          <ul class="package-features">
+            <li><i class="fas fa-check"></i> Up to 3 pages</li>
+            <li><i class="fas fa-check"></i> Mobile-friendly layout</li>
+            <li><i class="fas fa-check"></i> Fast loading pages</li>
+            <li><i class="fas fa-check"></i> Simple contact section</li>
+            <li><i class="fas fa-check"></i> Custom colors & fonts</li>
+            <li><i class="fas fa-check"></i> 1 week delivery</li>
+          </ul>
+        </div>
+
+        <div class="package">
+          <h3 class="package-name"><i class="fas fa-crown"></i>Premium</h3>
+          <div class="price">$35 <span>one-time</span></div>
+          <ul class="package-features">
+            <li><i class="fas fa-check"></i> Up to 6 pages</li>
+            <li><i class="fas fa-check"></i> Fully responsive design</li>
+            <li><i class="fas fa-check"></i> Fast loading pages</li>
+            <li><i class="fas fa-check"></i> Interactive elements</li>
+            <li><i class="fas fa-check"></i> Image selection on me</li>
+            <li><i class="fas fa-check"></i> Basic SEO setup</li>
+            <li><i class="fas fa-check"></i> Small custom animations</li>
+            <li><i class="fas fa-check"></i> 2 weeks delivery</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio">
+      <h2 class="section-title"><i class="fas fa-images"></i> Recent Projects</h2>
+      <div class="portfolio-grid">
+        <div class="portfolio-item">
+          <div class="portfolio-img">
+            <i class="fas fa-th-large"></i>
+          </div>
+          <div class="portfolio-title">Tech Startup Landing Page</div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-img">
+            <i class="fas fa-paint-brush"></i>
+          </div>
+          <div class="portfolio-title">Creative Agency Website</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact">
+      <div class="contact-content">
+        <div class="contact-icon">
+          <i class="fab fa-discord"></i>
+        </div>
+        <p class="contact-text">Ready to transform your online presence? Let's create something amazing together!</p>
+        <p class="cta-text">Get a free consultation and quote today</p>
+        <a href="https://discord.gg/nVgUe4qrhr" target="_blank" class="discord-link">
+          <i class="fab fa-discord"></i> Start Your Project on Discord
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const follower = document.querySelector('.mouse-follower');
+      let mouseX = 0;
+      let mouseY = 0;
+      let posX = 0;
+      let posY = 0;
+      let speed = 0.08;
+
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      function animateFollower() {
+        const distX = mouseX - posX;
+        const distY = mouseY - posY;
+
+        posX += distX * speed;
+        posY += distY * speed;
+
+        follower.style.left = `${posX}px`;
+        follower.style.top = `${posY}px`;
+
+        requestAnimationFrame(animateFollower);
+      }
+
+      animateFollower();
+
+      // Add animation to elements when they come into view
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = 1;
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.service-item, .package, .portfolio-item').forEach(el => {
+        el.style.opacity = 0;
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        observer.observe(el);
+      });
+    });
+  </script>
+</body>
+
+</html>
