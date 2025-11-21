@@ -78,7 +78,6 @@
 
     .header {
       grid-column: 1 / 6;
-      /* Full width header */
       grid-row: 1;
       background-color: var(--bg-secondary);
       border-radius: 16px;
@@ -661,8 +660,7 @@
     .fun-fact-content {
       color: var(--text-secondary);
     }
-    
-    /* Portfolio Showcase Styles */
+
     .portfolio-showcase {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -670,7 +668,7 @@
       margin-top: 20px;
       width: 100%;
     }
-    
+
     .portfolio-card {
       background: linear-gradient(145deg, var(--bg-tertiary), var(--bg-secondary));
       border-radius: 12px;
@@ -685,7 +683,7 @@
       display: flex;
       flex-direction: column;
     }
-    
+
     .portfolio-card::before {
       content: '';
       position: absolute;
@@ -698,17 +696,17 @@
       transition: opacity 0.3s ease;
       z-index: 1;
     }
-    
+
     .portfolio-card:hover {
       transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
       border-color: var(--accent);
     }
-    
+
     .portfolio-card:hover::before {
       opacity: 1;
     }
-    
+
     .portfolio-card-img {
       height: 160px;
       background: linear-gradient(45deg, #2a2a2a, #1a1a1a);
@@ -718,7 +716,7 @@
       position: relative;
       overflow: hidden;
     }
-    
+
     .portfolio-card-img::after {
       content: '';
       position: absolute;
@@ -729,23 +727,28 @@
       animation: shine 3s infinite;
       opacity: 0.2;
     }
-    
+
     @keyframes shine {
-      0% { transform: rotate(45deg) translateX(-100%); }
-      100% { transform: rotate(45deg) translateX(100%); }
+      0% {
+        transform: rotate(45deg) translateX(-100%);
+      }
+
+      100% {
+        transform: rotate(45deg) translateX(100%);
+      }
     }
-    
+
     .portfolio-card-icon {
       font-size: 3rem;
       color: var(--accent);
       z-index: 2;
       transition: transform 0.3s ease;
     }
-    
+
     .portfolio-card:hover .portfolio-card-icon {
       transform: scale(1.2) rotate(10deg);
     }
-    
+
     .portfolio-card-content {
       padding: 20px;
       text-align: center;
@@ -754,7 +757,7 @@
       flex-grow: 1;
       justify-content: space-between;
     }
-    
+
     .portfolio-card-title {
       font-size: 1.3rem;
       font-weight: 600;
@@ -762,22 +765,22 @@
       color: var(--text-primary);
       transition: color 0.3s ease;
     }
-    
+
     .portfolio-card:hover .portfolio-card-title {
       color: var(--accent);
     }
-    
+
     .portfolio-card-desc {
       font-size: 0.95rem;
       color: var(--text-secondary);
       line-height: 1.5;
       margin-bottom: 15px;
     }
-    
+
     .portfolio-card-link-wrapper {
       text-decoration: none;
     }
-    
+
     .portfolio-card-link {
       display: inline-block;
       padding: 8px 20px;
@@ -790,21 +793,21 @@
       border: 1px solid var(--accent-transparent);
       cursor: pointer;
     }
-    
+
     .portfolio-card:hover .portfolio-card-link {
       background: var(--accent);
       color: #1a1a1a;
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(208, 245, 201, 0.3);
     }
-    
+
     .portfolio-intro {
       margin-top: 20px;
       text-align: center;
       font-style: italic;
       color: var(--text-secondary);
     }
-    
+
     .portfolio-image-container {
       width: 100%;
       height: 100%;
@@ -813,25 +816,25 @@
       box-shadow: var(--card-shadow);
       border: 1px solid var(--border);
     }
-    
+
     .portfolio-image {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.3s ease;
     }
-    
+
     .portfolio-image:hover {
       transform: scale(1.05);
     }
-    
+
     .carousel {
       position: relative;
       width: 100%;
       height: 100%;
       overflow: hidden;
     }
-    
+
     .carousel-slide {
       position: absolute;
       top: 0;
@@ -841,11 +844,11 @@
       opacity: 0;
       transition: opacity 0.5s ease-in-out;
     }
-    
+
     .carousel-slide.active {
       opacity: 1;
     }
-    
+
     .carousel-controls {
       position: absolute;
       bottom: 20px;
@@ -860,7 +863,7 @@
       border: 1px solid var(--border);
       box-shadow: var(--card-shadow);
     }
-    
+
     .carousel-btn {
       background: var(--bg-secondary);
       border: 1px solid var(--border);
@@ -872,18 +875,18 @@
       cursor: pointer;
       transition: var(--transition);
     }
-    
+
     .carousel-btn:hover {
       background: rgba(208, 245, 201, 0.1);
       transform: translateY(-2px);
       border-color: var(--accent);
     }
-    
+
     .carousel-indicators {
       display: flex;
       margin: 0 15px;
     }
-    
+
     .indicator {
       width: 12px;
       height: 12px;
@@ -894,7 +897,7 @@
       cursor: pointer;
       transition: var(--transition);
     }
-    
+
     .indicator.active {
       background: var(--accent);
       border-color: var(--accent);
@@ -916,8 +919,9 @@
     <div class="intro">
       <h2 class="section-title"><i class="fas fa-lightbulb"></i> My Portfolio</h2>
       <div class="intro-content">
-        <p>Here are some of the websites I've created for clients. Each project is built with attention to detail, performance, and modern design principles.</p>
-        
+        <p>Here are some of the websites I've created for clients. Each project is built with attention to detail,
+          performance, and modern design principles.</p>
+
         <div class="portfolio-showcase">
           <a href="https://aix-32.github.io/Bloxdevents/" target="_blank" class="portfolio-card-link-wrapper">
             <div class="portfolio-card">
@@ -931,7 +935,7 @@
               </div>
             </div>
           </a>
-          
+
           <a href="https://www.bloxdforge.com/" target="_blank" class="portfolio-card-link-wrapper">
             <div class="portfolio-card">
               <div class="portfolio-card-img">
@@ -944,7 +948,7 @@
               </div>
             </div>
           </a>
-          
+
           <a href="launcher/more/zupa/index.html" target="_blank" class="portfolio-card-link-wrapper">
             <div class="portfolio-card">
               <div class="portfolio-card-img">
@@ -958,7 +962,7 @@
             </div>
           </a>
         </div>
-        
+
       </div>
     </div>
 
@@ -1097,7 +1101,6 @@
         observer.observe(el);
       });
 
-      // Carousel functionality
       const slides = document.querySelectorAll('.carousel-slide');
       const indicators = document.querySelectorAll('.indicator');
       const prevBtn = document.querySelector('.prev-btn');
@@ -1105,12 +1108,9 @@
       let currentSlide = 0;
 
       function showSlide(index) {
-        // Hide all slides
         slides.forEach(slide => slide.classList.remove('active'));
-        // Remove active class from all indicators
         indicators.forEach(indicator => indicator.classList.remove('active'));
 
-        // Show current slide
         slides[index].classList.add('active');
         indicators[index].classList.add('active');
         currentSlide = index;
@@ -1128,14 +1128,11 @@
         showSlide(prevIndex);
       }
 
-      // Auto-advance slides every 5 seconds
       setInterval(nextSlide, 5000);
 
-      // Event listeners for buttons
       nextBtn.addEventListener('click', nextSlide);
       prevBtn.addEventListener('click', prevSlide);
 
-      // Event listeners for indicators
       indicators.forEach((indicator, index) => {
         indicator.addEventListener('click', () => {
           showSlide(index);

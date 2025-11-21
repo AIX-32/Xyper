@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -115,7 +116,7 @@
         }
 
         .cta-pad {
-            padding: 30px 25px; 
+            padding: 30px 25px;
         }
 
         .hero {
@@ -341,9 +342,17 @@
         }
 
         @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
         }
 
         .floating {
@@ -370,8 +379,8 @@
         }
     </style>
 </head>
+
 <body>
-    <!-- Header -->
     <header>
         <div class="container">
             <div class="header-content">
@@ -392,12 +401,12 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-bg"></div>
         <div class="container">
             <h1>Experience the Web Like Never Before</h1>
-            <p>Zora Browser redefines browsing with unparalleled speed, security, and a beautiful, intuitive interface designed for the modern web. This is not a real product</p>
+            <p>Zora Browser redefines browsing with unparalleled speed, security, and a beautiful, intuitive interface
+                designed for the modern web. This is not a real product</p>
             <div class="hero-buttons">
                 <button class="cta-button cta-pad">Download Zora</button>
                 <button class="secondary-button">Learn More</button>
@@ -405,7 +414,6 @@
         </div>
     </section>
 
-    <!-- Features Section -->
     <section class="features" id="features">
         <div class="container">
             <div class="section-title">
@@ -418,48 +426,53 @@
                         <i class="fas fa-bolt"></i>
                     </div>
                     <h3>Lightning Fast</h3>
-                    <p>Experience browsing at unprecedented speeds with our optimized rendering engine and minimal resource usage.</p>
+                    <p>Experience browsing at unprecedented speeds with our optimized rendering engine and minimal
+                        resource usage.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
                     <h3>Advanced Security</h3>
-                    <p>Built-in privacy protection, tracker blocking, and secure browsing to keep your data safe from prying eyes.</p>
+                    <p>Built-in privacy protection, tracker blocking, and secure browsing to keep your data safe from
+                        prying eyes.</p>
                 </div>
                 <div class="feature-card floating" style="animation-delay: 1s;">
                     <div class="feature-icon">
                         <i class="fas fa-palette"></i>
                     </div>
                     <h3>Customizable UI</h3>
-                    <p>Personalize your browsing experience with themes, layouts, and extensions tailored to your workflow.</p>
+                    <p>Personalize your browsing experience with themes, layouts, and extensions tailored to your
+                        workflow.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-sync-alt"></i>
                     </div>
                     <h3>Seamless Sync</h3>
-                    <p>Access your bookmarks, history, and tabs across all your devices with end-to-end encrypted synchronization.</p>
+                    <p>Access your bookmarks, history, and tabs across all your devices with end-to-end encrypted
+                        synchronization.</p>
                 </div>
                 <div class="feature-card floating" style="animation-delay: 2s;">
                     <div class="feature-icon">
                         <i class="fas fa-leaf"></i>
                     </div>
                     <h3>Eco-Friendly</h3>
-                    <p>Reduced energy consumption and carbon footprint without compromising on performance or features.</p>
+                    <p>Reduced energy consumption and carbon footprint without compromising on performance or features.
+                    </p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-robot"></i>
                     </div>
                     <h3>AI Assistant</h3>
-                    <p>Get intelligent suggestions, automated tasks, and contextual help with our built-in AI assistant.</p>
+                    <p>Get intelligent suggestions, automated tasks, and contextual help with our built-in AI assistant.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Performance Section -->
     <section class="performance" id="performance">
         <div class="container">
             <div class="section-title">
@@ -487,7 +500,6 @@
         </div>
     </section>
 
-    <!-- Download Section -->
     <section class="download" id="download">
         <div class="container">
             <div class="section-title">
@@ -528,7 +540,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -577,7 +588,7 @@
 
     <script>
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const featureCards = document.querySelectorAll('.feature-card');
 
             const observer = new IntersectionObserver((entries) => {
@@ -597,7 +608,7 @@
             });
 
             document.querySelectorAll('nav a').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
+                anchor.addEventListener('click', function (e) {
                     e.preventDefault();
                     const targetId = this.getAttribute('href');
                     const targetElement = document.querySelector(targetId);
@@ -613,4 +624,5 @@
         });
     </script>
 </body>
+
 </html>
