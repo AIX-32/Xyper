@@ -121,11 +121,12 @@
       padding: 30px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: space-between;
       border: 1px solid var(--border);
       box-shadow: var(--card-shadow);
       position: relative;
       z-index: 1;
+      height: 100%;
     }
 
     .work-title {
@@ -563,7 +564,6 @@
       font-size: 1.05rem;
       line-height: 1.7;
       color: var(--text-secondary);
-      margin-bottom: 25px;
       padding-right: 20px;
     }
 
@@ -571,6 +571,10 @@
       display: flex;
       flex-direction: column;
       gap: 15px;
+      width: 100%;
+      margin-top: 20px;
+      height: 100%;
+      justify-content: flex-end;
     }
 
     .work-item {
@@ -583,12 +587,22 @@
       transition: var(--transition);
       border: 1px solid var(--border);
       cursor: pointer;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .work-item:hover {
       transform: translateX(10px);
       background: var(--bg-tertiary);
       border-color: var(--accent);
+    }
+
+    .work-items a.shop-items {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .work-item strong {
@@ -665,6 +679,15 @@
       border-color: var(--accent);
     }
 
+    .work-items .shop-items .shop-item {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+    }
+
 
     a {
       text-decoration: none;
@@ -688,11 +711,12 @@
     <div class="work">
       <h2 class="work-title"><i class="fas fa-briefcase"></i>My Services</h2>
       <p>make fast websites like landing pages or portfolios and other stuff.</p>
-      <h2 class="work-title sm">Services:</h2>
       <div class="work-items">
-        <a href="services.html" class="work-item">
-          <strong>View Services</strong>
-          <i class="fas fa-arrow-right arrow"></i>
+        <a href="services.html" class="shop-items">
+          <div class="shop-item">
+            <strong>View Services</strong>
+            <i class="fas fa-arrow-right arrow"></i>
+          </div>
         </a>
       </div>
     </div>
