@@ -902,6 +902,109 @@
       background: var(--accent);
       border-color: var(--accent);
     }
+
+    .about-section {
+      grid-column: 1 / 6;
+      background-color: var(--bg-secondary);
+      border-radius: 16px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+
+    .about-content {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    .about-content > p {
+      margin-bottom: 25px;
+      text-align: center;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin: 30px 0;
+    }
+
+    .step {
+      background: var(--bg-tertiary);
+      padding: 25px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .step:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .step-title {
+      font-size: 1.3rem;
+      color: var(--accent);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
+
+    .step-title i {
+      margin-right: 12px;
+      font-size: 1.5rem;
+    }
+
+    .step-desc {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-size: 1.05rem;
+    }
+
+    @media (max-width: 1100px) {
+      .about-section {
+        grid-column: 1;
+        grid-row: 7;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .process-steps {
+        grid-template-columns: 1fr;
+      }
+      
+      .about-section {
+        padding: 25px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .about-section {
+        padding: 20px;
+      }
+      
+      .step {
+        padding: 20px;
+      }
+      
+      .step-title {
+        font-size: 1.2rem;
+      }
+      
+      .step-desc {
+        font-size: 1rem;
+      }
+    }
   </style>
 </head>
 
@@ -1052,6 +1155,39 @@
         <a href="https://discord.gg/BnHDCWqpA3" target="_blank" class="discord-link">
           <i class="fab fa-discord"></i> Start Your Project on Discord
         </a>
+      </div>
+    </div>
+
+    <div class="about-section">
+      <h2 class="section-title"><i class="fas fa-info-circle"></i> About My Process</h2>
+      <div class="about-content">
+        
+        <div class="process-steps">
+          <div class="step">
+            <h3 class="step-title"><i class="fas fa-comments"></i> Discovery Chat</h3>
+            <p class="step-desc">We start with a casual conversation to understand your goals, audience, and project requirements.</p>
+          </div>
+          
+          <div class="step">
+            <h3 class="step-title"><i class="fas fa-pencil-ruler"></i> Planning & Design</h3>
+            <p class="step-desc">I create a small outline of website features and design directions.</p>
+          </div>
+          
+          <div class="step">
+            <h3 class="step-title"><i class="fas fa-code"></i> Development</h3>
+            <p class="step-desc">I start building your website while giving you regular updates keep you informed and involved.</p>
+          </div>
+          
+          <div class="step">
+            <h3 class="step-title"><i class="fas fa-rocket"></i> Launch & Support</h3>
+            <p class="step-desc">After everything i give you the project files, and support for problems after.</p>
+          </div>
+        </div>
+        
+        <div class="fun-fact">
+          <div class="fun-fact-title"><i class="fas fa-lightbulb"></i> Why Work With Me?</div>
+          <div class="fun-fact-content">Unlike agencies with layers of people and overhead costs, you work directly with me. This means faster communication, insanely lower costs while keeping the quality high.</div>
+        </div>
       </div>
     </div>
   </div>
