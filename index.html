@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Xyper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Xyper, portfolio.</title>
   <link rel="icon" href="./favicon-32x32.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -49,16 +48,11 @@
       background-color: var(--bg-primary);
       color: var(--text-primary);
       min-height: 100vh;
-      overflow: auto;
+      overflow-x: hidden;          /* prevent horizontal scroll on mobile */
       padding: 20px;
     }
 
-    @media (max-width: 1100px) {
-      body {
-        overflow: auto;
-      }
-    }
-
+    /* ----- MAIN GRID (desktop first, then overwritten for mobile) ----- */
     .container {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -69,26 +63,22 @@
       margin: 0 auto;
     }
 
-    @media (max-width: 1100px) {
-      .container {
-        height: auto;
-        min-height: auto;
-      }
-    }
-
-    .header {
-      grid-column: 1 / 3;
-      grid-row: 1;
+    /* ----- all cards base ----- */
+    .header, .work, .about, .projects, .connections, .shop {
       background-color: var(--bg-secondary);
       border-radius: 16px;
       padding: 30px;
+      border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
+    }
+
+    /* --- header --- */
+    .header {
+      grid-column: 1 / 3;
+      grid-row: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      border: 1px solid var(--border);
-      box-shadow: var(--card-shadow);
-      position: relative;
-      z-index: 1;
     }
 
     .name {
@@ -98,6 +88,7 @@
       background: linear-gradient(45deg, var(--accent), #9ae495);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      line-height: 1.2;
     }
 
     .title {
@@ -113,48 +104,88 @@
       color: var(--text-secondary);
     }
 
+    /* ----- work (services) ----- */
     .work {
       grid-column: 3 / 4;
       grid-row: 1;
-      background-color: var(--bg-secondary);
-      border-radius: 16px;
-      padding: 30px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      border: 1px solid var(--border);
-      box-shadow: var(--card-shadow);
-      position: relative;
-      z-index: 1;
       height: 100%;
     }
 
     .work-title {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
       color: var(--accent);
-      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
     }
 
-    .work-item {
-      margin-bottom: 10px;
-      padding-top: 20px;
+    .work-title i {
+      font-size: 1.8rem;
+      margin-right: 15px;
+    }
 
+    .work p {
+      font-size: 1.05rem;
+      line-height: 1.7;
       color: var(--text-secondary);
+      margin-bottom: 20px;
     }
 
+    .work-items {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      flex: 1;
+    }
+
+    .shop-items {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--bg-tertiary);
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      transition: var(--transition);
+      text-decoration: none;
+      color: var(--text-primary);
+      width: 100%;
+      min-height: 80px;           /* bigger tap area */
+    }
+
+    .shop-items:hover {
+      transform: translateX(8px);
+      background: var(--accent-transparent);
+      border-color: var(--accent);
+    }
+
+    .shop-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .shop-item strong {
+      font-size: 1.2rem;
+    }
+
+    .arrow {
+      color: var(--accent);
+      font-size: 1.3rem;
+      transition: var(--transition);
+    }
+
+    .shop-items:hover .arrow {
+      transform: translateX(5px);
+    }
+
+    /* ----- about / skills ----- */
     .about {
       grid-column: 4 / 6;
       grid-row: 1;
-      background-color: var(--bg-secondary);
-      border-radius: 16px;
-      padding: 30px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      border: 1px solid var(--border);
-      box-shadow: var(--card-shadow);
-      position: relative;
-      z-index: 1;
     }
 
     .section-title {
@@ -172,47 +203,37 @@
     .about-content {
       display: flex;
       gap: 20px;
+      flex-wrap: wrap;
     }
 
     .skills {
-      flex: 1;
-    }
-
-    .skill {
-      margin-bottom: 15px;
+      flex: 1 1 150px;
     }
 
     .skill-name {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 18px;
-      font-size: 1rem;
-      color: var(--text-secondary);
       background-color: var(--bg-tertiary);
       padding: 12px;
       border-radius: 8px;
-      transition: var(--transition);
+      margin-bottom: 15px;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .skill-name span {
+      color: var(--accent);
     }
 
     .projects {
       grid-column: 1 / 3;
       grid-row: 2;
-      background-color: var(--bg-secondary);
-      border-radius: 16px;
-      padding: 30px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      border: 1px solid var(--border);
-      box-shadow: var(--card-shadow);
       cursor: pointer;
       transition: var(--transition);
-      position: relative;
-      z-index: 1;
     }
 
     .projects:hover {
-      background-color: var(--bg-secondary);
       transform: translateY(-5px);
     }
 
@@ -245,29 +266,10 @@
     }
 
     .connections {
-      background-color: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: var(--card-shadow);
-      overflow: hidden;
       flex: 1.5;
       display: flex;
       flex-direction: column;
-      position: relative;
-      z-index: 1;
-    }
-
-    .shop {
-      background-color: var(--bg-secondary);
-      border-radius: 12px;
       padding: 20px;
-      box-shadow: var(--card-shadow);
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      z-index: 1;
     }
 
     .cubes-grid {
@@ -277,7 +279,6 @@
       grid-template-rows: repeat(2, 1fr);
       gap: 20px;
     }
-
 
     .cube {
       background-color: var(--bg-tertiary);
@@ -291,18 +292,17 @@
       cursor: pointer;
       text-decoration: none;
       color: var(--text-primary);
-      position: relative;
-      z-index: 1;
+      padding: 15px 5px;
+      min-height: 100px;          /* touch friendly */
     }
 
     .cube:hover {
-      background-color: var(--bg-tertiary);
       transform: translateY(-5px);
+      border-color: var(--accent);
     }
 
     .cube-icon {
       font-size: 2.5rem;
-      margin-bottom: 5px;
       color: var(--accent);
     }
 
@@ -316,234 +316,147 @@
       color: var(--text-secondary);
     }
 
-    @media (max-width: 1100px) {
-      .container {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
-        height: auto;
-        overflow-y: auto;
-        max-height: none;
-        gap: 15px;
-
-        .cube-desc {
-          display: none;
-        }
-
-        .cube-title {
-          display: none;
-
-        }
-      }
-
-      .header,
-      .work,
-      .about,
-      .projects,
-      .connections-container {
-        grid-column: 1;
-      }
-
-      .header {
-        grid-row: 1;
-      }
-
-      .work {
-        grid-row: 2;
-      }
-
-      .about {
-        grid-row: 3;
-      }
-
-      .projects {
-        grid-row: 4;
-      }
-
-      .connections-container {
-        grid-row: 5;
-      }
+    .shop {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      min-width: 0;               
     }
 
-    @media (max-width: 768px) {
-      .name {
-        font-size: 2.5rem;
-      }
-
-      .about-content {
-        flex-direction: column;
-      }
+    .shop-title {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
     }
 
-    @media (max-width: 600px) {
-      body {
-        padding: 10px;
-      }
-
-      .container {
-        gap: 15px;
-        height: auto;
-        max-height: none;
-      }
-
-      .header,
-      .work,
-      .about,
-      .projects,
-      .connections,
-      .shop {
-        padding: 20px;
-        border-radius: 12px;
-      }
-
-      .name {
-        font-size: 2rem;
-      }
-
-      .title {
-        font-size: 1.2rem;
-      }
-
-      .description {
-        font-size: 1rem;
-        max-width: 100%;
-      }
-
-      .section-title,
-      .work-title,
-      .shop-title {
-        font-size: 1.5rem;
-      }
-
-      .about-content {
-        flex-direction: column;
-        gap: 15px;
-      }
-
-      .work-items,
-      .shop-items {
-        gap: 10px;
-      }
-
-      .work-item,
-      .shop-item {
-        padding: 12px 16px;
-      }
-
-      .cubes-grid {
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(3, 1fr);
-        gap: 15px;
-      }
-
-      .connections-container {
-        flex-direction: column;
-        gap: 15px;
-      }
-
-      .projects-content {
-        padding: 20px;
-      }
-
-      .projects-icon {
-        font-size: 2.5rem;
-      }
-
-      .projects-text {
-        font-size: 1.2rem;
-      }
+    .shop-title i {
+      margin-right: 15px;
     }
 
-    @media (max-width: 480px) {
-      body {
-        padding: 8px;
-      }
-
-      .header,
-      .work,
-      .about,
-      .projects,
-      .connections,
-      .shop {
-        padding: 15px;
-      }
-
-      .name {
-        font-size: 1.8rem;
-      }
-
-      .title {
-        font-size: 1.1rem;
-      }
-
-      .description {
-        font-size: 0.95rem;
-      }
-
-      .section-title,
-      .work-title,
-      .shop-title {
-        font-size: 1.3rem;
-        margin-bottom: 15px;
-      }
-
-      .work p,
-      .shop p {
-        font-size: 0.95rem;
-        margin-bottom: 15px;
-      }
-
-      .work-items,
-      .shop-items {
-        gap: 8px;
-      }
-
-      .work-item,
-      .shop-item {
-        padding: 10px 12px;
-        font-size: 0.9rem;
-      }
-
-      .cubes-grid {
-        grid-template-columns: 1fr;
-        grid-template-rows: repeat(6, 1fr);
-        gap: 10px;
-      }
-
-      .cube {
-        padding: 15px 10px;
-      }
-
-      .cube-icon {
-        font-size: 2rem;
-      }
-
-      .cube-title {
-        font-size: 1rem;
-      }
-
-      .cube-desc {
-        font-size: 0.8rem;
-      }
-
-      .skill-name {
-        padding: 10px;
-        font-size: 0.9rem;
-      }
-
-      .projects-icon {
-        font-size: 2rem;
-      }
-
-      .projects-text {
-        font-size: 1rem;
-      }
+    .slideshow-container {
+      position: relative;
+      width: 100%;
+      flex: 1;
+      min-height: 242px;           
+      overflow: hidden;
+      border-radius: 12px;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
     }
 
-    a {
+    .slides {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 20px 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: var(--bg-tertiary);
+      transition: transform 0.4s ease, opacity 0.3s ease;
+      opacity: 0;
+      transform: translateX(100%);
+      pointer-events: none;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: all;
+    }
+
+    .slide-icon {
+      font-size: 2.8rem;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .slide h3 {
+      font-size: 1.5rem;
+      margin-bottom: 6px;
+      color: var(--text-primary);
+    }
+
+    .slide p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      max-width: 90%;
+    }
+
+    .slide-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-transparent);
+      color: var(--accent);
+      padding: 10px 20px;          
+      border-radius: 30px;
       text-decoration: none;
+      font-weight: 500;
+      border: 1px solid var(--accent);
+      transition: var(--transition);
     }
 
-    /* GIF Popup Styles */
+    .slide-link:hover {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    .slide-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(30, 30, 30, 0.9);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      width: 24px;                
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      backdrop-filter: blur(4px);
+      transition: var(--transition);
+      font-size: 0.9rem;
+    }
+
+    .slide-nav:active {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    .prev { left: 8px; }
+    .next { right: 8px; }
+
+    .slide-dots {
+
+    }
+
+    .dot {
+
+    }
+
+    .dot.active {
+  
+    }
+
     .gif-popup {
       position: fixed;
       top: 0;
@@ -566,165 +479,160 @@
     }
 
     .gif-content {
-      max-width: 80%;
+      max-width: 90%;         
       max-height: 80%;
       border-radius: 10px;
       box-shadow: 0 0 30px rgba(208, 245, 201, 0.5);
     }
 
-    .work-title {
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      position: relative;
-      padding-bottom: 10px;
-    }
-
-    .work-title i {
-      font-size: 1.8rem;
-      margin-right: 15px;
-      color: var(--accent);
-      transition: var(--transition);
-    }
-
-    .work p {
-      font-size: 1.05rem;
-      line-height: 1.7;
-      color: var(--text-secondary);
-      padding-right: 20px;
-    }
-
-    .work-items {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      width: 100%;
-      margin-top: 20px;
-      height: 100%;
-      justify-content: flex-end;
-    }
-
-    .work-item {
-      background: var(--bg-tertiary);
-      padding: 15px 20px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: var(--transition);
-      border: 1px solid var(--border);
-      cursor: pointer;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .work-item:hover {
-      transform: translateX(10px);
-      background: var(--bg-tertiary);
-      border-color: var(--accent);
-    }
-
-    .work-items a.shop-items {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .work-item strong {
-      color: var(--text-primary);
-      font-weight: 600;
-      font-size: 1.05rem;
-    }
-
-    .work-item .arrow {
-      color: var(--accent);
-      font-size: 1.2rem;
-      transition: var(--transition);
-    }
-
-    .work-item:hover .arrow {
-      transform: translateX(5px);
-    }
-
-    .sm {
-      font-size: 1.5rem;
-    }
-
-    span {
-      color: var(--accent);
-    }
-
-    .shop-title {
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      position: relative;
-      padding-bottom: 10px;
-    }
-
-    .shop-title i {
-      font-size: 1.8rem;
-      margin-right: 15px;
-      color: var(--accent);
-      transition: var(--transition);
-    }
-
-    .shop p {
-      font-size: 1.05rem;
-      line-height: 1.7;
-      color: var(--text-secondary);
-      margin-bottom: 25px;
-      padding-right: 20px;
-    }
-
-    .shop-items {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background-color: var(--bg-tertiary);
-      padding: 20px;
-      border-radius: 10px;
-      height: 100%;
-      gap: 15px;
-      border: 1px solid var(--border);
-      box-shadow: var(--card-shadow);
-      transition: var(--transition);
-      text-decoration: none;
-      color: var(--text-primary);
-      position: relative;
-      z-index: 1;
-    }
-
-    .shop-items:hover {
-      transform: translateX(10px);
-      background: var(--accent-transparent);
-      border-color: var(--accent);
-    }
-
-    .work-items .shop-items .shop-item {
-      height: 100%;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px;
-    }
-
-
     a {
       text-decoration: none;
       color: var(--text-primary);
     }
+
+    @media (max-width: 900px) {
+      body {
+        padding: 10px;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+      }
+
+      .header, .work, .about, .projects, .connections-container {
+        width: 100%;
+        grid-column: auto !important;  
+      }
+
+      .connections-container {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .connections, .shop {
+        width: 100%;
+        flex: auto;
+      }
+
+      .cubes-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+        gap: 16px;
+      }
+
+      .cube {
+        padding: 18px 8px;
+      }
+
+      .slideshow-container {
+        min-height: 260px;
+      }
+
+      .slide-nav {
+        width: 48px;
+        height: 48px;
+      }
+
+      .name {
+        font-size: 2.8rem;
+      }
+      .title {
+        font-size: 1.3rem;
+      }
+      .work-title, .section-title, .shop-title {
+        font-size: 1.6rem;
+      }
+    }
+
+    @media (max-width: 500px) {
+      body {
+        padding: 6px;
+      }
+
+      .header, .work, .about, .projects, .connections, .shop {
+        padding: 20px 16px;
+      }
+
+      .name {
+        font-size: 2.2rem;
+      }
+
+      .description {
+        max-width: 100%;
+        font-size: 1rem;
+      }
+
+      .cubes-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .cube {
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 16px;
+        padding: 16px;
+      }
+
+      .cube-icon {
+        font-size: 2rem;
+        margin-bottom: 0;
+      }
+
+      .cube-title {
+        font-size: 1.2rem;
+      }
+
+      .cube-desc {
+        font-size: 0.9rem;
+      }
+
+      .projects-icon {
+        font-size: 2.8rem;
+      }
+
+      .projects-text {
+        font-size: 1.3rem;
+      }
+
+      .about-content {
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .slide-nav {
+        width: 42px;
+        height: 42px;
+      }
+
+      .shop-title {
+        font-size: 1.5rem;
+      }
+
+      .slide h3 {
+        font-size: 1.3rem;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .cube {
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+      }
+      .slide-link {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+      }
+    }
+    strong {
+      color: var(--accent);
+    }
   </style>
 </head>
-
 <body>
   <div class="mouse-follower"></div>
 
@@ -732,10 +640,8 @@
     <div class="header">
       <h1 class="name">A_I_X</h1>
       <p class="title">Frontend Developer & UI Designer</p>
-      <p class="description">I create beautiful, and intresting interfaces. With over 3 years of experience in web
-        development. I mosty work with pure css, html, js.</p>
+      <p class="description">I create beautiful, interesting interfaces. With over 3 years of experience in web development. I mostly work with pure CSS, HTML, JS. No im not a spider.</p>
     </div>
-
 
     <div class="work">
       <h2 class="work-title"><i class="fas fa-briefcase"></i>My Services</h2>
@@ -749,193 +655,202 @@
         </a>
       </div>
     </div>
+
     <div class="about">
       <h2 class="section-title"><i class="fas fa-user"></i> Skills</h2>
       <div class="about-content">
         <div class="skills">
-          <div class="skill">
-            <div class="skill-name">
-              <span>HTML/CSS</span>
-            </div>
-          </div>
-          <div class="skill">
-            <div class="skill-name">
-              <span>JavaScript</span>
-            </div>
-          </div>
-          <div class="skill">
-            <div class="skill-name">
-              <span>Three.js</span>
-            </div>
-          </div>
+          <div class="skill-name"><span>HTML/CSS</span></div>
+          <div class="skill-name"><span>JavaScript</span></div>
+          <div class="skill-name"><span>Three.js</span></div>
         </div>
         <div class="skills">
-          <div class="skill">
-            <div class="skill-name">
-              <span>UI/UX Design</span>
-            </div>
-          </div>
-          <div class="skill">
-            <div class="skill-name">
-              <span>Graphics Design</span>
-            </div>
-          </div>
-          <div class="skill">
-            <div class="skill-name">
-              <span>Supabase (meh)</span>
-            </div>
-          </div>
+          <div class="skill-name"><span>UI/UX Design</span></div>
+          <div class="skill-name"><span>Graphics Design</span></div>
+          <div class="skill-name"><span>Supabase (meh)</span></div>
         </div>
       </div>
     </div>
+
     <div class="projects">
       <div class="projects-content">
-        <div class="projects-icon">
-          <i class="fas fa-folder-open"></i>
-        </div>
+        <div class="projects-icon"><i class="fas fa-folder-open"></i></div>
         <p class="projects-text">View My Projects</p>
       </div>
     </div>
+
     <div class="connections-container">
       <div class="connections">
         <h2 class="section-title"><i class="fas fa-user-friends"></i> Connections</h2>
         <div class="cubes-grid">
           <a href="https://github.com/aix-32" target="_blank" class="cube">
-            <div class="cube-icon">
-              <i class="fab fa-github"></i>
-            </div>
-            <div class="cube-title">GitHub</div>
-            <div class="cube-desc">See my code</div>
+            <i class="fab fa-github cube-icon"></i>
+            <span class="cube-title">GitHub</span>
+            <span class="cube-desc">See my code</span>
           </a>
           <a href="https://youtube.com/@A_I_X" target="_blank" class="cube">
-            <div class="cube-icon">
-              <i class="fab fa-youtube"></i>
-            </div>
-            <div class="cube-title">YouTube</div>
-            <div class="cube-desc">My vids.</div>
+            <i class="fab fa-youtube cube-icon"></i>
+            <span class="cube-title">YouTube</span>
+            <span class="cube-desc">My vids.</span>
           </a>
           <a href="https://www.youtube.com/@Aural-exe" target="_blank" class="cube">
-            <div class="cube-icon">
-              <i class="fa fa-play"></i>
-            </div>
-            <div class="cube-title">Music</div>
-            <div class="cube-desc">Listen to my music!</div>
+            <i class="fa fa-play cube-icon"></i>
+            <span class="cube-title">Music</span>
+            <span class="cube-desc">Listen to my music!</span>
           </a>
           <a href="https://www.instagram.com/a_i_x32/" target="_blank" class="cube">
-            <div class="cube-icon">
-              <i class="fab fa-instagram"></i>
-            </div>
-            <div class="cube-title">Instagram</div>
-            <div class="cube-desc">Follow me!</div>
+            <i class="fab fa-instagram cube-icon"></i>
+            <span class="cube-title">Instagram</span>
+            <span class="cube-desc">Follow me!</span>
           </a>
           <a href="mailto:work.aix32@gmail.com" target="_blank" class="cube">
-            <div class="cube-icon">
-              <i class="fas fa-envelope"></i>
-            </div>
-            <div class="cube-title">Email</div>
-            <div class="cube-desc">Send me a message!</div>
+            <i class="fas fa-envelope cube-icon"></i>
+            <span class="cube-title">Email</span>
+            <span class="cube-desc">Send me a message!</span>
           </a>
           <a href="https://discord.gg/nVgUe4qrhr" target="_blank" class="cube">
-            <div class="cube-icon">
-              <i class="fab fa-discord"></i>
-            </div>
-            <div class="cube-title">Discord</div>
-            <div class="cube-desc">Join my server!</div>
+            <i class="fab fa-discord cube-icon"></i>
+            <span class="cube-title">Discord</span>
+            <span class="cube-desc">Join my server!</span>
           </a>
         </div>
       </div>
-      <div class="shop">
-        <h2 class="shop-title"><i class="fas fa-book"></i>My book</h2>
-        <p>It's a cool book I made; it's a manifesto on my own economic system!</p>
 
-        <a href="https://aix-32.github.io/Meritcommons/" class="shop-items">
-          <div class="shop-item">
-            <strong>Read</strong>
-            <i class="fas fa-arrow-right arrow"></i>
+      <div class="shop">
+        <h2 class="shop-title"><i class="fas fa-star"></i> featured</h2>
+        <div class="slideshow-container">
+          <div class="slides">
+            <div class="slide active">
+              <i class="fas fa-book slide-icon"></i>
+              <h3>Merit Commons</h3>
+              <p>Economic manifesto, a new system based on contribution.</p>
+              <a href="https://aix-32.github.io/Meritcommons/" class="slide-link">Read book <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="slide">
+              <i class="fas fa-book slide-icon"></i>
+              <h3>BURNING IN HEAVEN.</h3>
+              <p>A story about what if god wasnt what we thought he was. Still working on it.</p>
+              <a href="https://aix-32.github.io/BURNINGINHEAVEN" class="slide-link">View <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="slide">
+              <i class="fas fa-cubes slide-icon"></i>
+              <h3>crubs</h3>
+              <p>A small text based farming game</p>
+              <a href="https://aix-32.github.io/crubs/" class="slide-link">Play <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="slide">
+              <i class="fas fa-cubes slide-icon"></i>
+              <h3>Pazator</h3>
+              <p>Mass data container with AI prediction features made for surveillance.</p>
+              <a href="https://aix-32.github.io/Pazator/" class="slide-link">Play <i class="fas fa-arrow-right"></i></a>
+            </div>
           </div>
-        </a>
+          <button class="slide-nav prev"><i class="fas fa-chevron-left"></i></button>
+          <button class="slide-nav next"><i class="fas fa-chevron-right"></i></button>
+          <div class="slide-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
+  <div class="gif-popup">
+    <img src="https://media1.tenor.com/m/6COMq6z3l5oAAAAd/bosnov-67.gif" alt="secret" class="gif-content">
+  </div>
+
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const skillLevels = document.querySelectorAll('.skill-level');
-
-      skillLevels.forEach(level => {
-        const width = level.style.width;
-        level.style.width = '0';
-
-        setTimeout(() => {
-          level.style.transition = 'width 1s ease-in-out';
-          level.style.width = width;
-        }, 500);
+    (function() {
+      const follower = document.querySelector('.mouse-follower');
+      let mouseX = 0, mouseY = 0, posX = 0, posY = 0, speed = 0.08;
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
       });
+      function animateFollower() {
+        const distX = mouseX - posX;
+        const distY = mouseY - posY;
+        posX += distX * speed;
+        posY += distY * speed;
+        follower.style.left = `${posX}px`;
+        follower.style.top = `${posY}px`;
+        requestAnimationFrame(animateFollower);
+      }
+      animateFollower();
 
       document.querySelector('.projects').addEventListener('click', function () {
         window.open('./launcher/', '_self');
       });
 
-
-      const follower = document.querySelector('.mouse-follower');
-      let mouseX = 0;
-      let mouseY = 0;
-      let posX = 0;
-      let posY = 0;
-      let speed = 0.08;
-
-      document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-      });
-
-      function animateFollower() {
-        const distX = mouseX - posX;
-        const distY = mouseY - posY;
-
-        posX += distX * speed;
-        posY += distY * speed;
-
-        follower.style.left = `${posX}px`;
-        follower.style.top = `${posY}px`;
-
-        requestAnimationFrame(animateFollower);
-      }
-
-      animateFollower();
-      
       const pressedKeys = new Set();
-      
-      const gifPopup = document.createElement('div');
-      gifPopup.className = 'gif-popup';
-      gifPopup.innerHTML = `
-        <img src="https://media1.tenor.com/m/6COMq6z3l5oAAAAd/bosnov-67.gif" alt="Secret GIF" class="gif-content" />
-      `;
-      document.body.appendChild(gifPopup);
-      
-      gifPopup.addEventListener('click', () => {
-        gifPopup.classList.remove('show');
-      });
-      
+      const gifPopup = document.querySelector('.gif-popup');
+      gifPopup.addEventListener('click', () => gifPopup.classList.remove('show'));
       document.addEventListener('keydown', (e) => {
         if (e.key === '6' || e.key === '7') {
           pressedKeys.add(e.key);
-          
           if (pressedKeys.has('6') && pressedKeys.has('7')) {
             gifPopup.classList.add('show');
-            
             e.preventDefault();
           }
         }
       });
-      
       document.addEventListener('keyup', (e) => {
-        if (e.key === '6' || e.key === '7') {
-          pressedKeys.delete(e.key);
-        }
+        if (e.key === '6' || e.key === '7') pressedKeys.delete(e.key);
       });
-    });
+
+      const slides = document.querySelectorAll('.slide');
+      const prevBtn = document.querySelector('.prev');
+      const nextBtn = document.querySelector('.next');
+      const dots = document.querySelectorAll('.dot');
+      let currentIndex = 0;
+      const total = slides.length;
+      let autoTimer;
+
+      function showSlide(index) {
+        if (index < 0) index = total - 1;
+        if (index >= total) index = 0;
+        slides.forEach((s, i) => s.classList.toggle('active', i === index));
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+        currentIndex = index;
+      }
+      function nextSlide() { showSlide(currentIndex + 1); }
+      function prevSlide() { showSlide(currentIndex - 1); }
+      function startAuto(interval = 5000) {
+        stopAuto();
+        autoTimer = setInterval(nextSlide, interval);
+      }
+      function stopAuto() { clearInterval(autoTimer); }
+
+      const container = document.querySelector('.slideshow-container');
+      container.addEventListener('mouseenter', stopAuto);
+      container.addEventListener('mouseleave', () => startAuto(5000));
+      container.addEventListener('touchstart', stopAuto, { passive: true });
+      container.addEventListener('touchend', () => startAuto(5000));
+
+      prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        prevSlide();
+        stopAuto();
+        startAuto(5000);
+      });
+      nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        nextSlide();
+        stopAuto();
+        startAuto(5000);
+      });
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+          showSlide(i);
+          stopAuto();
+          startAuto(5000);
+        });
+      });
+
+      startAuto(5000);
+    })();
   </script>
 </body>
-
 </html>
