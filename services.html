@@ -1,1083 +1,850 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AIX - dev</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap"
-    rel="stylesheet">
+  <title>Xyper · dev portfolio</title>
+  <link rel="icon" href="./favicon-32x32.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    *,
-    *::before,
-    *::after {
+    * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
     }
-
     :root {
-      --green: #c8f0be;
-      --green-dim: rgba(200, 240, 190, 0.12);
-      --green-border: rgba(200, 240, 190, 0.2);
-      --bg: #0a0a0a;
-      --bg1: #111;
-      --bg2: #181818;
-      --txt: #efefef;
-      --mute: #6a6a6a;
-      --mono: 'DM Mono', monospace;
-      --sans: 'Barlow Condensed', sans-serif;
+      --accent: #d0f5c9;
+      --accent-dark: #a8d8a1;
+      --accent-glow: rgba(208, 245, 201, 0.3);
+      --bg-primary: #0e0e0e;
+      --bg-secondary: #171717;
+      --bg-tertiary: #212121;
+      --text-primary: #f0f0f0;
+      --text-secondary: #a8a8a8;
+      --border-light: rgba(208, 245, 201, 0.08);
+      --border-accent: rgba(208, 245, 201, 0.25);
+      --card-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.7);
+      --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
     body {
-      background: var(--bg);
-      color: var(--txt);
-      font-family: var(--sans);
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
       min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-
-
-    .wrap {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 2rem;
+      padding: 2rem 1.5rem;
+      display: flex;
+      justify-content: center;
       position: relative;
-      z-index: 1;
+      line-height: 1.5;
     }
-
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      background: rgba(10, 10, 10, 0.85);
-      backdrop-filter: blur(12px);
+    .mouse-follower {
+      position: fixed;
+      width: 400px;
+      height: 400px;
+      background: #96c09060;
+      border-radius: 50%;
+      filter: blur(100px);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.4;
+      transition: transform 0.1s;
     }
-
-    nav .wrap {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 58px;
+    .blob {
+      position: fixed;
+      width: 60vmax;
+      height: 60vmax;
+      background: var(--accent);
+      opacity: 0.05;
+      filter: blur(120px);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -2;
     }
-
-    .nav-logo {
-      font-size: 1.1rem;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      color: var(--green);
-      text-decoration: none;
+    .blob-1 {
+      top: -20vh;
+      left: -20vw;
     }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
+    .blob-2 {
+      bottom: -10vh;
+      right: -10vw;
+      background: #b0e0a8;
     }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--mute);
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      letter-spacing: 0.05em;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover {
-      color: var(--txt);
-    }
-
-    .hero {
-      padding: 7rem 0 5rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 4rem;
-      align-items: end;
-    }
-
-    .hero-left {}
-
-    .hero-right {
+    .container {
+      max-width: 1300px;
+      width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 1.4rem;
-      padding-bottom: 0.4rem;
-      min-width: 220px;
+      gap: 2.2rem;
+      position: relative;
+      z-index: 5;
     }
-
-    .hero-stat {
-      border-left: 2px solid var(--green-border);
-      padding-left: 1rem;
+    .header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 3.5rem 1.5rem 2rem;
+      background: rgba(23, 23, 23, 0.7);
+      backdrop-filter: blur(8px);
+      border-radius: 60px 60px 40px 40px;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--card-shadow);
     }
-
-    .hero-stat-val {
-      font-size: 1.5rem;
+    .name {
+      font-size: clamp(2.8rem, 10vw, 5rem);
       font-weight: 800;
       letter-spacing: -0.02em;
-      color: var(--txt);
-      line-height: 1;
-    }
-
-    .hero-stat-label {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      color: var(--mute);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-top: 0.25rem;
-    }
-
-    h1 {
-      font-size: clamp(3.8rem, 9vw, 7.5rem);
-      font-weight: 800;
-      letter-spacing: -0.01em;
-      line-height: 0.95;
-      margin-bottom: 1.8rem;
-      color: var(--txt);
-      text-transform: uppercase;
-    }
-
-    h1 em {
-      font-style: normal;
+      background: linear-gradient(135deg, #fff, var(--accent));
+      -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      -webkit-text-stroke: 1px var(--green);
+      line-height: 1.1;
     }
-
-    .hero-sub {
-      font-family: var(--mono);
-      font-size: 0.88rem;
-      color: var(--mute);
-      max-width: 420px;
-      line-height: 1.8;
+    .description {
+      font-size: 1.2rem;
+      max-width: 700px;
+      color: var(--text-secondary);
     }
-
-    .hero-actions {
-      margin-top: 2.5rem;
+    .subsub {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      margin-top: 0.4rem;
+    }
+    .section {
+      background: var(--bg-secondary);
+      border-radius: 48px;
+      padding: 3rem 2.8rem;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+      overflow: hidden;
+    }
+    .section-title {
+      font-size: 2.4rem;
+      font-weight: 600;
+      margin-bottom: 2.5rem;
       display: flex;
+      align-items: center;
       gap: 1rem;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+    .section-title i {
+      font-size: 2.2rem;
+      opacity: 0.9;
+    }
+    .skills-grid {
+      display: flex;
       flex-wrap: wrap;
+      gap: 1rem 1.8rem;
+      justify-content: center;
+      margin: 1rem 0 0.5rem;
     }
-
-    @media (max-width: 700px) {
-      .hero {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-      }
-
-      .hero-right {
-        flex-direction: row;
-        flex-wrap: wrap;
-      }
-    }
-
-    .btn {
+    .skill-badge {
+      background: var(--bg-tertiary);
+      padding: 1rem 2rem 1rem 1.8rem;
+      border-radius: 100px;
       display: inline-flex;
       align-items: center;
-      gap: 0.6rem;
-      padding: 0.75rem 1.8rem;
-      border-radius: 4px;
-      font-family: var(--mono);
-      font-size: 0.82rem;
-      letter-spacing: 0.04em;
-      text-decoration: none;
-      transition: all 0.2s;
-      cursor: pointer;
-      border: none;
-    }
-
-    .btn-primary {
-      background: var(--green);
-      color: #0a0a0a;
-      font-weight: 500;
-    }
-
-    .btn-primary:hover {
-      background: #aee0a4;
-    }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--mute);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--green);
-      color: var(--green);
-    }
-
-    section {
-      padding: 6rem 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-    }
-
-    .sec-label {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--mute);
-      margin-bottom: 3rem;
-      display: flex;
-      align-items: center;
       gap: 0.8rem;
+      border: 1px solid var(--border-light);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+      font-weight: 500;
+      font-size: 1.2rem;
+      backdrop-filter: blur(4px);
     }
-
-    .sec-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: rgba(255, 255, 255, 0.06);
+    .skill-badge i {
+      color: var(--accent);
+      font-size: 1.6rem;
+      width: 1.8rem;
     }
-
-    h2 {
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--txt);
-    }
-
-    .stack-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-top: 2.5rem;
-    }
-
-    .tag {
-      font-family: var(--mono);
-      font-size: 0.8rem;
-      padding: 0.45rem 1.1rem;
-      border-radius: 3px;
-      border: 1px solid var(--green-border);
-      color: var(--green);
-      background: var(--green-dim);
-      letter-spacing: 0.02em;
-      white-space: nowrap;
-    }
-
-    .tag.dim {
-      border-color: rgba(255, 255, 255, 0.07);
-      color: var(--mute);
-      background: rgba(255, 255, 255, 0.03);
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 6px;
-      overflow: hidden;
-      margin-top: 2.5rem;
-    }
-
-    .about-cell {
-      background: var(--bg1);
-      padding: 2rem 2.2rem;
-    }
-
-    .about-cell-label {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--mute);
-      margin-bottom: 0.8rem;
-    }
-
-    .about-cell-value {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--txt);
-    }
-
-    .about-cell-sub {
-      font-family: var(--mono);
-      font-size: 0.8rem;
-      color: var(--mute);
-      margin-top: 0.3rem;
-    }
-
-    .services-list {
-      margin-top: 2.5rem;
-      display: flex;
-      flex-direction: column;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 6px;
-      overflow: hidden;
-    }
-
-    .svc {
-      display: grid;
-      grid-template-columns: 40px 1fr auto;
-      align-items: center;
-      gap: 1.5rem;
-      padding: 1.8rem 2.2rem;
-      background: var(--bg1);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      transition: background 0.2s;
-    }
-
-    .svc:last-child {
-      border-bottom: none;
-    }
-
-    .svc:hover {
-      background: var(--bg2);
-    }
-
-    .svc-num {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      color: var(--mute);
-    }
-
-    .svc-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-    }
-
-    .svc-desc {
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      color: var(--mute);
-      margin-top: 0.2rem;
-    }
-
-    .svc-icon {
-      color: var(--green);
-      font-size: 1.1rem;
-      opacity: 0.6;
-    }
-
-    .carousel-wrap {
-      margin-top: 2.5rem;
-      position: relative;
-      border-radius: 6px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      aspect-ratio: 16 / 8;
-      background: var(--bg1);
-    }
-
-    .c-slide {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-
-    .c-slide.active {
-      opacity: 1;
-    }
-
-    .c-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      filter: brightness(0.65);
-    }
-
-    .c-meta {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 2rem 2.4rem;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
-    }
-
-    .c-title {
-      font-size: 1.8rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-
-    .c-desc {
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      color: rgba(255, 255, 255, 0.55);
-      margin-top: 0.3rem;
-    }
-
-    .c-date {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      color: var(--green);
-      margin-top: 0.5rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .c-controls {
-      position: absolute;
-      top: 1.2rem;
-      right: 1.4rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .c-btn {
-      width: 34px;
-      height: 34px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(6px);
-      border-radius: 3px;
-      color: var(--txt);
+    .skill-note {
       font-size: 0.9rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
+      color: var(--text-secondary);
+      margin-left: 0.5rem;
+      font-style: italic;
     }
-
-    .c-btn:hover {
-      background: var(--green);
-      color: #0a0a0a;
-      border-color: transparent;
-    }
-
-    .c-dots {
-      display: flex;
-      gap: 5px;
-      position: absolute;
-      bottom: 1.4rem;
-      right: 2.4rem;
-    }
-
-    .c-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.2);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .c-dot.active {
-      background: var(--green);
-      width: 18px;
-      border-radius: 3px;
-    }
-
-    .port-grid {
+    .service-deck {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 6px;
-      overflow: hidden;
-      margin-top: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.8rem;
+      margin-top: 0.5rem;
     }
-
-    .port-item {
-      background: var(--bg1);
-      padding: 2rem 2rem 1.8rem;
+    .service-card {
+      background: var(--bg-tertiary);
+      padding: 2rem 1.8rem;
+      border-radius: 32px;
+      border: 1px solid var(--border-light);
+      transition: var(--transition);
+    }
+    .service-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-8px) rotate(0.5deg);
+      background: #1f1f1f;
+    }
+    .service-card i {
+      font-size: 2.4rem;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+    }
+    .service-card h3 {
+      font-size: 1.6rem;
+      margin-bottom: 0.8rem;
+      color: white;
+    }
+    .service-card p {
+      color: var(--text-secondary);
+    }
+    .portfolio-showcase {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0 1rem;
+    }
+    .port-card {
+      background: var(--bg-tertiary);
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+      transition: var(--transition);
       text-decoration: none;
       color: inherit;
       display: flex;
       flex-direction: column;
-      gap: 0.8rem;
-      transition: background 0.2s;
     }
-
-    .port-item:hover {
-      background: var(--bg2);
+    .port-card:hover {
+      transform: scale(1.02) translateY(-6px);
+      border-color: var(--accent);
+      box-shadow: 0 18px 30px -12px var(--accent-glow);
     }
-
-    .port-icon {
-      width: 36px;
-      height: 36px;
-      border: 1px solid var(--green-border);
-      border-radius: 3px;
+    .port-img {
+      height: 160px;
+      background: linear-gradient(140deg, #2a2a2a, #1d1d1d);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--green);
-      font-size: 0.9rem;
+      font-size: 3.2rem;
+      color: var(--accent);
     }
-
-    .port-name {
-      font-size: 1rem;
-      font-weight: 700;
-    }
-
-    .port-desc {
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      color: var(--mute);
-      flex: 1;
-    }
-
-    .port-link-text {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--green);
-      letter-spacing: 0.04em;
-    }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 6px;
-      overflow: hidden;
-      margin-top: 2.5rem;
-    }
-
-    .plan {
-      background: var(--bg1);
-      padding: 2.5rem 2.4rem;
-      position: relative;
-    }
-
-    .plan.highlighted {
-      background: var(--bg2);
-    }
-
-    .plan-badge {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #0a0a0a;
-      background: var(--green);
-      padding: 0.2rem 0.7rem;
-      border-radius: 2px;
-      display: inline-block;
-      margin-bottom: 1.2rem;
-    }
-
-    .plan-name {
-      font-size: 1.4rem;
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-    }
-
-    .plan-price {
-      font-size: 3rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: var(--txt);
-      line-height: 1;
-      margin-bottom: 0.4rem;
-    }
-
-    .plan-price sup {
-      font-size: 1.2rem;
-      font-weight: 400;
-      vertical-align: super;
-    }
-
-    .plan-note {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--mute);
-      margin-bottom: 2rem;
-    }
-
-    .plan-features {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .plan-features li {
-      font-family: var(--mono);
-      font-size: 0.82rem;
-      color: var(--mute);
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-    }
-
-    .plan-features li::before {
-      content: '→';
-      color: var(--green);
-      font-size: 0.7rem;
-    }
-
-    .process-row {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 1px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 6px;
-      overflow: hidden;
-      margin-top: 2.5rem;
-    }
-
-    .step {
-      background: var(--bg1);
-      padding: 2rem 1.8rem;
-    }
-
-    .step-num {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.1em;
-      color: var(--green);
-      margin-bottom: 1.2rem;
-      text-transform: uppercase;
-    }
-
-    .step-title {
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 0.4rem;
-    }
-
-    .step-desc {
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      color: var(--mute);
-    }
-
-    .cta-block {
-      padding: 6rem 0;
+    .port-content {
+      padding: 1.5rem 1.2rem 1.8rem;
       text-align: center;
     }
-
-    .cta-block h2 {
-      font-size: clamp(2.5rem, 7vw, 5rem);
+    .port-content h4 {
+      font-size: 1.3rem;
+      margin-bottom: 0.4rem;
+    }
+    .port-content p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
       margin-bottom: 1rem;
     }
-
-    .cta-block p {
-      font-family: var(--mono);
+    .port-link {
+      background: rgba(208, 245, 201, 0.08);
+      padding: 0.4rem 1.6rem;
+      border-radius: 60px;
+      display: inline-block;
+      border: 1px solid var(--border-accent);
       font-size: 0.9rem;
-      color: var(--mute);
-      margin-bottom: 2.5rem;
+      font-weight: 600;
+      color: var(--accent);
     }
-
-    footer {
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      padding: 2rem 0;
+    .carousel-block {
+      margin: 2rem 0 0;
+      border-radius: 36px;
+      overflow: hidden;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-light);
+      aspect-ratio: 16/9;
+      position: relative;
     }
-
-    footer .wrap {
+    .carousel {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .carousel-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      background-color: #1a1a1a;
+    }
+    .carousel-slide.active {
+      opacity: 1;
+    }
+    .slide-content {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .portfolio-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .fade-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 40%;
+      background: linear-gradient(to bottom,
+          rgba(0, 0, 0, 0.85) 0%,
+          rgba(0, 0, 0, 0.6) 30%,
+          rgba(0, 0, 0, 0.2) 70%,
+          transparent 100%);
+      pointer-events: none;
+      z-index: 5;
+    }
+    .project-metadata {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 1.8rem 2.2rem;
+      z-index: 10;
+      color: white;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .project-title {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      max-width: 80%;
+    }
+    .project-desc {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      font-weight: 400;
+      max-width: 70%;
+      margin-top: 0.2rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+    .project-date {
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.8;
+      margin-top: 0.2rem;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      gap: 6px;
     }
-
-    .foot-txt {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--mute);
+    .project-date i {
+      color: var(--accent);
+      font-size: 0.8rem;
     }
-
-    @media (max-width: 780px) {
-
-      .about-grid,
-      .pricing-grid {
-        grid-template-columns: 1fr;
+    .carousel-controls {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 1rem;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(6px);
+      padding: 0.5rem 1rem;
+      border-radius: 60px;
+      border: 1px solid var(--border-accent);
+      z-index: 20;
+    }
+    .carousel-btn {
+      background: transparent;
+      border: none;
+      color: var(--accent);
+      font-size: 1.5rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .carousel-btn:hover {
+      background: var(--accent);
+      color: black;
+    }
+    .carousel-indicators {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #555;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .indicator.active {
+      background: var(--accent);
+      transform: scale(1.3);
+    }
+    .pricing-pack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .package {
+      flex: 1 1 280px;
+      background: var(--bg-tertiary);
+      padding: 2.4rem 2rem;
+      border-radius: 36px;
+      border: 1px solid var(--border-light);
+      position: relative;
+      transition: var(--transition);
+    }
+    .package.popular {
+      border-color: var(--accent);
+      box-shadow: 0 0 25px var(--accent-glow);
+    }
+    .popular-badge {
+      position: absolute;
+      top: 18px;
+      right: -24px;
+      background: var(--accent);
+      color: #121212;
+      padding: 0.3rem 2rem;
+      transform: rotate(35deg);
+      font-size: 0.8rem;
+      font-weight: 700;
+      border-radius: 4px;
+    }
+    .package-name {
+      font-size: 1.8rem;
+      color: var(--accent);
+      display: flex;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+    .price {
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+    .price span {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .package-features {
+      list-style: none;
+    }
+    .package-features li {
+      padding: 0.5rem 0;
+      display: flex;
+      gap: 0.8rem;
+      color: var(--text-secondary);
+    }
+    .package-features i {
+      color: var(--accent);
+    }
+    .discord-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .discord-icon {
+      font-size: 4rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .cta-big {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .discord-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      background: #2a2a2a;
+      padding: 1.2rem 2.8rem;
+      border-radius: 60px;
+      border: 1px solid var(--border-accent);
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 1.8rem 0 1rem;
+      transition: var(--transition);
+      text-decoration: none;
+      color: white;
+    }
+    .discord-link:hover {
+      background: var(--accent);
+      color: #121212;
+      border-color: white;
+      transform: scale(1.05);
+    }
+    .discord-link i {
+      font-size: 2rem;
+    }
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin: 2rem 0 1.5rem;
+    }
+    .step {
+      background: var(--bg-tertiary);
+      padding: 1.8rem 1.2rem;
+      border-radius: 28px;
+      border: 1px solid var(--border-light);
+    }
+    .step i {
+      color: var(--accent);
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .fun-fact {
+      background: rgba(208, 245, 201, 0.05);
+      border-left: 5px solid var(--accent);
+      padding: 1.5rem 2rem;
+      border-radius: 2rem;
+    }
+    @media (max-width: 800px) {
+      .process-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
-
-      .port-grid {
-        grid-template-columns: 1fr;
+      .section {
+        padding: 2rem 1.5rem;
       }
-
-      .process-row {
-        grid-template-columns: repeat(3, 1fr);
+      .section-title {
+        font-size: 2rem;
       }
-
-      .nav-links {
-        display: none;
+      .project-title {
+        font-size: 1.6rem;
+      }
+      .project-desc {
+        font-size: 0.9rem;
+        max-width: 90%;
       }
     }
-
     @media (max-width: 500px) {
-      .process-row {
+      .process-grid {
         grid-template-columns: 1fr;
       }
-
-      .hero {
-        padding: 5rem 0 4rem;
+      .skill-badge {
+        width: 100%;
+        justify-content: center;
       }
-
-      .svc {
-        grid-template-columns: 1fr;
-        gap: 0.3rem;
+      .project-metadata {
+        padding: 1rem 1.2rem;
       }
-
-      .svc-num,
-      .svc-icon {
-        display: none;
+      .project-title {
+        font-size: 1.3rem;
+      }
+      .project-desc {
+        font-size: 0.8rem;
       }
     }
-
-    [data-reveal] {
+    .fade-up {
       opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    [data-reveal].visible {
-      opacity: 1;
-      transform: translateY(0);
+      transform: translateY(20px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
     }
   </style>
 </head>
-
 <body>
-  <nav>
-    <div class="wrap">
-      <a href="https://aix-32.github.io/Xyper/" class="nav-logo">AIX</a>
-      <ul class="nav-links">
-        <li><a href="#stack">stack</a></li>
-        <li><a href="#work">work</a></li>
-        <li><a href="#pricing">pricing</a></li>
-        <li><a href="#contact">contact</a></li>
-      </ul>
-    </div>
-  </nav>
+  <div class="mouse-follower"></div>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
 
-  <div class="wrap">
-    <div class="hero" data-reveal>
-      <div class="hero-left">
-        <h1>I make<br>basically<br>everything.</h1>
-        <p class="hero-sub">Frontend dev based in Denmark. No fancy tools, no overhead - just direct building.</p>
-        <div class="hero-actions">
-          <a href="https://discord.gg/74c9RBYD4R" target="_blank" class="btn btn-primary">
-            <i class="fab fa-discord"></i> start on discord
-          </a>
-          <a href="#work" class="btn btn-ghost">see work →</a>
-        </div>
-      </div>
-      <div class="hero-right">
-        <div class="hero-stat">
-          <div class="hero-stat-val">3 yrs</div>
-          <div class="hero-stat-label">experience</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-val">Denmark</div>
-          <div class="hero-stat-label">based in</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-val">$44+</div>
-          <div class="hero-stat-label">starting at</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-val">1 week</div>
-          <div class="hero-stat-label">turnaround</div>
-        </div>
+  <div class="container">
+
+    <div class="header">
+      <h1 class="name">AIX, a dev.</h1>
+      <p class="description">I make basically everything, without fancy tools. Thats what i do.</p>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title"><i class="fas fa-crown"></i> tech stack + skills</h2>
+      <div class="skills-grid">
+        <div class="skill-badge"><i class="fab fa-html5"></i> HTML </div>
+        <div class="skill-badge"><i class="fab fa-js"></i> JavaScript </div>
+        <div class="skill-badge"><i class="fas fa-cube"></i> Three.js </div>
+        <div class="skill-badge"><i class="fas fa-paint-brush"></i> UI/UX Design</div>
+        <div class="skill-badge"><i class="fas fa-vector-square"></i> Graphics Design</div>
+        <div class="skill-badge"><i class="fas fa-database"></i> sql <span class="skill-note">(meh)</span></div>
+        <div class="skill-badge"><i class="fab fa-css3"></i> CSS </div>
       </div>
     </div>
-  </div>
 
-  <div class="wrap" id="stack">
-    <section data-reveal>
-      <div class="sec-label">01 - tech stack</div>
-      <h2>What I work with</h2>
-      <div class="stack-row">
-        <span class="tag"><i class="fab fa-html5" style="margin-right:6px"></i>HTML</span>
-        <span class="tag"><i class="fab fa-css3-alt" style="margin-right:6px"></i>CSS</span>
-        <span class="tag"><i class="fab fa-js" style="margin-right:6px"></i>JavaScript</span>
-        <span class="tag"><i class="fas fa-cube" style="margin-right:6px"></i>Three.js</span>
-        <span class="tag"><i class="fas fa-paint-brush" style="margin-right:6px"></i>UI / UX Design</span>
-        <span class="tag"><i class="fas fa-vector-square" style="margin-right:6px"></i>Graphics Design</span>
-        <span class="tag dim"><i class="fas fa-database" style="margin-right:6px"></i>SQL (meh)</span>
-      </div>
-    </section>
-  </div>
-
-  <div class="wrap">
-    <section data-reveal>
-      <div class="sec-label">02 - about</div>
-      <h2>Base & background</h2>
-      <div class="about-grid">
-        <div class="about-cell">
-          <div class="about-cell-label">Location</div>
-          <div class="about-cell-value">Denmark</div>
-          <div class="about-cell-sub">Make sure timezones work for you.</div>
+    <div class="section">
+      <h2 class="section-title"><i class="fas fa-map-pin"></i> base & trajectory</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 2.5rem; align-items: center; justify-content: space-between;">
+        <div style="flex: 1 1 260px;">
+          <div style="display: flex; gap: 1.5rem; align-items: center; margin-bottom: 1.2rem;">
+            <i class="fas fa-map-marker-alt" style="font-size: 3.4rem; color: var(--accent);"></i>
+            <span style="font-size: 2.2rem; font-weight: 500; letter-spacing: -0.02rem;">denmark</span>
+          </div>
+          <p style="color: var(--text-secondary); font-size: 1.2rem; line-height: 1.6; border-left: 3px solid var(--accent); padding-left: 1.4rem;">
+            Make sure that our timezones work with eachother.
+          </p>
         </div>
-        <div class="about-cell">
-          <div class="about-cell-label">Experience</div>
-          <div class="about-cell-value">3 years</div>
-          <div class="about-cell-sub">Frontend & more. New but good at it.</div>
-        </div>
-        <div class="about-cell" style="grid-column: span 2;">
-          <div class="about-cell-label">Philosophy</div>
-          <div class="about-cell-sub" style="font-size:0.88rem; line-height:1.7;">You work directly with one developer.
-            No overhead, no middlemen - insanely lower cost and higher quality than an agency.</div>
+        <div style="flex: 2 1 360px; background: var(--bg-tertiary); border-radius: 36px; padding: 2rem 2.2rem; border: 1px solid var(--border-light);">
+          <div style="display: flex; gap: 1.8rem; flex-wrap: wrap; align-items: center;">
+            <div style="background: var(--bg-secondary); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid var(--accent);">
+              <i class="fas fa-laptop-code" style="font-size: 2.2rem; color: var(--accent);"></i>
+            </div>
+            <div>
+              <div style="font-size: 2rem; font-weight: 600; line-height: 1.2;">3 years</div>
+              <div style="color: var(--text-secondary); font-size: 1.1rem;">of Frontend and more.</div>
+            </div>
+          </div>
+          <p style="margin-top: 1.5rem; color: #ccc; font-size: 1.1rem;">
+            I may be new, but i am good at what i do.
+          </p>
         </div>
       </div>
-    </section>
-  </div>
+    </div>
 
-  <div class="wrap">
-    <section data-reveal>
-      <div class="sec-label">03 - services</div>
-      <h2>What I build</h2>
-      <div class="services-list">
-        <div class="svc">
-          <span class="svc-num">01</span>
-          <div>
-            <div class="svc-title">Landing pages</div>
-            <div class="svc-desc">High-converting, single-purpose pages with speed in mind.</div>
-          </div>
-          <i class="fas fa-arrow-right svc-icon"></i>
+    <div class="section">
+      <h2 class="section-title"><i class="fas fa-laptop-code"></i> what i build</h2>
+      <div class="service-deck">
+        <div class="service-card"><i class="fas fa-home"></i>
+          <h3>Landing pages</h3>
+          <p>high‑converting, single‑purpose pages with speed in mind.</p>
         </div>
-        <div class="svc">
-          <span class="svc-num">02</span>
-          <div>
-            <div class="svc-title">Business sites</div>
-            <div class="svc-desc">Professional multi-page presence for companies & entrepreneurs.</div>
-          </div>
-          <i class="fas fa-arrow-right svc-icon"></i>
+        <div class="service-card"><i class="fas fa-briefcase"></i>
+          <h3>Business sites</h3>
+          <p>professional multi‑page presence for companies & entrepreneurs.</p>
         </div>
-        <div class="svc">
-          <span class="svc-num">03</span>
-          <div>
-            <div class="svc-title">Simple web apps</div>
-            <div class="svc-desc">Custom tools, utilities, or interactive prototypes.</div>
-          </div>
-          <i class="fas fa-arrow-right svc-icon"></i>
+        <div class="service-card"><i class="fas fa-shopping-cart"></i>
+          <h3>Simple web apps</h3>
+          <p>custom tools, utilities, or interactive prototypes.</p>
         </div>
       </div>
-    </section>
-  </div>
+    </div>
 
-  <div class="wrap" id="work">
-    <section data-reveal>
-      <div class="sec-label">04 - recent work</div>
-      <h2>Projects</h2>
+    <div class="section">
+      <h2 class="section-title"><i class="fas fa-lightbulb"></i> recent work</h2>
 
-      <div class="carousel-wrap">
-        <div class="c-slide active">
-          <img src="./image5.png" alt="PAZATOR"
-            onerror="this.src='https://placehold.co/1200x600/111/c8f0be?text=PAZATOR'">
-          <div class="c-meta">
-            <div class="c-title">PAZATOR.</div>
-            <div class="c-desc">A hardcore, dark-themed website.</div>
-            <div class="c-date">Mar 2026</div>
+      <div class="carousel-block">
+        <div class="carousel">
+          <div class="carousel-slide active">
+            <div class="slide-content">
+              <img src="./image5.png" alt="Nova lighting" class="portfolio-image"
+                onerror="this.src='https://placehold.co/1200x630/1e1e1e/d0f5c9?text=New+showcase'">
+              <div class="fade-overlay"></div>
+              <div class="project-metadata">
+                <div class="project-title">PAZATOR.</div>
+                <div class="project-desc">A hardcore, dark-themed website.</div>
+                <div class="project-date"><i class="far fa-calendar-alt"></i> mar 2026</div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <div class="slide-content">
+              <img src="./image.png" alt="Nova project" class="portfolio-image"
+                onerror="this.src='https://placehold.co/1200x630/1e1e1e/d0f5c9?text=Nova+Landing'">
+              <div class="fade-overlay"></div>
+              <div class="project-metadata">
+                <div class="project-title">Zora</div>
+                <div class="project-desc">A showcase of what i can do.</div>
+                <div class="project-date"><i class="far fa-calendar-alt"></i> march 2025</div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <div class="slide-content">
+              <img src="./image2.png" alt="Eclipse store" class="portfolio-image"
+                onerror="this.src='https://placehold.co/1200x630/1e1e1e/a8d8a1?text=Eclipse+Store'">
+              <div class="fade-overlay"></div>
+              <div class="project-metadata">
+                <div class="project-title">PAZATOR</div>
+                <div class="project-desc">minimalist, dark mode, responsive.</div>
+                <div class="project-date"><i class="far fa-calendar-alt"></i> jan 2025</div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <div class="slide-content">
+              <img src="./image3.png" alt="Zora showcase" class="portfolio-image"
+                onerror="this.src='https://placehold.co/1200x630/1e1e1e/d0a8f5?text=Zora+Showcase'">
+              <div class="fade-overlay"></div>
+              <div class="project-metadata">
+                <div class="project-title">BloxdForge</div>
+                <div class="project-desc">With graphics, a more professional look.</div>
+                <div class="project-date"><i class="far fa-calendar-alt"></i> nov 2024</div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <div class="slide-content">
+              <img src="./image4.png" alt="Facet app" class="portfolio-image"
+                onerror="this.src='https://placehold.co/1200x630/1e1e1e/f5c9a8?text=Facet+Utility'">
+              <div class="fade-overlay"></div>
+              <div class="project-metadata">
+                <div class="project-title">Facet</div>
+                <div class="project-desc">A 2 section lander with a more fun style.</div>
+                <div class="project-date"><i class="far fa-calendar-alt"></i> feb 2026</div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="c-slide">
-          <img src="./image3.png" alt="BloxdForge"
-            onerror="this.src='https://placehold.co/1200x600/111/c8f0be?text=BloxdForge'">
-          <div class="c-meta">
-            <div class="c-title">BloxdForge</div>
-            <div class="c-desc">With graphics, a more professional look.</div>
-            <div class="c-date">Nov 2024</div>
+        <div class="carousel-controls">
+          <button class="carousel-btn prev-btn">←</button>
+          <div class="carousel-indicators">
+            <span class="indicator active" data-slide="0"></span>
+            <span class="indicator" data-slide="1"></span>
+            <span class="indicator" data-slide="2"></span>
+            <span class="indicator" data-slide="3"></span>
+            <span class="indicator" data-slide="4"></span>
           </div>
-        </div>
-        <div class="c-slide">
-          <img src="./image4.png" alt="Facet" onerror="this.src='https://placehold.co/1200x600/111/c8f0be?text=Facet'">
-          <div class="c-meta">
-            <div class="c-title">Facet</div>
-            <div class="c-desc">A two-section lander with a fun style.</div>
-            <div class="c-date">Feb 2026</div>
-          </div>
-        </div>
-        <div class="c-slide">
-          <img src="./image6.png" alt="CIOLUS"
-            onerror="this.src='https://placehold.co/1200x600/0a0a14/a0c4ff?text=CIOLUS'">
-          <div class="c-meta">
-            <div class="c-title">CIOLUS</div>
-            <div class="c-desc">Animated type lander for an AI file manager.</div>
-            <div class="c-date">Mar 2026</div>
-          </div>
-        </div>
-        <div class="c-slide">
-          <img src="./image.png" alt="Zora" onerror="this.src='https://placehold.co/1200x600/111/c8f0be?text=Zora'">
-          <div class="c-meta">
-            <div class="c-title">Zora</div>
-            <div class="c-desc">A showcase of what I can do.</div>
-            <div class="c-date">Mar 2025</div>
-          </div>
-        </div>
-        <div class="c-slide">
-          <img src="./image2.png" alt="PAZATOR 2"
-            onerror="this.src='https://placehold.co/1200x600/111/aee0a4?text=PAZATOR+v2'">
-          <div class="c-meta">
-            <div class="c-title">PAZATOR</div>
-            <div class="c-desc">Minimalist, dark mode, responsive.</div>
-            <div class="c-date">Jan 2025</div>
-          </div>
-        </div>
-        <div class="c-controls">
-          <button class="c-btn" id="prev">←</button>
-          <button class="c-btn" id="next">→</button>
-        </div>
-        <div class="c-dots">
-          <span class="c-dot active" data-i="0"></span>
-          <span class="c-dot" data-i="1"></span>
-          <span class="c-dot" data-i="2"></span>
-          <span class="c-dot" data-i="3"></span>
-          <span class="c-dot" data-i="4"></span>
-          <span class="c-dot" data-i="5"></span>
+          <button class="carousel-btn next-btn">→</button>
         </div>
       </div>
 
-
-      <div class="port-grid">
-
-        <a href="https://aix-32.github.io/Pazator/" target="_blank" class="port-item">
-          <div class="port-icon"><i class="fas fa-eye"></i></div>
-          <div class="port-name">Pazator</div>
-          <div class="port-desc">Dark sci-fi themed lander.</div>
-          <div class="port-link-text">visit →</div>
+      <div class="portfolio-showcase">
+        <a href="https://aix-32.github.io/Pazator/" target="_blank" class="port-card">
+          <div class="port-img"><i class="fas fa-eye"></i></div>
+          <div class="port-content">
+            <h4>Pazator</h4>
+            <p>A dark sifi theme lander.</p><span class="port-link">visit →</span>
+          </div>
         </a>
-        <a href="https://facetz.github.io/" target="_blank" class="port-item">
-          <div class="port-icon"><i class="fas fa-fire"></i></div>
-          <div class="port-name">Facet</div>
-          <div class="port-desc">Sleek, modern, simple.</div>
-          <div class="port-link-text">visit →</div>
+        <a href="https://facetz.github.io/" target="_blank" class="port-card">
+          <div class="port-img"><i class="fas fa-fire"></i></div>
+          <div class="port-content">
+            <h4>Facet</h4>
+            <p>sleek, modern, simple.</p><span class="port-link">visit →</span>
+          </div>
         </a>
-        <a href="launcher/more/zupa/index.html" target="_blank" class="port-item">
-          <div class="port-icon"><i class="fas fa-globe"></i></div>
-          <div class="port-name">Zora</div>
-          <div class="port-desc">Showcase, not a product.</div>
-          <div class="port-link-text">visit →</div>
+        <a href="launcher/more/zupa/index.html" target="_blank" class="port-card">
+          <div class="port-img"><i class="fas fa-globe"></i></div>
+          <div class="port-content">
+            <h4>Zora</h4>
+            <p>showcase, not a product.</p><span class="port-link">visit →</span>
+          </div>
         </a>
-        <a href="https://aix-32.github.io/CIOLUS/" target="_blank" class="port-item">
-          <div class="port-icon"><i class="fas fa-brain"></i></div>
-          <div class="port-name">CIOLUS</div>
-          <div class="port-desc">Animated type lander for an AI file manager.</div>
-          <div class="port-link-text">visit →</div>
-        </a>
-                <h1 style="color: #aee0a4; margin-left: 15px;">Try them.</h1>
-
       </div>
-      
-    </section>
-  </div>
+    </div>
 
-  <div class="wrap" id="pricing">
-    <section data-reveal>
-      <div class="sec-label">05 - packages</div>
-      <h2>Pricing</h2>
-      <div class="pricing-grid">
-        <div class="plan highlighted">
-          <div class="plan-badge">Most popular</div>
-          <div class="plan-name">Basic</div>
-          <div class="plan-price"><sup>$</sup>44</div>
-          <div class="plan-note">not $300</div>
-          <ul class="plan-features">
-            <li>Up to 3 pages</li>
-            <li>Mobile-friendly</li>
-            <li>Fast loading</li>
-            <li>Contact section</li>
-            <li>Custom colors / fonts</li>
-            <li>1 week delivery</li>
+    <div class="section">
+      <h2 class="section-title"><i class="fas fa-tags"></i> packages</h2>
+      <div class="pricing-pack">
+        <div class="package popular">
+          <div class="popular-badge">POPULAR</div>
+          <h3 class="package-name"><i class="fas fa-star"></i>Basic</h3>
+          <div class="price">$44 <span>/ not $300</span></div>
+          <ul class="package-features">
+            <li><i class="fas fa-check"></i> Up to 3 pages</li>
+            <li><i class="fas fa-check"></i> Mobile‑friendly</li>
+            <li><i class="fas fa-check"></i> Fast loading</li>
+            <li><i class="fas fa-check"></i> Contact section</li>
+            <li><i class="fas fa-check"></i> Custom colors/fonts</li>
+            <li><i class="fas fa-check"></i> 1 week delivery</li>
           </ul>
         </div>
-        <div class="plan">
-          <div class="plan-name">Premium</div>
-          <div class="plan-price"><sup>$</sup>75</div>
-          <div class="plan-note">not $800</div>
-          <ul class="plan-features">
-            <li>Up to 6 pages</li>
-            <li>Fully responsive</li>
-            <li>Interactive elements</li>
-            <li>Image selection</li>
-            <li>Basic SEO</li>
-            <li>Small animations</li>
-            <li>2 weeks delivery</li>
+        <div class="package">
+          <h3 class="package-name"><i class="fas fa-crown"></i>Premium</h3>
+          <div class="price">$75 <span>/ not $800</span></div>
+          <ul class="package-features">
+            <li><i class="fas fa-check"></i> Up to 6 pages</li>
+            <li><i class="fas fa-check"></i> Fully responsive</li>
+            <li><i class="fas fa-check"></i> Interactive elements</li>
+            <li><i class="fas fa-check"></i> Image selection</li>
+            <li><i class="fas fa-check"></i> Basic SEO</li>
+            <li><i class="fas fa-check"></i> Small animations</li>
+            <li><i class="fas fa-check"></i> 2 weeks delivery</li>
           </ul>
         </div>
       </div>
-    </section>
-  </div>
+    </div>
 
-  <div class="wrap">
-    <section data-reveal>
-      <div class="sec-label">06 - process</div>
-      <h2>How I work</h2>
-      <div class="process-row">
-        <div class="step">
-          <div class="step-num">step 01</div>
-          <div class="step-title">Discovery</div>
-          <div class="step-desc">Casual chat about goals and scope.</div>
+    <div class="section">
+      <div class="discord-block">
+        <div class="discord-icon"><i class="fab fa-discord"></i></div>
+        <div class="cta-big">let's chat.</div>
+        <p class="description" style="max-width:500px; margin:1rem 0;">No meetings, no interviews. Just direct building
+          together.</p>
+        <a href="https://discord.gg/BnHDCWqpA3" target="_blank" class="discord-link"><i class="fab fa-discord"></i>
+          start on discord</a>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title"><i class="fas fa-info-circle"></i> how i work</h2>
+      <div class="process-grid">
+        <div class="step"><i class="fas fa-comments"></i>
+          <h4>Discovery</h4>
+          <p>Casual chat about goals</p>
         </div>
-        <div class="step">
-          <div class="step-num">step 02</div>
-          <div class="step-title">50% upfront</div>
-          <div class="step-desc">Half now to get started, half on delivery.</div>
+        <div class="step"><i class="fas fa-pencil-ruler"></i>
+          <h4>Design</h4>
+          <p>Outline + direction</p>
         </div>
-        <div class="step">
-          <div class="step-num">step 03</div>
-          <div class="step-title">Design</div>
-          <div class="step-desc">Outline + direction, agreed upfront.</div>
+        <div class="step"><i class="fas fa-code"></i>
+          <h4>Build</h4>
+          <p>Iterate with updates</p>
         </div>
-        <div class="step">
-          <div class="step-num">step 04</div>
-          <div class="step-title">Build</div>
-          <div class="step-desc">Iterate with updates as we go.</div>
-        </div>
-        <div class="step">
-          <div class="step-num">step 05</div>
-          <div class="step-title">Launch</div>
-          <div class="step-desc">Files handed off with support.</div>
+        <div class="step"><i class="fas fa-rocket"></i>
+          <h4>Launch</h4>
+          <p>Files + support</p>
         </div>
       </div>
-    </section>
-  </div>
-
-  <div class="wrap" id="contact">
-    <div class="cta-block" data-reveal>
-      <div class="sec-label" style="justify-content:center; margin-bottom:2rem;">07 - contact</div>
-      <h2>Let's chat.</h2>
-      <p>No meetings, no interviews. Just direct building together.</p>
-      <a href="https://discord.gg/74c9RBYD4R" target="_blank" class="btn btn-primary"
-        style="font-size:1rem; padding:1rem 2.4rem;">
-        <i class="fab fa-discord"></i> start on discord
-      </a>
+      <div class="fun-fact">
+        <i class="fas fa-lightbulb" style="color:var(--accent); margin-right:10px;"></i>
+        <strong>why me?</strong>, you work directly with one developer, no overhead, insanely lower cost, high quality.
+      </div>
     </div>
   </div>
-
-  <footer>
-    <div class="wrap">
-      <span class="foot-txt">AIX · Denmark</span>
-      <span class="foot-txt">discord.gg/74c9RBYD4R</span>
-    </div>
-  </footer>
 
   <script>
-    const slides = document.querySelectorAll('.c-slide');
-    const dots = document.querySelectorAll('.c-dot');
-    let cur = 0;
-    const show = i => {
-      slides[cur].classList.remove('active'); dots[cur].classList.remove('active');
-      cur = (i + slides.length) % slides.length;
-      slides[cur].classList.add('active'); dots[cur].classList.add('active');
-    };
-    document.getElementById('prev').onclick = () => show(cur - 1);
-    document.getElementById('next').onclick = () => show(cur + 1);
-    dots.forEach(d => d.addEventListener('click', () => show(+d.dataset.i)));
-    setInterval(() => show(cur + 1), 5500);
+    (function () {
+      const follower = document.querySelector('.mouse-follower');
+      let mx = 0, my = 0, px = 0, py = 0;
+      document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+      function moveFollower() {
+        px += (mx - px) * 0.08; py += (my - py) * 0.08;
+        follower.style.left = px + 'px'; follower.style.top = py + 'px';
+        requestAnimationFrame(moveFollower);
+      }
+      moveFollower();
 
-    const els = document.querySelectorAll('[data-reveal]');
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-    }, { threshold: 0.08 });
-    els.forEach(el => obs.observe(el));
+      const slides = document.querySelectorAll('.carousel-slide');
+      const indicators = document.querySelectorAll('.indicator');
+      const prev = document.querySelector('.prev-btn');
+      const next = document.querySelector('.next-btn');
+      if (slides.length) {
+        let cur = 0;
+        const show = (i) => {
+          slides.forEach(s => s.classList.remove('active'));
+          indicators.forEach(ind => ind.classList.remove('active'));
+          slides[i].classList.add('active');
+          indicators[i].classList.add('active');
+          cur = i;
+        };
+        prev.addEventListener('click', () => show((cur - 1 + slides.length) % slides.length));
+        next.addEventListener('click', () => show((cur + 1) % slides.length));
+        indicators.forEach((ind, i) => ind.addEventListener('click', () => show(i)));
+        setInterval(() => show((cur + 1) % slides.length), 6000);
+      }
 
+      const cards = document.querySelectorAll('.skill-badge, .service-card, .port-card, .package, .step, .fun-fact, .discord-link, .section > div[style*="flex"]');
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.style.opacity = 1; e.target.style.transform = 'translateY(0)';
+          }
+        })
+      }, { threshold: 0.1 });
+      cards.forEach(el => {
+        if (el.classList.contains('section')) return;
+        el.style.opacity = 0; el.style.transform = 'translateY(20px)'; el.style.transition = 'opacity 0.4s, transform 0.4s';
+        obs.observe(el);
+      });
+    })();
   </script>
 </body>
-
 </html>
