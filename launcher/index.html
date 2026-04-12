@@ -452,7 +452,11 @@
       align-items: center;
       text-align: center;
       padding: 20px;
-      z-index: 5;
+      z-index: 100;
+    }
+
+    .overlay:has(.default-screen) {
+      display: flex;
     }
 
     .overlay h3 {
@@ -480,6 +484,72 @@
 
     .overlay button:hover {
       background-color: var(--accent-dark);
+    }
+
+    .overlay .default-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px;
+      width: 100%;
+      height: 100%;
+    }
+
+    .overlay .default-screen i {
+      font-size: 80px;
+      color: var(--accent);
+      margin-bottom: 20px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .overlay .default-screen h3 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: var(--text-primary);
+    }
+
+    .overlay .default-screen p {
+      font-size: 16px;
+      color: var(--text-secondary);
+    }
+
+    .overlay .featured-options {
+      display: flex;
+      gap: 12px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .overlay .featured-options button {
+      padding: 12px 20px;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      transition: var(--transition);
+    }
+
+    .overlay .featured-options button:hover {
+      background: var(--accent);
+      color: #1a1a1a;
+      border-color: var(--accent);
+    }
+
+    .overlay .featured-options button i {
+      font-size: 16px;
     }
 
     @media (max-width: 768px) {
@@ -520,47 +590,64 @@
     <div class="apps-section">
 
       <div class="app-item"
-        onclick="loadApp('https://aix-32.github.io/crubs/', 'crubs', 'a small text based farming game.')">
-        <div class="app-icon"><i class="fas fa-seedling"></i></div>
-        <div class="app-name">crubs</div>
+        onclick="loadApp('https://aix-32.github.io/bunnies/', 'bunnies', 'Very fast notes app.', event)">
+        <div class="app-icon"><i class="fas fa-paw"></i></div>
+        <div class="app-name">bunnies</div>
       </div>
-
 
       <div class="app-item"
-        onclick="loadApp('https://aix-32.github.io/980/', '980', 'a worse small text based farming game, go play crubs instead.')">
-        <div class="app-icon"><i class="fas fa-leaf"></i></div>
-        <div class="app-name">980</div>
+        onclick="loadApp('https://aix-32.github.io/runnnotgun/', 'RUN-N-NOT GUN', 'Next bots typa game', event)">
+        <div class="app-icon"><i class="fas fa-running"></i></div>
+        <div class="app-name">RUN-N-NOT GUN</div>
       </div>
 
+      <div class="app-item"
+        onclick="loadApp('https://aix-32.github.io/damascus-tracker/', 'Damascus Tracker', 'A tracker for the Damascus camo on Call of Duty Mobile', event)">
+        <div class="app-icon"><i class="fas fa-crosshairs"></i></div>
+        <div class="app-name">Damascus Tracker</div>
+      </div>
 
-      <div class="app-item" onclick="loadApp('https://aix-32.github.io/613/', '613', 'bad rythm game.')">
-        <div class="app-icon"><i class="fas fa-music"></i></div>
-        <div class="app-name">613</div>
+      <div class="app-item"
+        onclick="loadApp('https://aix-32.github.io/nopa/', 'nopa', 'A writing space where AI sits beside you, not inside your words, but close enough to matter.', event)">
+        <div class="app-icon"><i class="fas fa-pen-fancy"></i></div>
+        <div class="app-name">nopa</div>
+      </div>
+
+      <div class="app-item"
+        onclick="loadApp('https://aix-32.github.io/EvaTitleGenerator/', 'EvaTitleGenerator', 'Make titles that Evangelion has', event)">
+        <div class="app-icon"><i class="fas fa-film"></i></div>
+        <div class="app-name">EvaTitleGenerator</div>
       </div>
 
 
       <div class="sidebar-header">My apps/games</div>
 
       <div class="app-item"
-        onclick="loadApp('https://aix-32.github.io/CoreGrid/', 'CoreGrid', 'A strategy game where you build and defend your base against waves of enemies.')">
+        onclick="loadApp('https://aix-32.github.io/crubs/', 'crubs', 'a small text based farming game', event)">
+        <div class="app-icon"><i class="fas fa-seedling"></i></div>
+        <div class="app-name">crubs</div>
+      </div>
+
+      <div class="app-item"
+        onclick="loadApp('https://aix-32.github.io/CoreGrid/', 'CoreGrid', 'A strategy game where you build and defend your base against waves of enemies.', event)">
         <div class="app-icon"><i class="fas fa-cube"></i></div>
         <div class="app-name">CoreGrid</div>
       </div>
 
       <div class="app-item"
-        onclick="loadApp('https://aix-32.github.io/Pazator/', 'Pazator', 'A mass surveillance tool for data collection and analysis')">
+        onclick="loadApp('https://aix-32.github.io/Pazator/', 'Pazator', 'A mass surveillance tool for data collection and analysis', event)">
         <div class="app-icon"><i class="fas fa-eye"></i></div>
         <div class="app-name">Pazator</div>
       </div>
 
       <div class="app-item"
-        onclick="loadApp('https://aix-32.github.io/OVEROLL/', 'OVEROLL', 'A very i mean very flashy casino')">
+        onclick="loadApp('https://aix-32.github.io/OVEROLL/', 'OVEROLL', 'A very i mean very flashy casino', event)">
         <div class="app-icon"><i class="fas fa-dice"></i></div>
         <div class="app-name">OVEROLL</div>
       </div>
 
       <div class="app-item"
-        onclick="loadApp('https://aix-32.github.io/BURNINGINHEAVEN/', 'BURNING IN HEAVEN', 'A book of mine.')">
+        onclick="loadApp('https://aix-32.github.io/BURNINGINHEAVEN/', 'BURNING IN HEAVEN', 'A book of mine.', event)">
         <div class="app-icon"><i class="fas fa-book"></i></div>
         <div class="app-name">BURNING IN HEAVEN.</div>
       </div>
@@ -572,83 +659,88 @@
       </div>
 
       <div class="app-item"
-        onclick="loadApp('https://aix-32.github.io/Meritcommons/', 'Meritcommons', 'Read my cool book!')">
+        onclick="loadApp('https://aix-32.github.io/Meritcommons/', 'Meritcommons', 'Read my cool book!', event)">
         <div class="app-icon"><i class="fas fa-book"></i></div>
         <div class="app-name">Meritcommons</div>
       </div>
 
       <div class="app-item"
-        onclick="loadApp('https://facetz.github.io/', 'Facet', 'A Launcher for Bloxd.io with many features')">
+        onclick="loadApp('https://facetz.github.io/', 'Facet', 'A Launcher for Bloxd.io with many features', event)">
         <div class="app-icon"><i class="fas fa-fire"></i></div>
         <div class="app-name">Facet/</div>
       </div>
 
       <div class="app-item"
-        onclick="loadApp('https://aix-32.github.io/CoreGrid/', 'CoreGrid', 'A strategy game where you build and defend your base against waves of enemies.')">
+        onclick="loadApp('https://aix-32.github.io/CoreGrid/', 'CoreGrid', 'A strategy game where you build and defend your base against waves of enemies.', event)">
         <div class="app-icon"><i class="fas fa-cube"></i></div>
         <div class="app-name">CoreGrid</div>
       </div>
 
       <div class="app-item"
-        onclick="loadApp('https://aix-32.github.io/ZyperOS/', 'ZyperOS', 'A OS fully built with HTML, CSS, and JS, on the web!')">
+        onclick="loadApp('https://aix-32.github.io/ZyperOS/', 'ZyperOS', 'A OS fully built with HTML, CSS, and JS, on the web!', event)">
         <div class="app-icon"><i class="fas fa-laptop"></i></div>
         <div class="app-name">ZyperOS</div>
       </div>
 
       <div class="app-item"
-        onclick="loadApp('https://aix-32.github.io/Hypon-AI/', 'Hypon-AI', 'A chatgpt cover that has access to your screen if you want')">
+        onclick="loadApp('https://aix-32.github.io/Hypon-AI/', 'Hypon-AI', 'A chatgpt cover that has access to your screen if you want', event)">
         <div class="app-icon"><i class="fas fa-robot"></i></div>
         <div class="app-name">Hypon-AI</div>
       </div>
 
       <div class="app-item"
-        onclick="loadApp('./more/phonkprofile/index.html', 'Odd portfolio', 'A portfolio like those phonk covers')">
+        onclick="loadApp('./more/phonkprofile/index.html', 'Odd portfolio', 'A portfolio like those phonk covers', event)">
         <div class="app-icon"><i class="fas fa-headphones"></i></div>
         <div class="app-name">Odd portfolio</div>
       </div>
 
       <div class="app-item"
-        onclick="loadApp('https://aix-32.github.io/AIXslots/', 'AIXSlots', 'A lot of gambling games, made this so I dont go broke')">
+        onclick="loadApp('https://aix-32.github.io/AIXslots/', 'AIXSlots', 'A lot of gambling games, made this so I dont go broke', event)">
         <div class="app-icon"><i class="fas fa-dice"></i></div>
         <div class="app-name">AIXSlots</div>
       </div>
 
       <div class="app-item"
-        onclick="loadApp('https://github.com/AIX-32/Gradiex', 'Gradiex', 'A very nice gradient generator')">
+        onclick="loadApp('https://github.com/AIX-32/Gradiex', 'Gradiex', 'A very nice gradient generator', event)">
         <div class="app-icon"><i class="fas fa-paint-roller"></i></div>
         <div class="app-name">Gradiex</div>
       </div>
 
       <div class="app-item"
-        onclick="loadApp('https://aix-32.github.io/Webmate/', 'Webmate', 'A web version (bad version) of Desktop Mate on Steam')">
+        onclick="loadApp('https://aix-32.github.io/Webmate/', 'Webmate', 'A web version (bad version) of Desktop Mate on Steam', event)">
         <div class="app-icon"><i class="fas fa-desktop"></i></div>
         <div class="app-name">Webmate</div>
       </div>
 
       <div class="app-item"
-        onclick="loadApp('https://aix-32.github.io/AIX-in-one/', 'AIX-in-one', 'Old portfolio of mine')">
+        onclick="loadApp('https://aix-32.github.io/AIX-in-one/', 'AIX-in-one', 'Old portfolio of mine', event)">
         <div class="app-icon"><i class="fas fa-desktop"></i></div>
         <div class="app-name">AIX-in-one</div>
       </div>
 
       <div class="app-item"
-        onclick="loadApp('https://aix-32.github.io/music-app/', 'Music App', 'Very clean music app')">
+        onclick="loadApp('https://aix-32.github.io/music-app/', 'Music App', 'Very clean music app', event)">
         <div class="app-icon"><i class="fas fa-desktop"></i></div>
         <div class="app-name">Music App</div>
       </div>
 
       <div class="app-item"
-        onclick="loadApp('https://aix-32.github.io/Notile/', 'Notile', 'Notes & Productivity app for work and fun')">
+        onclick="loadApp('https://aix-32.github.io/Notile/', 'Notile', 'Notes & Productivity app for work and fun', event)">
         <div class="app-icon"><i class="fas fa-sticky-note"></i></div>
         <div class="app-name">Notile</div>
       </div>
 
       <div class="app-item"
-        onclick="loadApp('https://aix-32.github.io/ZyperAI/', 'ZyperAI', 'A bad version of AI ides like windsurf and cursor fully on the web!')">
+        onclick="loadApp('https://aix-32.github.io/bunnies/', 'bunnies', 'Very fast notes app.', event)">
+        <div class="app-icon"><i class="fas fa-paw"></i></div>
+        <div class="app-name">bunnies</div>
+      </div>
+
+      <div class="app-item"
+        onclick="loadApp('https://aix-32.github.io/ZyperAI/', 'ZyperAI', 'A bad version of AI ides like windsurf and cursor fully on the web!', event)">
         <div class="app-icon"><i class="fas fa-robot"></i></div>
         <div class="app-name">ZyperAI</div>
       </div>
-
 
     </div>
   </div>
@@ -669,8 +761,17 @@
       <iframe id="appFrame" src=""></iframe>
       <div class="loader" id="loader"></div>
       <div class="overlay" id="overlay">
-        <h3 id="appTitle">Select an app</h3>
-        <p id="appDesc">Choose a game or tool from the sidebar to preview it here</p>
+        <div class="default-screen" id="defaultScreen" style="display: flex;">
+          <i class="fas fa-rocket"></i>
+          <h3>Welcome to Xyper Launcher</h3>
+          <p>Select an app from the sidebar to get started</p>
+          <div class="featured-options">
+            <button onclick="loadApp('https://aix-32.github.io/nopa/', 'nopa', 'A writing space where AI sits beside you', event)">nopa</button>
+            <button onclick="loadApp('https://aix-32.github.io/runnnotgun/', 'RUN-N-NOT GUN', 'Next bots typa game', event)">RUN-N-NOT GUN</button>
+            <button onclick="loadApp('https://aix-32.github.io/Pazator/', 'Pazator', 'A mass surveillance tool', event)">Pazator</button>
+            <button onclick="loadApp('https://aix-32.github.io/crubs/', 'crubs', 'a small text based farming game', event)">crubs</button>
+          </div>
+        </div>
         <button id="tryBtn" style="display:none;" onclick="tryApp()">
           <i class="fas fa-play"></i> Launch App
         </button>
@@ -717,13 +818,14 @@
       }
     });
 
-    function loadApp(url, title, desc) {
+    function loadApp(url, title, desc, event) {
+      const defaultScreen = document.getElementById('defaultScreen');
+      defaultScreen.style.display = 'none';
+      
       document.getElementById('loader').classList.add('active');
 
       setTimeout(() => {
         document.getElementById("appFrame").src = url;
-        document.getElementById("appTitle").textContent = title;
-        document.getElementById("appDesc").textContent = desc;
         document.getElementById("infoTitle").textContent = title;
         document.getElementById("infoDesc").textContent = desc;
 
@@ -733,7 +835,14 @@
         currentURL = url;
 
         document.querySelectorAll('.app-item').forEach(el => el.classList.remove('active'));
-        event.currentTarget.classList.add('active');
+        if (event && event.currentTarget && event.currentTarget.classList.contains('app-item')) {
+          event.currentTarget.classList.add('active');
+        } else {
+          const matchingApp = Array.from(document.querySelectorAll('.app-item')).find(
+            item => item.querySelector('.app-name').textContent.trim() === title
+          );
+          if (matchingApp) matchingApp.classList.add('active');
+        }
 
         document.getElementById('appFrame').onload = function () {
           document.getElementById('loader').classList.remove('active');
@@ -767,8 +876,6 @@
     }
 
     window.onload = function () {
-      loadApp('https://facetz.github.io/', 'Facet', 'A Launcher for Bloxd.io with many features');
-
       document.getElementById('searchInput').focus();
 
       document.getElementById('mobileMenuBtn').addEventListener('click', function () {
