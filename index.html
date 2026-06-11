@@ -298,6 +298,10 @@
       min-height: 100px;          /* touch friendly */
     }
 
+    .github-wide {
+      grid-column: 1 / -1;
+    }
+
     .cube:hover {
       transform: translateY(-5px);
       border-color: var(--accent);
@@ -633,6 +637,72 @@
     strong {
       color: var(--accent);
     }
+
+    /* ----- bottom card (drawer) ----- */
+    .about-card {
+      position: fixed;
+      bottom: 0;
+      left: calc(50% - 360px);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-bottom: none;
+      border-radius: 16px 16px 0 0;
+      padding: 24px 32px 20px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
+      z-index: 100;
+      max-width: 320px;
+      width: 100%;
+      transform: translateY(100%);
+      animation: slideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+    }
+
+    .about-card-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .about-card-heading {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .about-card-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--accent);
+      padding: 10px 22px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 500;
+      border: 1px solid var(--accent);
+      transition: var(--transition);
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .about-card-btn:hover {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    @keyframes slideUp {
+      to { transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .about-card {
+        left: 16px;
+        right: 16px;
+        max-width: none;
+        width: auto;
+      }
+    }
   </style>
 </head>
 <body>
@@ -640,7 +710,7 @@
 
   <div class="container">
     <div class="header">
-      <h1 class="name">A_I_X</h1>
+      <h1 class="name">AIX/Zi</h1>
       <p class="title">Frontend Developer & UI Designer</p>
       <p class="description">I create beautiful, interesting interfaces. With over 3 years of experience in web development. I mostly work with pure CSS, HTML, JS. No im not a spider.</p>
     </div>
@@ -685,20 +755,10 @@
       <div class="connections">
         <h2 class="section-title"><i class="fas fa-user-friends"></i> Connections</h2>
         <div class="cubes-grid">
-          <a href="https://github.com/aix-32" target="_blank" class="cube">
+          <a href="https://github.com/aix-32" target="_blank" class="cube github-wide">
             <i class="fab fa-github cube-icon"></i>
             <span class="cube-title">GitHub</span>
             <span class="cube-desc">See my code</span>
-          </a>
-          <a href="https://youtube.com/@A_I_X" target="_blank" class="cube">
-            <i class="fab fa-youtube cube-icon"></i>
-            <span class="cube-title">YouTube</span>
-            <span class="cube-desc">My vids.</span>
-          </a>
-          <a href="https://www.youtube.com/@Aural-exe" target="_blank" class="cube">
-            <i class="fa fa-play cube-icon"></i>
-            <span class="cube-title">Music</span>
-            <span class="cube-desc">Listen to my music!</span>
           </a>
           <a href="https://www.instagram.com/a_i_x32/" target="_blank" class="cube">
             <i class="fab fa-instagram cube-icon"></i>
@@ -757,6 +817,12 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="about-card">
+    <p class="about-card-title">Learn about me</p>
+    <h3 class="about-card-heading">Who is Zi/AIX?</h3>
+    <a href="about.html" class="about-card-btn">About Me <i class="fas fa-arrow-right"></i></a>
   </div>
 
   <div class="gif-popup">
