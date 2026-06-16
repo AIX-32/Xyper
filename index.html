@@ -1,924 +1,417 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-  <title>Xyper, portfolio.</title>
-  <meta name="description" content="Portfolio of A_I_X, frontend developer and UI designer.">
-  <meta name="theme-color" content="#a8d8a1">
-  <link rel="icon" href="./favicon-32x32.png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    :root {
-      --accent: #d0f5c9;
-      --accent-dark: #a8d8a1;
-      --accent-transparent: rgba(208, 245, 201, 0.1);
-      --bg-primary: #121212;
-      --bg-secondary: #1e1e1e;
-      --bg-tertiary: #252525;
-      --text-primary: #f0f0f0;
-      --text-secondary: #b0b0b0;
-      --border: rgba(208, 245, 201, 0.15);
-      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-      --transition: all 0.3s ease;
-    }
-
-    .mouse-follower {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 500px;
-      height: 500px;
-      background: #96c090a9;
-      border-radius: 50%;
-      filter: blur(160px);
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      z-index: -1;
-      opacity: 0.5;
-      transition: transform 0.1s ease-out;
-    }
-
-    body {
-      background-color: var(--bg-primary);
-      color: var(--text-primary);
-      min-height: 100vh;
-      overflow-x: hidden;          /* prevent horizontal scroll on mobile */
-      padding: 20px;
-    }
-
-    /* ----- MAIN GRID (desktop first, then overwritten for mobile) ----- */
-    .container {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      grid-template-rows: auto auto;
-      gap: 20px;
-      min-height: calc(100vh - 40px);
-      max-width: 1600px;
-      margin: 0 auto;
-    }
-
-    /* ----- all cards base ----- */
-    .header, .work, .about, .projects, .connections, .shop {
-      background-color: var(--bg-secondary);
-      border-radius: 16px;
-      padding: 30px;
-      border: 1px solid var(--border);
-      box-shadow: var(--card-shadow);
-    }
-
-    /* --- header --- */
-    .header {
-      grid-column: 1 / 3;
-      grid-row: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .name {
-      font-size: 3.5rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      background: linear-gradient(45deg, var(--accent), #9ae495);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      line-height: 1.2;
-    }
-
-    .title {
-      font-size: 1.5rem;
-      color: var(--text-secondary);
-      margin-bottom: 20px;
-    }
-
-    .description {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      max-width: 90%;
-      color: var(--text-secondary);
-    }
-
-    /* ----- work (services) ----- */
-    .work {
-      grid-column: 3 / 4;
-      grid-row: 1;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-
-    .work-title {
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-    }
-
-    .work-title i {
-      font-size: 1.8rem;
-      margin-right: 15px;
-    }
-
-    .work p {
-      font-size: 1.05rem;
-      line-height: 1.7;
-      color: var(--text-secondary);
-      margin-bottom: 20px;
-    }
-
-    .work-items {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      flex: 1;
-    }
-
-    .shop-items {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: var(--bg-tertiary);
-      padding: 20px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      transition: var(--transition);
-      text-decoration: none;
-      color: var(--text-primary);
-      width: 100%;
-      min-height: 80px;           /* bigger tap area */
-    }
-
-    .shop-items:hover {
-      transform: translateX(8px);
-      background: var(--accent-transparent);
-      border-color: var(--accent);
-    }
-
-    .shop-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-    }
-
-    .shop-item strong {
-      font-size: 1.2rem;
-    }
-
-    .arrow {
-      color: var(--accent);
-      font-size: 1.3rem;
-      transition: var(--transition);
-    }
-
-    .shop-items:hover .arrow {
-      transform: translateX(5px);
-    }
-
-    /* ----- about / skills ----- */
-    .about {
-      grid-column: 4 / 6;
-      grid-row: 1;
-    }
-
-    .section-title {
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-    }
-
-    .section-title i {
-      margin-right: 12px;
-    }
-
-    .about-content {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .skills {
-      flex: 1 1 150px;
-    }
-
-    .skill-name {
-      background-color: var(--bg-tertiary);
-      padding: 12px;
-      border-radius: 8px;
-      margin-bottom: 15px;
-      color: var(--text-secondary);
-      border: 1px solid var(--border);
-    }
-
-    .skill-name span {
-      color: var(--accent);
-    }
-
-    .projects {
-      grid-column: 1 / 3;
-      grid-row: 2;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .projects:hover {
-      transform: translateY(-5px);
-    }
-
-    .projects-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-    }
-
-    .projects-icon {
-      font-size: 3.5rem;
-      color: var(--accent);
-      margin-bottom: 20px;
-    }
-
-    .projects-text {
-      font-size: 1.5rem;
-      font-weight: 600;
-      text-align: center;
-    }
-
-    .connections-container {
-      display: flex;
-      gap: 20px;
-      grid-column: 3 / 6;
-      grid-row: 2;
-      height: 100%;
-    }
-
-    .connections {
-      flex: 1.5;
-      display: flex;
-      flex-direction: column;
-      padding: 20px;
-    }
-
-    .cubes-grid {
-      flex-grow: 1;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    .cube {
-      background-color: var(--bg-tertiary);
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: var(--transition);
-      border: 1px solid var(--border);
-      cursor: pointer;
-      text-decoration: none;
-      color: var(--text-primary);
-      padding: 15px 5px;
-      min-height: 100px;          /* touch friendly */
-    }
-
-    .github-wide {
-      grid-column: 1 / -1;
-    }
-
-    .cube:hover {
-      transform: translateY(-5px);
-      border-color: var(--accent);
-    }
-
-    .cube-icon {
-      font-size: 2.5rem;
-      color: var(--accent);
-    }
-
-    .cube-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-    }
-
-    .cube-desc {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-    }
-
-    .shop {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      padding: 20px;
-      min-width: 0;               
-    }
-
-    .shop-title {
-      font-size: 1.8rem;
-      margin-bottom: 15px;
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-    }
-
-    .shop-title i {
-      margin-right: 15px;
-    }
-
-    .slideshow-container {
-      position: relative;
-      width: 100%;
-      flex: 1;
-      min-height: 242px;           
-      overflow: hidden;
-      border-radius: 12px;
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border);
-      box-shadow: var(--card-shadow);
-    }
-
-    .slides {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-
-    .slide {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      padding: 20px 15px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      background: var(--bg-tertiary);
-      transition: transform 0.4s ease, opacity 0.3s ease;
-      opacity: 0;
-      transform: translateX(100%);
-      pointer-events: none;
-    }
-
-    .slide.active {
-      opacity: 1;
-      transform: translateX(0);
-      pointer-events: all;
-    }
-
-    .slide-icon {
-      font-size: 2.8rem;
-      color: var(--accent);
-      margin-bottom: 12px;
-    }
-
-    .slide h3 {
-      font-size: 1.5rem;
-      margin-bottom: 6px;
-      color: var(--text-primary);
-    }
-
-    .slide p {
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-      margin-bottom: 18px;
-      max-width: 90%;
-    }
-
-    .slide-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--accent-transparent);
-      color: var(--accent);
-      padding: 10px 20px;          
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: 500;
-      border: 1px solid var(--accent);
-      transition: var(--transition);
-    }
-
-    .slide-link:hover {
-      background: var(--accent);
-      color: var(--bg-primary);
-    }
-
-    .slide-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(30, 30, 30, 0.9);
-      border: 1px solid var(--border);
-      color: var(--accent);
-      width: 24px;                
-      height: 24px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 10;
-      backdrop-filter: blur(4px);
-      transition: var(--transition);
-      font-size: 0.9rem;
-    }
-
-    .slide-nav:active {
-      background: var(--accent);
-      color: var(--bg-primary);
-    }
-
-    .prev { left: 8px; }
-    .next { right: 8px; }
-
-    .slide-dots {
-
-    }
-
-    .dot {
-
-    }
-
-    .dot.active {
-  
-    }
-
-    .gif-popup {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .gif-popup.show {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    .gif-content {
-      max-width: 90%;         
-      max-height: 80%;
-      border-radius: 10px;
-      box-shadow: 0 0 30px rgba(208, 245, 201, 0.5);
-    }
-
-    a {
-      text-decoration: none;
-      color: var(--text-primary);
-    }
-
-    @media (max-width: 900px) {
-      body {
-        padding: 10px;
-      }
-
-      .container {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        width: 100%;
-      }
-
-      .header, .work, .about, .projects, .connections-container {
-        width: 100%;
-        grid-column: auto !important;  
-      }
-
-      .connections-container {
-        flex-direction: column;
-        gap: 16px;
-      }
-
-      .connections, .shop {
-        width: 100%;
-        flex: auto;
-      }
-
-      .cubes-grid {
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: auto;
-        gap: 16px;
-      }
-
-      .cube {
-        padding: 18px 8px;
-      }
-
-      .slideshow-container {
-        min-height: 260px;
-      }
-
-      .slide-nav {
-        width: 48px;
-        height: 48px;
-      }
-
-      .name {
-        font-size: 2.8rem;
-      }
-      .title {
-        font-size: 1.3rem;
-      }
-      .work-title, .section-title, .shop-title {
-        font-size: 1.6rem;
-      }
-    }
-
-    @media (max-width: 500px) {
-      body {
-        padding: 6px;
-      }
-
-      .header, .work, .about, .projects, .connections, .shop {
-        padding: 20px 16px;
-      }
-
-      .name {
-        font-size: 2.2rem;
-      }
-
-      .description {
-        max-width: 100%;
-        font-size: 1rem;
-      }
-
-      .cubes-grid {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-
-      .cube {
-        flex-direction: row;
-        justify-content: flex-start;
-        gap: 16px;
-        padding: 16px;
-      }
-
-      .cube-icon {
-        font-size: 2rem;
-        margin-bottom: 0;
-      }
-
-      .cube-title {
-        font-size: 1.2rem;
-      }
-
-      .cube-desc {
-        font-size: 0.9rem;
-      }
-
-      .projects-icon {
-        font-size: 2.8rem;
-      }
-
-      .projects-text {
-        font-size: 1.3rem;
-      }
-
-      .about-content {
-        flex-direction: column;
-        gap: 0;
-      }
-
-      .slide-nav {
-        width: 42px;
-        height: 42px;
-      }
-
-      .shop-title {
-        font-size: 1.5rem;
-      }
-
-      .slide h3 {
-        font-size: 1.3rem;
-      }
-    }
-
-    @media (max-width: 360px) {
-      .cube {
-        flex-wrap: wrap;
-        justify-content: center;
-        text-align: center;
-      }
-      .slide-link {
-        padding: 8px 16px;
-        font-size: 0.9rem;
-      }
-    }
-    strong {
-      color: var(--accent);
-    }
-
-    /* ----- bottom card (drawer) ----- */
-    .about-card {
-      position: fixed;
-      bottom: 0;
-      left: calc(50% - 360px);
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-bottom: none;
-      border-radius: 16px 16px 0 0;
-      padding: 24px 32px 20px;
-      box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
-      z-index: 100;
-      max-width: 320px;
-      width: 100%;
-      transform: translateY(100%);
-      animation: slideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
-    }
-
-    .about-card-title {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--accent);
-      margin-bottom: 4px;
-    }
-
-    .about-card-heading {
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .about-card-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: transparent;
-      color: var(--accent);
-      padding: 10px 22px;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: 500;
-      border: 1px solid var(--accent);
-      transition: var(--transition);
-      cursor: pointer;
-      font-size: 0.95rem;
-    }
-
-    .about-card-btn:hover {
-      background: var(--accent);
-      color: var(--bg-primary);
-    }
-
-    @keyframes slideUp {
-      to { transform: translateY(0); }
-    }
-
-    @media (max-width: 768px) {
-      .about-card {
-        left: 16px;
-        right: 16px;
-        max-width: none;
-        width: auto;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="description" content="AIX/Zi — frontend developer & UI designer, vibe coding">
+    <meta name="theme-color" content="#0b130b">
+    <title>Xyper, portfolio.</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a100a;
+            background-image: radial-gradient(circle at 20% 20%, #142614 0%, #030603 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            color: #e2f0e2;
+            line-height: 1.5;
+            padding: 0;
+            margin: 0;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 1.5rem 1.2rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .avatar-frame {
+            margin-bottom: 1.2rem;
+        }
+
+        .avatar {
+            width: 124px;
+            height: 124px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #2ecc71;
+            box-shadow: 0 10px 24px rgba(46, 204, 113, 0.25), 0 0 0 2px rgba(46, 204, 113, 0.15);
+            transition: box-shadow 0.2s ease;
+            background: #1b2a1b;
+        }
+
+        .name {
+            font-size: 2.6rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            text-align: center;
+            color: #f2fcf2;
+            margin-bottom: 0.2rem;
+            text-shadow: 0 2px 6px rgba(0, 25, 0, 0.6);
+            line-height: 1.2;
+        }
+
+        .headline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            color: #bfd9bf;
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: 1.1rem;
+        }
+
+        .headline i {
+            color: #2ecc71;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .bio {
+            text-align: center;
+            max-width: 500px;
+            margin: 0.6rem auto 1.8rem;
+            padding: 0.5rem 0.8rem;
+            font-size: 1rem;
+            color: #b3ccb3;
+            border-left: 3px solid #2ecc71;
+            background: linear-gradient(90deg, #1a2e1a20, transparent);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .links-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+            margin: 0.5rem 0 1.8rem;
+        }
+
+        .link-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: #0f1c0f;
+            border: 1.2px solid #2ecc7150;
+            border-radius: 60px;
+            color: #e0f0e0;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.15rem;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 14px rgba(0, 0, 0, 0.4);
+            width: 100%;
+        }
+
+        .link-item i {
+            font-size: 1.4rem;
+            width: 2rem;
+            color: #2ecc71;
+            margin-right: 0.8rem;
+            transition: transform 0.2s;
+        }
+
+        .link-item span {
+            flex: 1;
+        }
+
+        .link-item .arrow {
+            opacity: 0.7;
+            font-size: 1rem;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .link-item:hover {
+            background: #2ecc71;
+            border-color: #2ecc71;
+            color: #0a1a0a;
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 15px 25px -8px #1b4b1b, 0 0 0 1px #a3e0b5 inset;
+        }
+
+        .link-item:hover i,
+        .link-item:hover .arrow {
+            color: #0e2b0e;
+        }
+
+        .link-item:hover .arrow {
+            opacity: 1;
+            transform: translateX(4px);
+        }
+
+        .footer-mini {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            margin-top: 1rem;
+            padding-top: 1.2rem;
+            border-top: 1px dashed #2ecc7140;
+            color: #86a686;
+            font-size: 0.8rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-icons a {
+            color: #b0cfb0;
+            font-size: 1.3rem;
+            transition: color 0.2s, transform 0.15s;
+        }
+
+        .social-icons a:hover {
+            color: #2ecc71;
+            transform: translateY(-2px);
+        }
+
+        .copyright {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .copyright i {
+            color: #2ecc71;
+            margin-right: 2px;
+        }
+
+        /* secret key combo hint – subtle */
+        .secret-hint {
+            font-size: 0.65rem;
+            color: #2ecc7130;
+            margin-top: 0.4rem;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
+        }
+        .secret-hint:hover {
+            color: #2ecc7160;
+        }
+
+        @media (max-width: 480px) {
+            .app-container {
+                padding: 1.2rem 1rem 2rem;
+            }
+            .name {
+                font-size: 2.2rem;
+            }
+            .avatar {
+                width: 108px;
+                height: 108px;
+            }
+            .link-item {
+                padding: 0.9rem 1.2rem;
+                font-size: 1rem;
+            }
+            .link-item i {
+                font-size: 1.25rem;
+            }
+            .bio {
+                font-size: 0.95rem;
+            }
+            .social-icons {
+                gap: 1.2rem;
+            }
+        }
+
+        .link-item:focus-visible {
+            outline: 3px solid #2ecc71;
+            outline-offset: 4px;
+        }
+
+        /* secret gif overlay – minimal, clean */
+        .gif-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+        .gif-popup.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .gif-popup img {
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+        .gif-popup .close-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #86a686;
+            font-size: 0.8rem;
+            background: rgba(0,0,0,0.4);
+            padding: 6px 18px;
+            border-radius: 40px;
+            border: 1px solid #2ecc7140;
+        }
+    </style>
 </head>
 <body>
-  <div class="mouse-follower"></div>
 
-  <div class="container">
-    <div class="header">
-      <h1 class="name">AIX/Zi</h1>
-      <p class="title">Frontend Developer & UI Designer</p>
-      <p class="description">I create beautiful, interesting interfaces. With over 3 years of experience in web development. I mostly work with pure CSS, HTML, JS. No im not a spider.</p>
+<div class="app-container">
+
+    <!-- avatar -->
+    <div class="avatar-frame">
+        <img class="avatar" src="https://raw.githubusercontent.com/wized2/wized2/952238e0477612102400ebc9c860e4026d18075a/icon.svg" alt="AIX/Zi avatar">
     </div>
 
-    <div class="work">
-      <h2 class="work-title"><i class="fas fa-briefcase"></i>My Services</h2>
-      <p>make fast websites like landing pages or portfolios and other stuff for cheap.</p>
-      <div class="work-items">
-        <a href="services.html" class="shop-items">
-          <div class="shop-item">
-            <strong>View Services</strong>
+    <!-- name -->
+    <h1 class="name">AIX / Zi</h1>
+
+    <!-- headline -->
+    <div class="headline">
+        <i class="fas fa-code"></i>
+        <span>Frontend · UI Designer · vibe coder</span>
+        <i class="fas fa-paint-brush"></i>
+    </div>
+
+    <!-- bio -->
+    <div class="bio">
+        <i class="fas fa-quote-left" style="opacity: 0.5; margin-right: 6px; color: #2ecc71;"></i>
+        Crafting beautiful, expressive interfaces. 3+ years shaping digital experiences — fast, fluid, human.
+    </div>
+
+    <!-- links -->
+    <div class="links-section">
+
+        <a href="https://aix-32.github.io/Meritcommons/" class="link-item" target="_blank" rel="noopener">
+            <i class="fas fa-book"></i>
+            <span>Merit Commons · manifesto</span>
             <i class="fas fa-arrow-right arrow"></i>
-          </div>
         </a>
-      </div>
+
+        <a href="https://aix-32.github.io/BURNINGINHEAVEN" class="link-item" target="_blank" rel="noopener">
+            <i class="fas fa-book-open"></i>
+            <span>BURNING IN HEAVEN · story</span>
+            <i class="fas fa-arrow-right arrow"></i>
+        </a>
+
+        <a href="https://aix-32.github.io/crubs/" class="link-item" target="_blank" rel="noopener">
+            <i class="fas fa-seedling"></i>
+            <span>crubs · farming game</span>
+            <i class="fas fa-arrow-right arrow"></i>
+        </a>
+
+        <a href="https://aix-32.github.io/Pazator/" class="link-item" target="_blank" rel="noopener">
+            <i class="fas fa-chart-line"></i>
+            <span>Pazator · AI data explorer</span>
+            <i class="fas fa-arrow-right arrow"></i>
+        </a>
+
+        <a href="https://github.com/aix-32" class="link-item" target="_blank" rel="noopener">
+            <i class="fab fa-github"></i>
+            <span>GitHub · code & projects</span>
+            <i class="fas fa-arrow-right arrow"></i>
+        </a>
+
+        <a href="https://discord.gg/74c9RBYD4R" class="link-item" target="_blank" rel="noopener">
+            <i class="fab fa-discord"></i>
+            <span>Discord · community</span>
+            <i class="fas fa-arrow-right arrow"></i>
+        </a>
+
+        <a href="mailto:work.aix32@gmail.com" class="link-item" target="_blank" rel="noopener">
+            <i class="fas fa-envelope"></i>
+            <span>work.aix32@gmail.com</span>
+            <i class="fas fa-arrow-right arrow"></i>
+        </a>
+
     </div>
 
-    <div class="about">
-      <h2 class="section-title"><i class="fas fa-user"></i> Skills</h2>
-      <div class="about-content">
-        <div class="skills">
-          <div class="skill-name"><span>HTML/CSS</span></div>
-          <div class="skill-name"><span>JavaScript</span></div>
-          <div class="skill-name"><span>Three.js</span></div>
+    <!-- footer -->
+    <div class="footer-mini">
+        <div class="social-icons">
+            <a href="https://github.com/aix-32" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.instagram.com/a_i_x32/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:work.aix32@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            <a href="https://discord.gg/74c9RBYD4R" aria-label="Discord"><i class="fab fa-discord"></i></a>
         </div>
-        <div class="skills">
-          <div class="skill-name"><span>UI/UX Design</span></div>
-          <div class="skill-name"><span>Graphics Design</span></div>
-          <div class="skill-name"><span>Supabase (meh)</span></div>
+        <div class="copyright">
+            <i class="fas fa-leaf"></i> 2026 · AIX/Zi
+            <span class="secret-hint"> · 6 + 7</span>
         </div>
-      </div>
     </div>
 
-    <div class="projects">
-      <div class="projects-content">
-        <div class="projects-icon"><i class="fas fa-folder-open"></i></div>
-        <p class="projects-text">View My Projects</p>
-      </div>
-    </div>
+</div>
 
-    <div class="connections-container">
-      <div class="connections">
-        <h2 class="section-title"><i class="fas fa-user-friends"></i> Connections</h2>
-        <div class="cubes-grid">
-          <a href="https://github.com/aix-32" target="_blank" class="cube github-wide">
-            <i class="fab fa-github cube-icon"></i>
-            <span class="cube-title">GitHub</span>
-            <span class="cube-desc">See my code</span>
-          </a>
-          <a href="https://www.instagram.com/a_i_x32/" target="_blank" class="cube">
-            <i class="fab fa-instagram cube-icon"></i>
-            <span class="cube-title">Instagram</span>
-            <span class="cube-desc">Follow me!</span>
-          </a>
-          <a href="mailto:work.aix32@gmail.com" target="_blank" class="cube">
-            <i class="fas fa-envelope cube-icon"></i>
-            <span class="cube-title">Email</span>
-            <span class="cube-desc">Send me a message!</span>
-          </a>
-          <a href="https://discord.gg/74c9RBYD4R" target="_blank" class="cube">
-            <i class="fab fa-discord cube-icon"></i>
-            <span class="cube-title">Discord</span>
-            <span class="cube-desc">Join the server</span>
-          </a>
-        </div>
-      </div>
+<!-- secret gif popup -->
+<div class="gif-popup" id="gifPopup">
+    <img src="https://media1.tenor.com/m/6COMq6z3l5oAAAAd/bosnov-67.gif" alt="secret">
+    <span class="close-hint">click to close</span>
+</div>
 
-      <div class="shop">
-        <h2 class="shop-title"><i class="fas fa-star"></i> featured</h2>
-        <div class="slideshow-container">
-          <div class="slides">
-            <div class="slide active">
-              <i class="fas fa-book slide-icon"></i>
-              <h3>Merit Commons</h3>
-              <p>Economic manifesto, a new system based on contribution.</p>
-              <a href="https://aix-32.github.io/Meritcommons/" class="slide-link">Read book <i class="fas fa-arrow-right"></i></a>
-            </div>
-            <div class="slide">
-              <i class="fas fa-book slide-icon"></i>
-              <h3>BURNING IN HEAVEN.</h3>
-              <p>A story about what if god wasnt what we thought he was. Still working on it.</p>
-              <a href="https://aix-32.github.io/BURNINGINHEAVEN" class="slide-link">View <i class="fas fa-arrow-right"></i></a>
-            </div>
-            <div class="slide">
-              <i class="fas fa-cubes slide-icon"></i>
-              <h3>crubs</h3>
-              <p>A small text based farming game</p>
-              <a href="https://aix-32.github.io/crubs/" class="slide-link">Play <i class="fas fa-arrow-right"></i></a>
-            </div>
-            <div class="slide">
-              <i class="fas fa-eye slide-icon"></i>
-              <h3>Pazator</h3>
-              <p>Mass data container with AI prediction features made for surveillance.</p>
-              <a href="https://aix-32.github.io/Pazator/" class="slide-link">Try <i class="fas fa-arrow-right"></i></a>
-            </div>
-          </div>
-          <button class="slide-nav prev"><i class="fas fa-chevron-left"></i></button>
-          <button class="slide-nav next"><i class="fas fa-chevron-right"></i></button>
-          <div class="slide-dots">
-            <span class="dot active"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="about-card">
-    <p class="about-card-title">Learn about me</p>
-    <h3 class="about-card-heading">Who is Zi/AIX?</h3>
-    <a href="about.html" class="about-card-btn">About Me <i class="fas fa-arrow-right"></i></a>
-  </div>
-
-  <div class="gif-popup">
-    <img src="https://media1.tenor.com/m/6COMq6z3l5oAAAAd/bosnov-67.gif" alt="secret" class="gif-content">
-  </div>
-
-  <script>
+<script>
     (function() {
-      const follower = document.querySelector('.mouse-follower');
-      let mouseX = 0, mouseY = 0, posX = 0, posY = 0, speed = 0.08;
-      document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-      });
-      function animateFollower() {
-        const distX = mouseX - posX;
-        const distY = mouseY - posY;
-        posX += distX * speed;
-        posY += distY * speed;
-        follower.style.left = `${posX}px`;
-        follower.style.top = `${posY}px`;
-        requestAnimationFrame(animateFollower);
-      }
-      animateFollower();
+        // secret gif: 6 + 7
+        const popup = document.getElementById('gifPopup');
+        const pressed = new Set();
 
-      document.querySelector('.projects').addEventListener('click', function () {
-        window.open('./launcher/', '_self');
-      });
+        if (popup) {
+            popup.addEventListener('click', () => popup.classList.remove('show'));
 
-      const pressedKeys = new Set();
-      const gifPopup = document.querySelector('.gif-popup');
-      gifPopup.addEventListener('click', () => gifPopup.classList.remove('show'));
-      document.addEventListener('keydown', (e) => {
-        if (e.key === '6' || e.key === '7') {
-          pressedKeys.add(e.key);
-          if (pressedKeys.has('6') && pressedKeys.has('7')) {
-            gifPopup.classList.add('show');
-            e.preventDefault();
-          }
+            document.addEventListener('keydown', (e) => {
+                if (e.key === '6' || e.key === '7') {
+                    pressed.add(e.key);
+                    if (pressed.has('6') && pressed.has('7')) {
+                        popup.classList.add('show');
+                        e.preventDefault();
+                        // reset combo after a moment
+                        setTimeout(() => {
+                            pressed.delete('6');
+                            pressed.delete('7');
+                        }, 200);
+                    }
+                }
+            });
+
+            document.addEventListener('keyup', (e) => {
+                if (e.key === '6' || e.key === '7') pressed.delete(e.key);
+            });
         }
-      });
-      document.addEventListener('keyup', (e) => {
-        if (e.key === '6' || e.key === '7') pressedKeys.delete(e.key);
-      });
 
-      const slides = document.querySelectorAll('.slide');
-      const prevBtn = document.querySelector('.prev');
-      const nextBtn = document.querySelector('.next');
-      const dots = document.querySelectorAll('.dot');
-      let currentIndex = 0;
-      const total = slides.length;
-      let autoTimer;
-
-      function showSlide(index) {
-        if (index < 0) index = total - 1;
-        if (index >= total) index = 0;
-        slides.forEach((s, i) => s.classList.toggle('active', i === index));
-        dots.forEach((d, i) => d.classList.toggle('active', i === index));
-        currentIndex = index;
-      }
-      function nextSlide() { showSlide(currentIndex + 1); }
-      function prevSlide() { showSlide(currentIndex - 1); }
-      function startAuto(interval = 5000) {
-        stopAuto();
-        autoTimer = setInterval(nextSlide, interval);
-      }
-      function stopAuto() { clearInterval(autoTimer); }
-
-      const container = document.querySelector('.slideshow-container');
-      container.addEventListener('mouseenter', stopAuto);
-      container.addEventListener('mouseleave', () => startAuto(5000));
-      container.addEventListener('touchstart', stopAuto, { passive: true });
-      container.addEventListener('touchend', () => startAuto(5000));
-
-      prevBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        prevSlide();
-        stopAuto();
-        startAuto(5000);
-      });
-      nextBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        nextSlide();
-        stopAuto();
-        startAuto(5000);
-      });
-      dots.forEach((dot, i) => {
-        dot.addEventListener('click', () => {
-          showSlide(i);
-          stopAuto();
-          startAuto(5000);
+        // smooth hover effect for touch devices – no lag
+        const links = document.querySelectorAll('.link-item');
+        links.forEach(link => {
+            link.addEventListener('touchstart', () => {
+                // just to improve mobile feedback
+            }, { passive: true });
         });
-      });
-
-      startAuto(5000);
     })();
-  </script>
+</script>
+
 </body>
 </html>
