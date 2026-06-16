@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <meta name="description" content="AIX/Zi — frontend developer & UI designer, vibe coding">
-    <meta name="theme-color" content="#0b130b">
-    <title>Xyper, portfolio.</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover" />
+    <meta name="description" content="AIX/Zi — frontend & UI designer, expressive portfolio" />
+    <meta name="theme-color" content="#0b130b" />
+    <title>AIX/Zi · portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
         * {
             margin: 0;
@@ -16,230 +16,334 @@
 
         body {
             background: #0a100a;
-            background-image: radial-gradient(circle at 20% 20%, #142614 0%, #030603 100%);
+            background-image: radial-gradient(circle at 30% 10%, #142614 0%, #030603 100%);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
             color: #e2f0e2;
-            line-height: 1.5;
-            padding: 0;
-            margin: 0;
-        }
-
-        .app-container {
-            width: 100%;
-            max-width: 640px;
-            margin: 0 auto;
-            padding: 1.5rem 1.2rem 2rem;
+            line-height: 1.6;
+            padding: 1.8rem 1.5rem;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .avatar-frame {
-            margin-bottom: 1.2rem;
-        }
-
-        .avatar {
-            width: 124px;
-            height: 124px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #2ecc71;
-            box-shadow: 0 10px 24px rgba(46, 204, 113, 0.25), 0 0 0 2px rgba(46, 204, 113, 0.15);
-            transition: box-shadow 0.2s ease;
-            background: #1b2a1b;
-        }
-
-        .name {
-            font-size: 2.6rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            text-align: center;
-            color: #f2fcf2;
-            margin-bottom: 0.2rem;
-            text-shadow: 0 2px 6px rgba(0, 25, 0, 0.6);
-            line-height: 1.2;
-        }
-
-        .headline {
-            display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            color: #bfd9bf;
-            font-size: 1.1rem;
-            font-weight: 400;
-            margin-bottom: 1.1rem;
         }
 
-        .headline i {
-            color: #2ecc71;
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-
-        .bio {
-            text-align: center;
-            max-width: 500px;
-            margin: 0.6rem auto 1.8rem;
-            padding: 0.5rem 0.8rem;
-            font-size: 1rem;
-            color: #b3ccb3;
-            border-left: 3px solid #2ecc71;
-            background: linear-gradient(90deg, #1a2e1a20, transparent);
-            border-radius: 0 8px 8px 0;
-        }
-
-        .links-section {
+        .portfolio {
+            max-width: 1120px;
             width: 100%;
+        }
+
+        /* ----- HERO (with exact description) ----- */
+        .hero {
             display: flex;
             flex-direction: column;
-            gap: 0.9rem;
-            margin: 0.5rem 0 1.8rem;
+            align-items: flex-start;
+            gap: 0.6rem;
+            padding-bottom: 2.8rem;
+            border-bottom: 1px dashed #2ecc7130;
+            margin-bottom: 2.8rem;
         }
 
-        .link-item {
-            display: flex;
+        .hero-badge {
+            display: inline-flex;
             align-items: center;
-            padding: 1rem 1.5rem;
-            background: #0f1c0f;
-            border: 1.2px solid #2ecc7150;
+            gap: 0.6rem;
+            background: #1a2e1a80;
+            border: 1px solid #2ecc7140;
+            padding: 0.25rem 1rem 0.25rem 0.8rem;
             border-radius: 60px;
-            color: #e0f0e0;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.15rem;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            transition: all 0.25s ease;
-            box-shadow: 0 8px 14px rgba(0, 0, 0, 0.4);
-            width: 100%;
+            font-size: 0.7rem;
+            color: #b0d0b0;
+            letter-spacing: 0.4px;
+            margin-bottom: 0.2rem;
         }
-
-        .link-item i {
-            font-size: 1.4rem;
-            width: 2rem;
+        .hero-badge i {
             color: #2ecc71;
-            margin-right: 0.8rem;
-            transition: transform 0.2s;
+            font-size: 0.5rem;
         }
 
-        .link-item span {
-            flex: 1;
+        .hero h1 {
+            font-size: 4.2rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: #f2fcf2;
+            line-height: 1.05;
+            text-shadow: 0 2px 14px rgba(0, 25, 0, 0.4);
+        }
+        .hero h1 span {
+            color: #2ecc71;
         }
 
-        .link-item .arrow {
-            opacity: 0.7;
-            font-size: 1rem;
-            transition: opacity 0.2s, transform 0.2s;
-        }
-
-        .link-item:hover {
-            background: #2ecc71;
-            border-color: #2ecc71;
-            color: #0a1a0a;
-            transform: translateY(-2px) scale(1.01);
-            box-shadow: 0 15px 25px -8px #1b4b1b, 0 0 0 1px #a3e0b5 inset;
-        }
-
-        .link-item:hover i,
-        .link-item:hover .arrow {
-            color: #0e2b0e;
-        }
-
-        .link-item:hover .arrow {
-            opacity: 1;
-            transform: translateX(4px);
-        }
-
-        .footer-mini {
-            width: 100%;
+        .hero .title-role {
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: #bfd9bf;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 0.8rem;
-            margin-top: 1rem;
-            padding-top: 1.2rem;
-            border-top: 1px dashed #2ecc7140;
-            color: #86a686;
-            font-size: 0.8rem;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin-top: 0.1rem;
+        }
+        .hero .title-role i {
+            color: #2ecc71;
+            font-size: 0.9rem;
         }
 
-        .social-icons {
+        /* exact description text */
+        .hero .bio-text {
+            max-width: 720px;
+            font-size: 1.05rem;
+            color: #c8dfc8;
+            margin-top: 0.8rem;
+            padding: 0.8rem 1.2rem;
+            border-left: 3px solid #2ecc71;
+            background: linear-gradient(90deg, #1a2e1a25, transparent);
+            border-radius: 0 10px 10px 0;
+            line-height: 1.7;
+        }
+        .hero .bio-text .spider-joke {
+            display: inline-block;
+            background: #1a2e1a60;
+            padding: 0.1rem 0.8rem;
+            border-radius: 40px;
+            font-weight: 500;
+            color: #aaddaa;
+            border: 1px solid #2ecc7130;
+            font-size: 0.9rem;
+            margin-left: 0.2rem;
+            transition: 0.2s;
+        }
+        .hero .bio-text .spider-joke:hover {
+            background: #2ecc7120;
+            border-color: #2ecc71;
+            transform: scale(1.02);
+        }
+
+        /* ----- SECTION TITLES ----- */
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #d4ecd4;
+            margin-bottom: 1.2rem;
             display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+        .section-title i {
+            color: #2ecc71;
+            font-size: 1.3rem;
+        }
+
+        /* ----- SERVICES (detailed) ----- */
+        .services-section {
+            margin-bottom: 2.8rem;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1.5rem;
         }
 
-        .social-icons a {
+        .service-card {
+            background: #0f1c0f;
+            border: 1px solid #2ecc7130;
+            border-radius: 24px;
+            padding: 1.8rem 1.6rem;
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(4px);
+        }
+        .service-card:hover {
+            transform: translateY(-4px);
+            border-color: #2ecc71;
+            background: #162816;
+            box-shadow: 0 14px 28px -6px #1b4b1b30, 0 0 0 1px #2ecc7140 inset;
+        }
+        .service-card .icon {
+            font-size: 2.2rem;
+            color: #2ecc71;
+            margin-bottom: 0.8rem;
+        }
+        .service-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        .service-card p {
+            font-size: 0.95rem;
+            color: #b3ccb3;
+            line-height: 1.6;
+        }
+
+        /* ----- PROJECTS (detailed grid) ----- */
+        .projects-section {
+            margin-bottom: 2.8rem;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: #0f1c0f;
+            border: 1px solid #2ecc7130;
+            border-radius: 24px;
+            padding: 1.8rem 1.5rem;
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+            text-decoration: none;
+            color: #e0f0e0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            backdrop-filter: blur(4px);
+        }
+        .project-card:hover {
+            transform: translateY(-6px);
+            border-color: #2ecc71;
+            background: #1a2e1a;
+            box-shadow: 0 16px 32px -8px #1b4b1b40, 0 0 0 1px #2ecc7160 inset;
+        }
+        .project-card .icon {
+            font-size: 2.2rem;
+            color: #2ecc71;
+            margin-bottom: 0.2rem;
+        }
+        .project-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        .project-card p {
+            font-size: 0.95rem;
+            color: #b3ccb3;
+            line-height: 1.6;
+            flex: 1;
+        }
+        .project-card .card-link {
+            font-size: 0.9rem;
+            color: #2ecc71;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.4rem;
+            transition: gap 0.2s;
+            font-weight: 500;
+        }
+        .project-card:hover .card-link {
+            gap: 0.8rem;
+        }
+
+        /* ----- SKILLS + FUN FACT (little fun) ----- */
+        .skills-fun-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.8rem;
+            margin-bottom: 2.8rem;
+            align-items: start;
+        }
+
+        .skills-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin-top: 0.2rem;
+        }
+        .skill-tag {
+            background: #1a2e1a;
+            border: 1px solid #2ecc7130;
+            padding: 0.4rem 1.4rem;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            color: #d0e8d0;
+            transition: 0.2s;
+        }
+        .skill-tag:hover {
+            border-color: #2ecc71;
+            background: #2ecc7120;
+        }
+
+        /* fun fact card */
+        .fun-fact-card {
+            background: #0f1c0f;
+            border: 1px solid #2ecc7130;
+            border-radius: 24px;
+            padding: 1.5rem 1.8rem;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+            transition: 0.2s;
+            text-align: left;
+        }
+        .fun-fact-card:hover {
+            border-color: #2ecc71;
+            background: #162816;
+        }
+        .fun-fact-card .fun-icon {
+            font-size: 1.8rem;
+            color: #2ecc71;
+            margin-bottom: 0.4rem;
+        }
+        .fun-fact-card h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #d4ecd4;
+            margin-bottom: 0.2rem;
+        }
+        .fun-fact-card p {
+            font-size: 0.95rem;
+            color: #b3ccb3;
+            line-height: 1.6;
+        }
+        .fun-fact-card .emoji-big {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        /* ----- FOOTER ----- */
+        .footer {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 1.8rem;
+            border-top: 1px dashed #2ecc7130;
+            color: #86a686;
+            font-size: 0.85rem;
+        }
+        .footer .socials {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .footer .socials a {
             color: #b0cfb0;
             font-size: 1.3rem;
             transition: color 0.2s, transform 0.15s;
         }
-
-        .social-icons a:hover {
+        .footer .socials a:hover {
             color: #2ecc71;
             transform: translateY(-2px);
         }
-
-        .copyright {
+        .footer .copy {
             display: flex;
             align-items: center;
-            gap: 0.3rem;
+            gap: 0.5rem;
+            flex-wrap: wrap;
         }
-
-        .copyright i {
+        .footer .copy i {
             color: #2ecc71;
-            margin-right: 2px;
         }
-
-        /* secret key combo hint – subtle */
-        .secret-hint {
-            font-size: 0.65rem;
+        .easter-hint {
             color: #2ecc7130;
-            margin-top: 0.4rem;
+            font-size: 0.7rem;
             letter-spacing: 0.5px;
             transition: color 0.3s;
+            cursor: default;
         }
-        .secret-hint:hover {
+        .easter-hint:hover {
             color: #2ecc7160;
         }
 
-        @media (max-width: 480px) {
-            .app-container {
-                padding: 1.2rem 1rem 2rem;
-            }
-            .name {
-                font-size: 2.2rem;
-            }
-            .avatar {
-                width: 108px;
-                height: 108px;
-            }
-            .link-item {
-                padding: 0.9rem 1.2rem;
-                font-size: 1rem;
-            }
-            .link-item i {
-                font-size: 1.25rem;
-            }
-            .bio {
-                font-size: 0.95rem;
-            }
-            .social-icons {
-                gap: 1.2rem;
-            }
-        }
-
-        .link-item:focus-visible {
-            outline: 3px solid #2ecc71;
-            outline-offset: 4px;
-        }
-
-        /* secret gif overlay – minimal, clean */
+        /* gif popup (secret fun) */
         .gif-popup {
             position: fixed;
             top: 0;
@@ -247,7 +351,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(14px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -263,155 +367,216 @@
         .gif-popup img {
             max-width: 90%;
             max-height: 80%;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            border-radius: 28px;
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.7);
         }
-        .gif-popup .close-hint {
+        .gif-popup .close-label {
             position: absolute;
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
             color: #86a686;
             font-size: 0.8rem;
-            background: rgba(0,0,0,0.4);
-            padding: 6px 18px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 6px 20px;
             border-radius: 40px;
             border: 1px solid #2ecc7140;
+        }
+
+        /* responsive */
+        @media (max-width: 750px) {
+            body {
+                padding: 1rem 0.8rem;
+            }
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+            .skills-fun-section {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .hero .bio-text {
+                font-size: 0.98rem;
+                padding: 0.6rem 1rem;
+            }
+        }
+        @media (max-width: 450px) {
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+            .service-grid,
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer {
+                flex-direction: column;
+                gap: 0.8rem;
+                align-items: center;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="app-container">
+    <div class="portfolio">
 
-    <!-- avatar -->
-    <div class="avatar-frame">
-        <img class="avatar" src="https://raw.githubusercontent.com/wized2/wized2/952238e0477612102400ebc9c860e4026d18075a/icon.svg" alt="AIX/Zi avatar">
+        <!-- ===== HERO ===== -->
+        <header class="hero">
+            <div class="hero-badge">
+                <i class="fas fa-circle"></i> open for collaboration
+            </div>
+            <h1>AIX/<span>Zi</span></h1>
+            <div class="title-role">
+                <i class="fas fa-code"></i>
+                <span>Frontend Developer &amp; UI Designer</span>
+                <i class="fas fa-paint-brush"></i>
+            </div>
+            <!-- EXACT description text from the original -->
+            <div class="bio-text">
+                <i class="fas fa-quote-left" style="opacity: 0.3; margin-right: 8px; color: #2ecc71;"></i>
+                I create beautiful, interesting interfaces. With over 3 years of experience in web development. I mostly work with pure CSS, HTML, JS.
+                <span class="spider-joke">No im not a spider. 🕷️</span>
+            </div>
+        </header>
+
+        <!-- ===== SERVICES (detailed) ===== -->
+        <section class="services-section">
+            <h2 class="section-title"><i class="fas fa-briefcase"></i> What I do</h2>
+            <div class="service-grid">
+                <div class="service-card">
+                    <div class="icon"><i class="fas fa-code"></i></div>
+                    <h3>Web Development</h3>
+                    <p>Custom, lightweight websites — from landing pages to full interactive experiences. Pure CSS, HTML, JS, no bloat.</p>
+                </div>
+                <div class="service-card">
+                    <div class="icon"><i class="fas fa-pen-fancy"></i></div>
+                    <h3>UI / UX Design</h3>
+                    <p>Human-centered interfaces that feel natural. I design for flow, accessibility, and that subtle “wow” moment.</p>
+                </div>
+                <div class="service-card">
+                    <div class="icon"><i class="fas fa-cubes"></i></div>
+                    <h3>Interactive Prototypes</h3>
+                    <p>Playable demos, data visualizations, and experimental web art. I turn ideas into tangible, clickable things.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PROJECTS (detailed grid) ===== -->
+        <section class="projects-section">
+            <h2 class="section-title"><i class="fas fa-folder-open"></i> Featured work</h2>
+            <div class="project-grid">
+
+                <a href="https://aix-32.github.io/Meritcommons/" target="_blank" class="project-card">
+                    <div class="icon"><i class="fas fa-book"></i></div>
+                    <h3>Merit Commons</h3>
+                    <p>Economic manifesto — a new system built on contribution, not capital. Thought-provoking and beautifully written.</p>
+                    <span class="card-link">explore <i class="fas fa-arrow-right"></i></span>
+                </a>
+
+                <a href="https://aix-32.github.io/BURNINGINHEAVEN" target="_blank" class="project-card">
+                    <div class="icon"><i class="fas fa-book-open"></i></div>
+                    <h3>BURNING IN HEAVEN</h3>
+                    <p>A cosmic fiction about divinity, rebellion, and what lies beyond the known. Still unfolding, already gripping.</p>
+                    <span class="card-link">read <i class="fas fa-arrow-right"></i></span>
+                </a>
+
+                <a href="https://aix-32.github.io/crubs/" target="_blank" class="project-card">
+                    <div class="icon"><i class="fas fa-seedling"></i></div>
+                    <h3>crubs</h3>
+                    <p>Tiny text‑based farming game — cozy, weird, and oddly addictive. Pure JS, no dependencies.</p>
+                    <span class="card-link">play <i class="fas fa-arrow-right"></i></span>
+                </a>
+
+                <a href="https://aix-32.github.io/Pazator/" target="_blank" class="project-card">
+                    <div class="icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Pazator</h3>
+                    <p>Interactive data container with AI prediction. Surveillance‑inspired aesthetics, built for exploration.</p>
+                    <span class="card-link">try demo <i class="fas fa-arrow-right"></i></span>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- ===== SKILLS + FUN FACT (side‑by‑side) ===== -->
+        <section class="skills-fun-section">
+            <div>
+                <h2 class="section-title" style="margin-bottom: 0.6rem;"><i class="fas fa-bolt"></i> Toolbox</h2>
+                <div class="skills-wrap">
+                    <span class="skill-tag">HTML / CSS</span>
+                    <span class="skill-tag">JavaScript (ES6+)</span>
+                    <span class="skill-tag">Three.js</span>
+                    <span class="skill-tag">UI / UX</span>
+                    <span class="skill-tag">Figma</span>
+                    <span class="skill-tag">Graphics Design</span>
+                    <span class="skill-tag">Supabase</span>
+                </div>
+            </div>
+
+            <!-- little fun: a playful fact card -->
+            <div class="fun-fact-card">
+                <span class="emoji-big">🕸️</span>
+                <h4><i class="fas fa-lightbulb" style="color: #2ecc71; margin-right: 6px;"></i> Fun fact</h4>
+                <p>I once debugged a layout issue by staring at it for 20 minutes — turns out it was a missing semicolon. <br><span style="color: #86a686; font-size: 0.85rem;">(still not a spider, though.)</span></p>
+            </div>
+        </section>
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="footer">
+            <div class="socials">
+                <a href="https://github.com/aix-32" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.instagram.com/a_i_x32/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="mailto:work.aix32@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                <a href="https://discord.gg/74c9RBYD4R" target="_blank" aria-label="Discord"><i class="fab fa-discord"></i></a>
+            </div>
+            <div class="copy">
+                <i class="fas fa-leaf"></i> 2026 · AIX/Zi
+                <span class="easter-hint">· 6 + 7</span>
+            </div>
+        </footer>
+
     </div>
 
-    <!-- name -->
-    <h1 class="name">AIX / Zi</h1>
-
-    <!-- headline -->
-    <div class="headline">
-        <i class="fas fa-code"></i>
-        <span>Frontend · UI Designer · vibe coder</span>
-        <i class="fas fa-paint-brush"></i>
+    <!-- ===== SECRET GIF POPUP (hidden fun) ===== -->
+    <div class="gif-popup" id="gifPopup">
+        <img src="https://media1.tenor.com/m/6COMq6z3l5oAAAAd/bosnov-67.gif" alt="secret" />
+        <span class="close-label">click to close</span>
     </div>
 
-    <!-- bio -->
-    <div class="bio">
-        <i class="fas fa-quote-left" style="opacity: 0.5; margin-right: 6px; color: #2ecc71;"></i>
-        Crafting beautiful, expressive interfaces. 3+ years shaping digital experiences — fast, fluid, human.
-    </div>
+    <script>
+        (function() {
+            // Easter egg: press 6 + 7
+            const popup = document.getElementById('gifPopup');
+            const pressed = new Set();
 
-    <!-- links -->
-    <div class="links-section">
+            if (popup) {
+                popup.addEventListener('click', () => popup.classList.remove('show'));
 
-        <a href="https://aix-32.github.io/Meritcommons/" class="link-item" target="_blank" rel="noopener">
-            <i class="fas fa-book"></i>
-            <span>Merit Commons · manifesto</span>
-            <i class="fas fa-arrow-right arrow"></i>
-        </a>
-
-        <a href="https://aix-32.github.io/BURNINGINHEAVEN" class="link-item" target="_blank" rel="noopener">
-            <i class="fas fa-book-open"></i>
-            <span>BURNING IN HEAVEN · story</span>
-            <i class="fas fa-arrow-right arrow"></i>
-        </a>
-
-        <a href="https://aix-32.github.io/crubs/" class="link-item" target="_blank" rel="noopener">
-            <i class="fas fa-seedling"></i>
-            <span>crubs · farming game</span>
-            <i class="fas fa-arrow-right arrow"></i>
-        </a>
-
-        <a href="https://aix-32.github.io/Pazator/" class="link-item" target="_blank" rel="noopener">
-            <i class="fas fa-chart-line"></i>
-            <span>Pazator · AI data explorer</span>
-            <i class="fas fa-arrow-right arrow"></i>
-        </a>
-
-        <a href="https://github.com/aix-32" class="link-item" target="_blank" rel="noopener">
-            <i class="fab fa-github"></i>
-            <span>GitHub · code & projects</span>
-            <i class="fas fa-arrow-right arrow"></i>
-        </a>
-
-        <a href="https://discord.gg/74c9RBYD4R" class="link-item" target="_blank" rel="noopener">
-            <i class="fab fa-discord"></i>
-            <span>Discord · community</span>
-            <i class="fas fa-arrow-right arrow"></i>
-        </a>
-
-        <a href="mailto:work.aix32@gmail.com" class="link-item" target="_blank" rel="noopener">
-            <i class="fas fa-envelope"></i>
-            <span>work.aix32@gmail.com</span>
-            <i class="fas fa-arrow-right arrow"></i>
-        </a>
-
-    </div>
-
-    <!-- footer -->
-    <div class="footer-mini">
-        <div class="social-icons">
-            <a href="https://github.com/aix-32" aria-label="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://www.instagram.com/a_i_x32/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="mailto:work.aix32@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-            <a href="https://discord.gg/74c9RBYD4R" aria-label="Discord"><i class="fab fa-discord"></i></a>
-        </div>
-        <div class="copyright">
-            <i class="fas fa-leaf"></i> 2026 · AIX/Zi
-            <span class="secret-hint"> · 6 + 7</span>
-        </div>
-    </div>
-
-</div>
-
-<!-- secret gif popup -->
-<div class="gif-popup" id="gifPopup">
-    <img src="https://media1.tenor.com/m/6COMq6z3l5oAAAAd/bosnov-67.gif" alt="secret">
-    <span class="close-hint">click to close</span>
-</div>
-
-<script>
-    (function() {
-        // secret gif: 6 + 7
-        const popup = document.getElementById('gifPopup');
-        const pressed = new Set();
-
-        if (popup) {
-            popup.addEventListener('click', () => popup.classList.remove('show'));
-
-            document.addEventListener('keydown', (e) => {
-                if (e.key === '6' || e.key === '7') {
-                    pressed.add(e.key);
-                    if (pressed.has('6') && pressed.has('7')) {
-                        popup.classList.add('show');
-                        e.preventDefault();
-                        // reset combo after a moment
-                        setTimeout(() => {
-                            pressed.delete('6');
-                            pressed.delete('7');
-                        }, 200);
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === '6' || e.key === '7') {
+                        pressed.add(e.key);
+                        if (pressed.has('6') && pressed.has('7')) {
+                            popup.classList.add('show');
+                            e.preventDefault();
+                            setTimeout(() => {
+                                pressed.delete('6');
+                                pressed.delete('7');
+                            }, 200);
+                        }
                     }
-                }
-            });
+                });
 
-            document.addEventListener('keyup', (e) => {
-                if (e.key === '6' || e.key === '7') pressed.delete(e.key);
-            });
-        }
+                document.addEventListener('keyup', (e) => {
+                    if (e.key === '6' || e.key === '7') pressed.delete(e.key);
+                });
+            }
 
-        // smooth hover effect for touch devices – no lag
-        const links = document.querySelectorAll('.link-item');
-        links.forEach(link => {
-            link.addEventListener('touchstart', () => {
-                // just to improve mobile feedback
-            }, { passive: true });
-        });
-    })();
-</script>
+            // passive touch for smoother mobile
+            document.querySelectorAll('.project-card, .service-card, .socials a').forEach(el => {
+                el.addEventListener('touchstart', () => {}, { passive: true });
+            });
+        })();
+    </script>
 
 </body>
 </html>
