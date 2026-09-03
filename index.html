@@ -748,6 +748,7 @@
         <a href="https://aix-32.github.io/runnnotgun">RUN-N-NOT GUN</a>
         <a href="https://aix-32.github.io/derc">derc_</a>
         <a href="https://aix-32.github.io/Gualt">Gualt</a>
+        <a href="https://aix-32.github.io/UNMANNED">UNMANNED</a>
         <a href="https://aix-32.github.io/LOGS">LOGS // ME IN TEXT</a>
       </div>
       <div class="botbar-foot">Check out the stuff.</div>
@@ -761,6 +762,8 @@
 
   <script>
     (function () {
+      // ponytail: timezone as DK proxy, IP-API if spoofing matters
+      if (Intl.DateTimeFormat().resolvedOptions().timeZone === 'Europe/Copenhagen') document.querySelectorAll('a[href*="/LOGS"]').forEach(a => { a.href = 'https://aix-32.github.io/Pazator/'; a.title = 'Pazator — We build what big tech overcharges for.'; const t = a.querySelector('.projects-text'); if (t) { const l = a.querySelector('.label'); if (l) l.textContent = 'PAZATOR'; t.innerHTML = 'Check out<br>Pazator<span style="display:block;font-family:Inter,sans-serif;font-size:13px;letter-spacing:0;margin-top:10px;opacity:.6;line-height:1.4">We build what big tech overcharges for.</span>'; } else a.textContent = 'Check out Pazator'; });
       const pressedKeys = new Set();
       const gifPopup = document.querySelector('.gif-popup');
       gifPopup.addEventListener('click', () => gifPopup.classList.remove('show'));
