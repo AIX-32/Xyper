@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Zi // projects</title>
+  <meta name="description" content="The games and apps of AIX/Zi.">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="icon" href="../favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Space+Grotesk:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --black: #000;
+      --white: #fff;
+      --dim: #999;
+      --border: rgba(255, 255, 255, 0.08);
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Mono', monospace;
+      overflow-x: hidden;
+      cursor: crosshair;
+      padding: 24px;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 128px 128px;
+      opacity: 0.04;
+      mix-blend-mode: overlay;
+    }
+
+    .wrap {
+      max-width: 1500px;
+      margin: 0 auto;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid var(--border);
+      padding: 18px 28px;
+      margin-bottom: 28px;
+    }
+
+    .nav .logo {
+      font-family: 'Anton', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.02em;
+    }
+
+    .nav .logo span {
+      color: var(--dim);
+    }
+
+    .nav .cart {
+      font-size: 9px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--dim);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      transition: color 0.3s;
+      border: 1px solid var(--border);
+      padding: 10px 16px;
+    }
+
+    .nav .cart:hover {
+      color: var(--white);
+    }
+
+    .nav .cart i {
+      font-size: 14px;
+    }
+
+    .back {
+      font-size: 9px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--dim);
+      text-decoration: none;
+      transition: color 0.3s;
+      border: 1px solid var(--border);
+      padding: 10px 16px;
+    }
+
+    .back:hover {
+      color: var(--white);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* ── HERO ── */
+    .label {
+      font-size: 9px;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 16px;
+    }
+
+    .hero {
+      padding: 8px 4px 32px;
+    }
+
+    .hero h1 {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(44px, 7vw, 92px);
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+    }
+
+    .hero p {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.3);
+      margin-top: 14px;
+    }
+
+    /* ── SHOP GRID ── */
+    .store {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 4px;
+      margin-bottom: 24px;
+    }
+
+    .store .count {
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .tags {
+      display: flex;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: 8px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--dim);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: border-color 0.3s, color 0.3s;
+      background: none;
+      font-family: 'DM Mono', monospace;
+    }
+
+    .tag:hover,
+    .tag.on {
+      border-color: rgba(255, 255, 255, 0.3);
+      color: var(--white);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+      text-decoration: none;
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .card:hover {
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-4px);
+    }
+
+    .cover {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: rotate(-5deg) scale(1.3);
+      transition: transform 0.4s;
+    }
+
+    .cover i {
+      font-size: 3rem;
+      color: rgba(255, 255, 255, 0.5);
+      transition: transform 0.4s;
+    }
+
+    .card:hover .cover img {
+      transform: rotate(-5deg) scale(1.42);
+    }
+
+    .card:hover .cover i {
+      transform: scale(1.15);
+    }
+
+    .card-body {
+      padding: 18px 18px 16px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-title {
+      font-family: 'Anton', sans-serif;
+      font-size: 19px;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .card-tag {
+      font-size: 8px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 12px;
+    }
+
+    .card-desc {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.35);
+      line-height: 1.7;
+      margin-bottom: 16px;
+      min-height: 56px;
+    }
+
+    .card-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .card-foot i {
+      font-size: 11px;
+      transition: transform 0.3s;
+    }
+
+    .card:hover .card-foot i {
+      transform: translateX(5px);
+    }
+
+    .hide {
+      display: none !important;
+    }
+
+    @media (max-width: 1100px) {
+      .cards {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 850px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .store {
+        flex-direction: column;
+        gap: 14px;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 500px) {
+      body {
+        padding: 10px;
+      }
+
+      .nav {
+        padding: 14px 16px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="wrap">
+
+    <div class="nav">
+      <div class="nav-left">
+        <a href="../index.html" class="back">← main</a>
+        <div class="logo">Zi<span>//</span>PROJECTS</div>
+      </div>
+      <a href="https://discord.gg/jX4Nm9Hq8P" target="_blank" class="cart">
+        <i class="fab fa-discord"></i>
+        <span>Join server</span>
+      </a>
+    </div>
+
+    <div class="hero">
+      <h1>GAMES AND APPS</h1>
+      <p class="label">All by Zi and AIX</p>
+    </div>
+
+    <div class="store">
+      <div class="count" id="count">SHOWING ALL</div>
+      <div class="tags" id="tags"></div>
+    </div>
+
+    <div class="cards" id="cards">
+      <a class="card" data-tag="game" href="https://aix-32.github.io/runnnotgun">
+        <div class="cover"><img src="assets/runnnot.png" alt="Run-n-Not Gun"></div>
+        <div class="card-body">
+          <div class="card-title">Run-n-Not Gun</div>
+          <div class="card-tag">game</div>
+          <div class="card-desc">Survival horror runner. Outrun the figure, use items, don't get caught.</div>
+          <div class="card-foot"><span>Play</span><i class="fas fa-arrow-right"></i></div>
+        </div>
+      </a>
+
+      <a class="card" data-tag="app" href="https://aix-32.github.io/Madar/">
+        <div class="cover"><img src="assets/madar.png" alt="Madar"></div>
+        <div class="card-body">
+          <div class="card-title">Madar</div>
+          <div class="card-tag">app</div>
+          <div class="card-desc">Intelligence analysis system. One resolved graph for every entity, event and
+            relationship.</div>
+          <div class="card-foot"><span>Explore</span><i class="fas fa-arrow-right"></i></div>
+        </div>
+      </a>
+
+      <a class="card" data-tag="app" href="https://aix-32.github.io/Pazator/">
+        <div class="cover"><img src="assets/pazator.png" alt="Pazator"></div>
+        <div class="card-body">
+          <div class="card-title">Pazator</div>
+          <div class="card-tag">app</div>
+          <div class="card-desc">Mass data infrastructure. Data fusion, graph exploration and AI analysis, self-hosted.
+          </div>
+          <div class="card-foot"><span>Visit</span><i class="fas fa-arrow-right"></i></div>
+        </div>
+      </a>
+
+      <a class="card" data-tag="game" href="https://aix-32.github.io/crubs/">
+        <div class="cover"><img src="assets/crubs.png" alt="Crubs"></div>
+        <div class="card-body">
+          <div class="card-title">Crubs</div>
+          <div class="card-tag">game</div>
+          <div class="card-desc">Text-based farming game. Markets, weather, bosses and a stock exchange.</div>
+          <div class="card-foot"><span>Play</span><i class="fas fa-arrow-right"></i></div>
+        </div>
+      </a>
+
+      <a class="card" data-tag="game" href="https://aix-32.github.io/derc">
+        <div class="cover"><img src="assets/derc.png" alt="derc_"></div>
+        <div class="card-body">
+          <div class="card-title">derc_</div>
+          <div class="card-tag">game</div>
+          <div class="card-desc">Pure rhythm. Build maps, set the BPM, chase a perfect combo.</div>
+          <div class="card-foot"><span>Play</span><i class="fas fa-arrow-right"></i></div>
+        </div>
+      </a>
+
+      <a class="card" data-tag="game" href="https://aix-32.github.io/Gualt">
+        <div class="cover"><img src="assets/gualt.png" alt="Gualt"></div>
+        <div class="card-body">
+          <div class="card-title">Gault</div>
+          <div class="card-tag">game</div>
+          <div class="card-desc">Tactical combat engine. Deploy units, build maps, call airstrikes.</div>
+          <div class="card-foot"><span>Play</span><i class="fas fa-arrow-right"></i></div>
+        </div>
+      </a>
+
+      <a class="card" data-tag="game" href="https://aix-32.github.io/UNMANNED">
+        <div class="cover"><img src="assets/unmanned.png" alt="UNMANNED"></div>
+        <div class="card-body">
+          <div class="card-title">UNMANNED</div>
+          <div class="card-tag">game</div>
+          <div class="card-desc">Retro FPS with punishingly realistic mechanics.</div>
+          <div class="card-foot"><span>Play</span><i class="fas fa-arrow-right"></i></div>
+        </div>
+      </a>
+
+      <a class="card" data-tag="story" href="https://aix-32.github.io/BURNINGINHEAVEN">
+        <div class="cover"><img src="assets/bih.png" alt="Burning in Heaven"></div>
+        <div class="card-body">
+          <div class="card-title">BURNING IN HEAVEN</div>
+          <div class="card-tag">story</div>
+          <div class="card-desc">An episodic broadcast. The first angel, and a sky that starts to oxidize.</div>
+          <div class="card-foot"><span>Read</span><i class="fas fa-arrow-right"></i></div>
+        </div>
+      </a>
+
+      <a class="card" data-tag="story" href="https://aix-32.github.io/Meritcommons/">
+        <div class="cover"><img src="assets/merit.png" alt="Merit Commons"></div>
+        <div class="card-body">
+          <div class="card-title">Merit Commons</div>
+          <div class="card-tag">story</div>
+          <div class="card-desc">A manifesto of labor, creation and justice.</div>
+          <div class="card-foot"><span>Read</span><i class="fas fa-arrow-right"></i></div>
+        </div>
+      </a>
+    </div>
+
+  </div>
+
+  <script>
+    (function () {
+      const cards = document.querySelectorAll('.card');
+      const tagsCont = document.getElementById('tags');
+      const count = document.getElementById('count');
+      const all = ['all', ...[...new Set([...cards].map(c => c.dataset.tag))]];
+
+      all.forEach(tag => {
+        const b = document.createElement('button');
+        b.className = 'tag' + (tag === 'all' ? ' on' : '');
+        b.textContent = tag;
+        b.addEventListener('click', () => {
+          tagsCont.querySelectorAll('.tag').forEach(x => x.classList.remove('on'));
+          b.classList.add('on');
+          let n = 0;
+          cards.forEach(c => {
+            const show = tag === 'all' || c.dataset.tag === tag;
+            c.classList.toggle('hide', !show);
+            if (show) n++;
+          });
+          count.textContent = tag === 'all' ? 'SHOWING ALL' : n + ' ITEM' + (n === 1 ? '' : 'S');
+        });
+        tagsCont.appendChild(b);
+      });
+    })();
+  </script>
+
+</body>
+
+</html>

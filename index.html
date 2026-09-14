@@ -271,24 +271,84 @@
       margin-bottom: 16px;
     }
 
-    .projects-content {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
+    .projects {
+      cursor: pointer;
+    }
+
+    .p-strip {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
       flex: 1;
+      min-height: 54px;
+      display: flex;
+      align-items: center;
     }
 
-    .projects-icon {
-      font-size: 1.6rem;
-      color: rgba(255, 255, 255, 0.15);
-      margin-top: 4px;
+    .p-track {
+      display: inline-flex;
+      align-items: center;
+      gap: 40px;
+      white-space: nowrap;
+      padding: 0 20px;
+      animation: marquee 22s linear infinite;
     }
 
-    .projects-text {
+    .p-track span {
       font-family: 'Anton', sans-serif;
-      font-size: clamp(32px, 4vw, 52px);
-      line-height: 0.88;
-      letter-spacing: -0.03em;
+      font-size: 18px;
+      letter-spacing: 0.02em;
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    .p-track i {
+      font-size: 8px;
+      color: var(--dim);
+      font-style: normal;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .p-desc {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.35);
+      margin: 14px 0 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+
+    .p-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 20px 24px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      font-family: 'DM Mono', monospace;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .p-btn:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .p-btn .arrow {
+      font-size: 14px;
+      transition: transform 0.3s;
+    }
+
+    .p-btn:hover .arrow {
+      transform: translateX(6px);
     }
 
     /* ── CONNECTIONS ── */
@@ -499,31 +559,16 @@
       justify-content: space-between;
     }
 
-    .botbar-label {
-      font-size: 9px;
-      letter-spacing: 0.5em;
-      text-transform: uppercase;
-      color: var(--dim);
+    .botbar .label {
       margin-bottom: 16px;
     }
 
-    .botbar-links {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .botbar-links a {
-      font-size: 10px;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.25);
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
-    .botbar-links a:hover {
-      color: var(--white);
+    .projects-text {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(26px, 2.6vw, 38px);
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
     }
 
     .botbar-foot {
@@ -661,20 +706,27 @@
       <div class="skills-grid">
         <div class="skill s-html">HTML/CSS</div>
         <div class="skill s-js">JavaScript</div>
-        <div class="skill s-three">Three.js</div>
-        <div class="skill s-uiux">UI/UX Design</div>
-        <div class="skill s-gfx">Graphics Design</div>
-        <div class="skill s-supa">Supabase <em>(meh)</em></div>
+        <div class="skill s-three">Node.js</div>
+        <div class="skill s-uiux">PostgreSQL <em>16 + JSONB</em></div>
+        <div class="skill s-gfx">Electron</div>
+        <div class="skill s-supa">Fastify</div>
       </div>
     </div>
 
-    <a href="https://aix-32.github.io/LOGS/" class="projects big" id="aboutBtn">
-      <div class="label">ABOUT</div>
-      <div class="projects-content">
-
-        <span class="projects-text">WHO IS<br>ZI/AIX?</span>
+    <div class="projects big" id="aboutBtn">
+      <div class="label">PROJECTS</div>
+      <div class="p-strip">
+        <div class="p-track">
+          <span>MADAR</span><i>◆</i><span>PAZATOR</span><i>◆</i><span>RUN-N-NOT GUN</span><i>◆</i><span>DERC_</span><i>◆</i><span>GAULT</span><i>◆</i><span>UNMANNED</span><i>◆</i><span>CRUBS</span><i>◆</i><span>BURNING IN HEAVEN</span><i>◆</i><span>MERIT COMMONS</span><i>◆</i>
+          <span>MADAR</span><i>◆</i><span>PAZATOR</span><i>◆</i><span>RUN-N-NOT GUN</span><i>◆</i><span>DERC_</span><i>◆</i><span>GAULT</span><i>◆</i><span>UNMANNED</span><i>◆</i><span>CRUBS</span><i>◆</i><span>BURNING IN HEAVEN</span><i>◆</i><span>MERIT COMMONS</span><i>◆</i>
+        </div>
       </div>
-    </a>
+      <p class="p-desc">A shelf of games &amp; apps. No prices, ever.</p>
+      <a href="./projects/" class="p-btn">
+        <span>Open the shop</span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
 
     <div class="conn big">
       <div class="label">CONNECT</div>
@@ -739,20 +791,11 @@
       </div>
     </div>
 
-    <div class="botbar big">
-      <div class="botbar-label">MAIN PROJECTS.</div>
-      <div class="botbar-links">
-        <a href="https://aix-32.github.io/sarparast/">Sarparast</a>
-        <a href="https://aix-32.github.io/Madar/">Madar</a>
-        <a href="https://aix-32.github.io/Pazator/">Pazator</a>
-        <a href="https://aix-32.github.io/runnnotgun">RUN-N-NOT GUN</a>
-        <a href="https://aix-32.github.io/derc">derc_</a>
-        <a href="https://aix-32.github.io/Gualt">Gualt</a>
-        <a href="https://aix-32.github.io/UNMANNED">UNMANNED</a>
-        <a href="https://aix-32.github.io/LOGS">LOGS // ME IN TEXT</a>
-      </div>
+    <a href="https://aix-32.github.io/LOGS" class="botbar big" id="logsBtn">
+      <div class="label">MAIN PROJECTS.</div>
+      <div class="projects-text">LOGS<br>// ME IN TEXT</div>
       <div class="botbar-foot">Check out the stuff.</div>
-    </div>
+    </a>
 
   </div>
 
